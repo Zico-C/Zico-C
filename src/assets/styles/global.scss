@@ -1,0 +1,20 @@
+$color:#f6f1eb;
+
+body{
+    background: $color;
+    // 禁用文字選取狀態
+    user-select: none;
+}
+
+img{
+    //不允許用戶移動圖片
+    -webkit-user-drag: none;
+}
+
+//首頁的布局樣式
+
+.demo-logo-vertical{
+    height: 32px;
+    margin: 16px;
+    background: rgba(225, 225,225,0.3);
+}
