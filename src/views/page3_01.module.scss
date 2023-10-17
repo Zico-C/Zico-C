@@ -1,0 +1,28 @@
+.main{
+    font-size: 1.8rem;
+    line-height: 200%;
+    button{
+        font-size: 1.8rem;
+        line-height: 150%;
+        margin-right:2%; 
+        border: 1px lightseagreen solid;
+        background-color: gray;
+        color: #fff;
+        //滑鼠移入特效
+        &:hover{
+            cursor: pointer;
+            border: 1px #333 solid;
+            background-color: orange;
+            color: #fff;
+            border-radius:15%;
+            transition: 1s;
+        }
+        //滑鼠點擊特效
+        &:active{
+            transition: 0.5s;
+            // 点击效果样式
+            transform: translateY(-4px); // 举例：添加一个垂直位移效果
+            box-shadow: 0 0 6px rgba(0, 0, 0, 1.2); // 举例：添加一个阴影效果
+        }
+    }
+}

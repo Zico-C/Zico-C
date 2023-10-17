@@ -2,13 +2,32 @@ import React , { lazy } from 'react'
 import Home from "../views/Home"
 // import About from "../views/About"
 // import User from "../views/User"
-
+import Login from "../views/Login"
 //懶加載 = lazy ( () => import ("路由路徑"))
+
 const About = lazy( () => import ("../views/About"));
-const User = lazy( () => import ("../views/User"));
+const Page6 = lazy( () => import ("../views/Page6"));
 const Page1 = lazy( () => import ("../views/Page1"));
 const Page2 = lazy( () => import ("../views/Page2"));
-// Navigate（導航） 重定向組件 
+const Page3_01 = lazy( () => import ("../views/Page3_01"));
+const Page3_02 = lazy( () => import ("../views/Page3_02"));
+const Page3_03 = lazy( () => import ("../views/Page3_03"));
+const Page4_01 = lazy( () => import ("../views/Page4_01"));
+const Page4_02 = lazy( () => import ("../views/Page4_02"));
+const Page5_01 = lazy( () => import ("../views/Page5_01"));
+const Page5_02 = lazy( () => import ("../views/Page5_02"));
+const Page5_03 = lazy( () => import ("../views/Page5_03"));
+const Page7_01 = lazy( () => import ("../views/Page7_01"));
+const Page7_02 = lazy( () => import ("../views/Page7_02"));
+const Page7_03 = lazy( () => import ("../views/Page7_03"));
+const Page7_04 = lazy( () => import ("../views/Page7_04"));
+const Page7_05 = lazy( () => import ("../views/Page7_05"));
+const Page8_01 = lazy( () => import ("../views/Page8_01"));
+const Page8_02 = lazy( () => import ("../views/Page8_02"));
+const Page8_03 = lazy( () => import ("../views/Page8_03"));
+const Page8_04 = lazy( () => import ("../views/Page8_04"));
+const Page8_05 = lazy( () => import ("../views/Page8_05"));
+
 import { Navigate } from "react-router-dom"
 
 
@@ -44,8 +63,95 @@ const Routes = [
             {
                 path:"/page2",
                 element:WithLoadingComponent(<Page2 />)
-            }
+            },
+            {
+                path:"/Page3/Page3_01",
+                element:WithLoadingComponent(<Page3_01 />)
+            },
+            {
+                path:"/Page3/Page3_02",
+                element:WithLoadingComponent(<Page3_02 />)
+            },            
+            {
+                path:"/Page3/Page3_03",
+                element:WithLoadingComponent(<Page3_03 />)
+            },
+            {
+                path:"/Page4/Page4_01",
+                element:WithLoadingComponent(<Page4_01 />)
+            },
+            {
+                path:"/Page4/Page4_02",
+                element:WithLoadingComponent(<Page4_02 />)
+            },
+            {
+                path:"/Page5/Page5_01",
+                element:WithLoadingComponent(<Page5_01 />)
+            },
+            {
+                path:"/Page5/Page5_02",
+                element:WithLoadingComponent(<Page5_02 />)
+            },
+            {
+                path:"/Page5/Page5_03",
+                element:WithLoadingComponent(<Page5_03 />)
+            },
+            {
+                path:"/Page6",
+                element:WithLoadingComponent(<Page6 />)
+            },
+            {
+                path:"/page7/page7_01",
+                element:WithLoadingComponent(<Page7_01 />)
+            },
+            {
+                path:"/page7/page7_02",
+                element:WithLoadingComponent(<Page7_02 />)
+            },
+            {
+                path:"/page7/page7_03",
+                element:WithLoadingComponent(<Page7_03 />)
+            },
+            {
+                path:"/page7/page7_04",
+                element:WithLoadingComponent(<Page7_04 />)
+            },
+            {
+                path:"/page7/page7_05",
+                element:WithLoadingComponent(<Page7_05 />)
+            },
+            {
+                path:"/page8/page8_01",
+                element:WithLoadingComponent(<Page8_01 />)
+            },
+            {
+                path:"/page8/page8_02",
+                element:WithLoadingComponent(<Page8_02 />)
+            },
+            {
+                path:"/page8/page8_03",
+                element:WithLoadingComponent(<Page8_03 />)
+            },
+            {
+                path:"/page8/page8_04",
+                element:WithLoadingComponent(<Page8_04 />)
+            },
+            {
+                path:"/page8/page8_05",
+                element:WithLoadingComponent(<Page8_05 />)
+            },
         ]
+    },
+    //嵌套路徑 結束------------------------
+    {
+        path:"/login",
+        element:<Login/>
+    },
+    //當訪問其他網域時跳轉，回指定默認路徑
+    {
+        // * = 萬用字元
+        path:"*",
+        element:<Navigate to="/page1" />
     }
     // {
     //     path:"/home",
