@@ -4,14 +4,15 @@ import { Input , Space , Button , message} from 'antd';
 import styles from "./login.module.scss";
 import initLoginBg from "./init.ts";
 import './login.less'
+import { generateToken } from "./xxx.tsx"
 // 從 "@/request/api.ts" 模組中導入名為 captchaAPI 的函數
-import { CaptchaAPI , LoginAPI } from "@/request/api.ts";
+// import { CaptchaAPI , LoginAPI } from "@/request/api.ts";
 // 從 react-router-dom 引入 useNavigate 實現跳轉頁面
 import { useNavigate } from "react-router-dom"
-
+import getcaptchaImg  from '../../assets/22d5n.png'
 const view = () =>{
     let NavigateTo = useNavigate();
-
+    const token = generateToken();
     // useEffect 函式用於處理副作用操作，它會在組件渲染之後執行
     //加載完這個組件之後，加載這個背景
     useEffect(()=>{
@@ -23,7 +24,7 @@ const view = () =>{
             // 當窗口大小發生變化時，我們再次呼叫 initLoginBg 函式
             initLoginBg();
         };
-        getcaptchaImg();
+        // getcaptchaImg();
     },[]); //一定要加[] 空數組作為依賴，確定只要組件掛載時執行
     //背景初始化應該只在頁面加載時執行一次，而不會在用戶輸入文本或其他事件觸發時重新加載
 
@@ -33,7 +34,7 @@ const view = () =>{
     const [passWordValue,setpassWordValue] = useState(""); //定義使用者輸入密碼變量
     const [captchValue,setcaptchValue] = useState(""); //定義驗證碼變量
     //定義一個變量保存驗證碼圖片訊息
-    const [captchaImg,setCaptchImg] = useState("");//定義驗證碼圖片訊息變量
+    // const [captchaImg,setCaptchImg] = useState("");//定義驗證碼圖片訊息變量
 
 
     const  userNameChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +52,7 @@ const view = () =>{
 
     // 定義一個函數名為 gotoLogin，用於處理用戶的登入操作
     const gotoLogin = async() =>{
+
         // 在控制台輸出使用者輸入的帳號、密碼和驗證碼，方便測試和除錯
         console.log("使用者輸入的帳號：",userNameValue);
         console.log("使用者輸入的密碼：",passWordValue);
@@ -62,6 +64,7 @@ const view = () =>{
             message.warning("帳號密碼有誤，請重新輸入！")
             return // 中止函數執行，不繼續往下執行
         }
+            /*FIXME: 後端API連不上先連線本地端
             //發起登入請求
             let loginAPIRes = await LoginAPI({
                 username:userNameValue,
@@ -69,38 +72,47 @@ const view = () =>{
                 code:captchValue,
                 uuid:localStorage.getItem("uuid") as string
             })
-
             console.log(loginAPIRes);
-
             if(loginAPIRes.code === 200){
                 //1.提示登入成功
                 message.success("登入成功！")
                 //2.保存token
-                localStorage.setItem("lege-react-management-token",loginAPIRes.token)
+                localStorage.setItem("lege-react-management-token",token)
                 //3.跳轉到(首頁) /page1
                 NavigateTo("/page1")
                 //4.刪除本地保存中的 "uuid"
                 localStorage.removeItem("uuid");
+            }*/
+            if (userNameValue === "zico12356" && passWordValue === "123456" && captchValue === "22d5n") {
+                // 1.提示登入成功
+                message.success("登入成功！");
+                // 2.保存token
+                localStorage.setItem("lege-react-management-token", token);
+                // 3.跳轉到(首頁) /page1
+                NavigateTo("/page1");
+            } else {
+                message.error("登入失败，請檢查帳號、密碼和驗證碼！");
             }
+
     }
+    // FIXME: 後端API連線不上暫時本地驗證
+    // //點擊驗證碼圖片盒子的事件函數
+    // const getcaptchaImg = async() => {
+    //     //驗證碼請求
+    //     // captchaAPI().then((res)=>{ //呼叫 captchaAPI 函數來發送驗證碼請求，然後處理請求的回應
+    //     //     console.log(res);   // 將請求的回應（res）輸出到控制台以供測試和除錯
+    //     // });
+    //     let CaptchaAPIRes = await CaptchaAPI();
+    //     console.log(CaptchaAPIRes)
+    //     if(CaptchaAPIRes.code == 200){
+    //         //1.把圖片數據顯示在img上面
+    //         setCaptchImg("data:image/gif;base64,"+CaptchaAPIRes.img)
+    //         //2.本地保存uuid，給登入的時候使用
+    //         localStorage.setItem("uuid",CaptchaAPIRes.uuid)
+    //     }else{
 
-    //點擊驗證碼圖片盒子的事件函數
-    const getcaptchaImg = async() => {
-        //驗證碼請求
-        // captchaAPI().then((res)=>{ //呼叫 captchaAPI 函數來發送驗證碼請求，然後處理請求的回應
-        //     console.log(res);   // 將請求的回應（res）輸出到控制台以供測試和除錯
-        // });
-        let CaptchaAPIRes = await CaptchaAPI();
-        console.log(CaptchaAPIRes)
-        if(CaptchaAPIRes.code == 200){
-            //1.把圖片數據顯示在img上面
-            setCaptchImg("data:image/gif;base64,"+CaptchaAPIRes.img)
-            //2.本地保存uuid，給登入的時候使用
-            localStorage.setItem("uuid",CaptchaAPIRes.uuid)
-        }else{
-
-        }
-    }    
+    //     }
+    // }    
 
     return(
         <div className={styles.loginPage}>
@@ -122,8 +134,10 @@ const view = () =>{
                         <Input.Password placeholder="User Password"  onChange={passWordChange}/>
                         <div className="captchaBox">
                             <Input placeholder="Input Captcha" onChange={captchChange} />
-                            <div className="captchaImg" onClick={getcaptchaImg}>
-                                <img height="38" src={captchaImg} alt="" />
+                            <div    className="captchaImg" 
+                                    // onClick={getcaptchaImg}
+                                    >
+                                <img height="38" src={getcaptchaImg} alt="" />
                             </div>
                         </div>
                         <Button type="primary" className="loginBtn" block onClick={gotoLogin}>Sign in</Button>

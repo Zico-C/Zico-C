@@ -1,4 +1,5 @@
 import { useMutation,useQuery ,useQueryClient } from "react-query";
+import { useState } from "react";
 import styles from "./page8_01.module.scss"
 
 // 定義一個用於從伺服器獲取 post 數據的非同步函數
@@ -9,7 +10,7 @@ const fetchPosts = async() =>{
 }
 
 // 定義一個用於創建新 post 的非同步函數，接受包含 id、title 和 author 的參數
-const createPosts = async ({id,title,author,memberNum}:{id:any,title:any,author:any,memberNum:number}) => {
+const createPosts = async ({id,title,subtitle,author,memberNum}:{id:any,title:any,subtitle:any,author:any,memberNum:number}) => {
     const res = await fetch("http://localhost:3000/posts", {
       // 發送 POST 請求至 http://localhost:3000/posts
       method: "POST", 
@@ -20,6 +21,7 @@ const createPosts = async ({id,title,author,memberNum}:{id:any,title:any,author:
       body: JSON.stringify({
         id ,
         title,
+        subtitle,
         author,
         memberNum,
       }),
@@ -43,6 +45,9 @@ const deletePost = async (postId:any) => {
 
 // React 組件，用於顯示帖子數據並創建新帖子
 function View () {
+  const [inputTitle,setInputTitle] = useState("");
+  const [insubTitle,setInsubTitle] = useState("");
+
   // 使用 useQuery hook 從伺服器獲取 post 數據，"posts" 是查詢的鍵
   const { data, isSuccess } = useQuery(["posts"],fetchPosts);
   // 使用 useQueryClient hook 來訪問 QueryClient 實例
@@ -93,11 +98,14 @@ function View () {
   // 點擊按鈕時觸發 mutate 函數以創建新post
   const handleClick = () =>{
     createPostMutation.mutate({ 
-      id: crypto.randomUUID(),
-      title: "Post",
+      id: 0,
+      title: inputTitle,
+      subtitle: insubTitle,
       author: "ZICO",
       memberNum: uniqueKey,
     })
+    setInputTitle("");
+    setInsubTitle("");
   }
   // 點擊按鈕時觸發 mutate 函數以刪除post
   const handleDelete = (postId:any) => {
@@ -107,11 +115,26 @@ function View () {
   return(
     <>
       <div className={styles.main}>
+        <form>
+            <input 
+              type="text" 
+              placeholder="title" 
+              value={inputTitle}
+              onChange={(e)=>setInputTitle(e.target.value)} 
+              />
+            <input 
+              type="text" 
+              placeholder="subTitle" 
+              value={insubTitle}
+              onChange={(e)=>setInsubTitle(e.target.value)} 
+              />
+        </form>
         {isSuccess &&
           data.map((post:any)=>(
             <div key={post.id}>
               <p>id：{post.id}</p>
               <p>title：{post.title}</p>
+              <p>subTitle：{post.subtitle}</p>
               <p>author：{post.author}</p>
               <p>memberNum：{post.memberNum}</p>
               <button onClick={() => handleDelete(post.id)} className={styles.delete}>Delete Post</button>
