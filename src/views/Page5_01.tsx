@@ -1,24 +1,25 @@
-import Item from 'antd/es/list/Item';
-import React from 'react'
+
 import { useRef,useState } from "react"
 
 
 
 function Page5_01() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<string[]>([]);
   const [query, setQuery] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const filteredItems = items.filter((item) =>
+  const filteredItems = items.filter((item:string) =>
     item.toLowerCase().includes(query.toLowerCase())
   );
 
   const addItem = () => {
     const searchText = inputRef.current?.value;
-    setItems((prev) => [...prev, searchText]);
+    if (searchText !== undefined) {
+      setItems((prev: string[]) => [...prev, searchText]);
+    }
   };
-
+  
 
   return (
     <>

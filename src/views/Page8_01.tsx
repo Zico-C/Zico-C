@@ -1,4 +1,4 @@
-import React, { useState, useReducer  } from "react";
+import  { useState, useReducer  } from "react";
 import { ACTIONS } from "./Actions";
 import styles from "./page8_01.module.scss";
 import Todo from "./Todo";

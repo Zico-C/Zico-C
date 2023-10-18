@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react'; // 匯入 React，useReducer 和 useState 鉤子
+import { useReducer, useState } from 'react'; // 匯入 React，useReducer 和 useState 鉤子
 
 import styles from "./page8_01.module.scss"; // 匯入樣式
 

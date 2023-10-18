@@ -41,10 +41,11 @@ function View() {
     localStorage.setItem('PokeMon', dexId.toString());
   }, [dexId]);
   
-  if(isError){
-    // 如果數據獲取失敗，則顯示錯誤訊息
-    return <h1>{error.message}</h1>
+  if (isError) {
+    // 如果数据获取失败，则显示错误消息
+    return <h1>{(error as Error).message}</h1>;
   }
+  
 
   if(isLoading){
     // 如果正在加載數據，顯示加載訊息

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 
 function View() {
   const [data, setData] = useState(''); // 初始化状态

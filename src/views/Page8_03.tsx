@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import  { useReducer } from 'react';
 import styles from "./page8_01.module.scss"
 
 // 步驟1: 定義初始狀態
