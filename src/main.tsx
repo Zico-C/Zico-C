@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <MyProvider>
       <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
+          <BrowserRouter basename='/Zico-C'>
             <App />
           </BrowserRouter>
         <ReactQueryDevtools/>
