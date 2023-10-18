@@ -1,5 +1,6 @@
 import { useMutation,useQuery ,useQueryClient } from "react-query";
 import styles from "./page8_01.module.scss"
+
 // 定義一個用於從伺服器獲取 post 數據的非同步函數
 const fetchPosts = async() =>{
   const res = await fetch(`http://localhost:3000/posts`);
@@ -8,7 +9,7 @@ const fetchPosts = async() =>{
 }
 
 // 定義一個用於創建新 post 的非同步函數，接受包含 id、title 和 author 的參數
-const createPosts = async ({id,title,author}:{id:any,title:any,author:any}) => {
+const createPosts = async ({id,title,author,memberNum}:{id:any,title:any,author:any,memberNum:number}) => {
     const res = await fetch("http://localhost:3000/posts", {
       // 發送 POST 請求至 http://localhost:3000/posts
       method: "POST", 
@@ -20,6 +21,7 @@ const createPosts = async ({id,title,author}:{id:any,title:any,author:any}) => {
         id ,
         title,
         author,
+        memberNum,
       }),
     });
     const data = await res.json(); 
@@ -77,12 +79,24 @@ function View () {
     },
   });
 
+
+  function generateUniqueKey() {
+    const uniqueKey = Math.floor(Math.random() * 100000) + Date.now();
+    return uniqueKey; // 將結果轉為字符串
+  }
+  
+  const uniqueKey = generateUniqueKey();
+
+
+
+  
   // 點擊按鈕時觸發 mutate 函數以創建新post
   const handleClick = () =>{
     createPostMutation.mutate({ 
       id: crypto.randomUUID(),
       title: "Post",
       author: "ZICO",
+      memberNum: uniqueKey,
     })
   }
   // 點擊按鈕時觸發 mutate 函數以刪除post
@@ -99,6 +113,7 @@ function View () {
               <p>id：{post.id}</p>
               <p>title：{post.title}</p>
               <p>author：{post.author}</p>
+              <p>memberNum：{post.memberNum}</p>
               <button onClick={() => handleDelete(post.id)} className={styles.delete}>Delete Post</button>
               <hr color="red"/>
             </div>

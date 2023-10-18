@@ -1,18 +1,22 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": "4e2c959a-6bd5-485d-bc64-e1d23c733b0e",
+      "title": "Post",
+      "author": "ZICO"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "41f1f223-4482-44b5-9d76-cb4625abcd11",
+      "title": "Post",
+      "author": "ZICO"
+    },
+    {
+      "id": "dc1d1af7-b155-4b86-be93-d9aeefd61d75",
+      "title": "Post",
+      "author": "ZICO"
     }
   ],
+  "comments": [],
   "profile": {
     "name": "typicode"
   }

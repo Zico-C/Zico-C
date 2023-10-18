@@ -82,10 +82,10 @@ function Counter() {
               <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
                 {todo.text}
               </span> {/* 待辦事項文字，根據完成狀態添加刪除線 */}
-              <button onClick={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id })}>
+              <button className={styles.toggle} onClick={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id })}>
                 {todo.completed ? '標記未完成' : '標記完成'}
               </button> {/* 切換待辦事項完成狀態的按鈕 */}
-              <button onClick={() => dispatch({ type: 'REMOVE_TODO', id: todo.id })}>
+              <button className={styles.deletes} onClick={() => dispatch({ type: 'REMOVE_TODO', id: todo.id })}>
                 刪除
               </button> {/* 刪除待辦事項的按鈕 */}
             </li>

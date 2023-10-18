@@ -35,7 +35,8 @@
         cursor: pointer;
         margin-left: 15px;
         &.toggle{
-            background-color: #b6e2a1;
+            background-color: rgb(29, 143, 163);
+            color: #fff;
         }
         &.delete {
             background-color: darkcyan;
@@ -43,6 +44,11 @@
             border-radius: 20px;
             margin-bottom: 5px;
             margin-top: 0px;
+        }
+        &.deletes {
+            background-color: darkcyan;
+            color: #fff;
+
         }
     }
     p{

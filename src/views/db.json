@@ -1,14 +1,3 @@
 {
-  "posts": [
-    {
-      "id": "206772c0-1719-405e-bff4-570a05c85971",
-      "title": "Post",
-      "author": "ZICO"
-    },
-    {
-      "id": "b0362c78-3973-492f-82d4-6f529c5a06bb",
-      "title": "Post",
-      "author": "ZICO"
-    }
-  ]
+  "posts": []
 }
