@@ -47,21 +47,21 @@ const WithLoadingComponent = (comp:JSX.Element) => (
 const Routes = [
     //嵌套路徑 開始---------->
     {
-        path:"/",
+        path:"/Zico-C/",
         // 默認路徑
         element:<Navigate to="/page1" />
     },
     {
-        path:"/",
+        path:"/Zico-C/Home",
         element:<Home/>,
         //子路徑
         children:[
             {
-                path:"/page1",
+                path:"/Zico-C/page1",
                 element:WithLoadingComponent(<Page1 />)
             },
             {
-                path:"/page2",
+                path:"/Zico-C/page2",
                 element:WithLoadingComponent(<Page2 />)
             },
             {
