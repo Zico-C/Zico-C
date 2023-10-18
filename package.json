@@ -1,9 +1,9 @@
 {
   "name": "zico-management",
+  "homepage": "https://zico-c.github.io/Zico-C/",
   "private": true,
   "version": "0.0.0",
-  "type": "commonjs",
-  "homepage": "https://zico-c.github.io/Zico-C/",
+  "type": "module",
   "scripts": {
     "dev": "vite --host localhost --port 3002",
     "build": "tsc && vite build",
