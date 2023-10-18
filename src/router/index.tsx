@@ -5,7 +5,7 @@ import Home from "../views/Home"
 import Login from "../views/Login"
 //懶加載 = lazy ( () => import ("路由路徑"))
 
-const About = lazy( () => import ("../views/About"));
+// const About = lazy( () => import ("../views/About"));
 const Page6 = lazy( () => import ("../views/Page6"));
 const Page1 = lazy( () => import ("../views/Page1"));
 const Page2 = lazy( () => import ("../views/Page2"));

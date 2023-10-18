@@ -7,7 +7,7 @@ const store={
     // 定義操作 actions，包含了一系列可以修改狀態的操作函式
     actions:{ //只放同步的方法
         // 第一個操作：add1，用於將狀態中的 num 屬性加 1
-        add1(newState:{num:number},action:{type:string}){
+        add1(newState:{num:number}){
             newState.num++
         },
         // 第二個操作：add2，接受一個參數 val，將狀態中的 num 屬性加上 val 的值

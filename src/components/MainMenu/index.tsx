@@ -189,7 +189,7 @@ const Comp: React.FC = () => {
   
     //使用currentRoute.pathname 與 items數組的每一項children的key值進行對比
     //如果找到相等，使用上一層的key，這個key 給予 openKeys數組，作為初始值
-    let firstOpenKey:String = "";
+    let firstOpenKey:string = "";
     //進行對比
     
     function findKey(obj:{key:string}) {
@@ -207,7 +207,7 @@ const Comp: React.FC = () => {
     //什麼時候執行函數內的代碼？
     //展開和回收事件時執行以下代碼
     //設定展開欄位的初始值
-    const [openKeys, setOpenKeys] = useState([firstOpenKey]);
+    const [openKeys, setOpenKeys] = useState<string[]>([firstOpenKey]);
     const handleOpenChange = (keys:string[]) => {
       //keys 是一個數組，記錄當前哪一項展開的(用key來記錄)
   

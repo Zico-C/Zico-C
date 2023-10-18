@@ -115,8 +115,8 @@ function View(){
                     <p>{text}</p>
                     <button onClick={toggleText}>更改文本</button>
                         <div>
-                            <h1>{post.title}</h1>
-                            <p>{post.body}</p>
+                            <h1>{post["title"]}</h1>
+                            <p>{post["body"]}</p>
                             <button onClick={createPost}>Create Post</button>
                             <button onClick={updatePost}>Update Post</button>
                             <button onClick={successAndDeletePost}>Delete Post</button>

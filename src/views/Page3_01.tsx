@@ -1,10 +1,9 @@
 
 import styles from"./page3_01.module.scss";
-import { useTranslation , Trans } from "react-i18next";
-import { useState }  from "react";
+import { useTranslation  } from "react-i18next";
 function View() {
     //使用 useTranslation 鉤子來獲取翻譯函數和當前語言設置
-    const { t , i18n} = useTranslation();
+    const { t } = useTranslation();
     
     // const [saveLng,setSaveLng] = useState(i18n.languages[0]);
 
@@ -18,10 +17,10 @@ function View() {
 
     
 
-    const messages = ["message one", "message two"];
-    const count = messages.length;
+    // const messages = ["message one", "message two"];
+    // const count = messages.length;
   
-    const name = "ZICO";
+    // const name = "ZICO";
   
     
     return(
@@ -56,10 +55,10 @@ function View() {
         <p>{t("key1_interval",{postProcess: "interval",count:4})}</p>
         <p>{t("key1_interval",{postProcess: "interval",count:100})}</p>
         <br/>
-        <Trans i18nKey="userMessagesUnread" count={count}>
+        {/* <Trans i18nKey="userMessagesUnread" count={count} >
         Hello <strong title={t("nameTitle")}>{{ name }}</strong>, you have
         {{ count }} unread message. <a to="/msgs">Go to messages</a>.
-        </Trans>
+        </Trans> */}
         <br/>
         {/* 按鈕用於切換到英文語言 */}
         {/* <button onClick={() => ChangeLng("en")}>英文</button>
