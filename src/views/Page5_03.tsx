@@ -12,7 +12,7 @@ function View() {
   const [dexId,setDexId] = useState(1);
   const {
     data,       // 從API獲得的數據
-    isSuccess,  // 數據獲得成功
+    // isSuccess,  // 數據獲得成功
     isError,    // 數據獲取失敗
     error,      // 錯誤信息
     isLoading,  // 正在加載數據

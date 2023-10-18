@@ -12,7 +12,7 @@ function MapView() {
       {/* 地圖容器 */}
       <MapContainer center={[24.80063398900308, 120.97787231991643]} zoom={25} style={{ height: '700px' }}>
         {/* 地圖圖層 */}
-        <TileLayer
+        <TileLayer 
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 貢獻者'
             //地圖圖層的URL
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

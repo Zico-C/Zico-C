@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const WithoutReactQuery = () => {
   const [data, setData] = useState([]);
@@ -17,7 +17,7 @@ const WithoutReactQuery = () => {
         console.log(data);
         setIsSuccess(true);
       } catch (error) {
-        setErrorMessage(error.message);
+        setErrorMessage((error as Error).message);
       }
     };
 
