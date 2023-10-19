@@ -82,11 +82,11 @@ const View: React.FC = () => {
 
               <Breadcrumb items={[
                 {
-                  href:"/page1",
+                  href:"/Zico-C/page1",
                   title: <HomeOutlined/>,
                 },
                 {
-                  href:'/page3/page3_01',
+                  href:'/Zico-C/page3/page3_01',
                   title: (
                   <>
                     <UserOutlined/>
