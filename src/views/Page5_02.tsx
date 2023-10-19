@@ -4,14 +4,14 @@ import styles from "./page8_01.module.scss"
 
 // 定義一個用於從伺服器獲取 post 數據的非同步函數
 const fetchPosts = async() =>{
-  const res = await fetch(`http://localhost:3000/posts`);
+  const res = await fetch(`https://my-json-server.typicode.com/Zico-C/Zico-C/posts`);
   const data = await res.json();
   return data;
 }
 
 // 定義一個用於創建新 post 的非同步函數，接受包含 id、title 和 author 的參數
 const createPosts = async ({id,title,subtitle,author,memberNum}:{id:any,title:any,subtitle:any,author:any,memberNum:number}) => {
-    const res = await fetch("http://localhost:3000/posts", {
+    const res = await fetch("https://my-json-server.typicode.com/Zico-C/Zico-C/posts", {
       // 發送 POST 請求至 http://localhost:3000/posts
       method: "POST", 
       headers: {
@@ -32,7 +32,7 @@ const createPosts = async ({id,title,subtitle,author,memberNum}:{id:any,title:an
 
 // 定義一個用於刪除 post 的非同步函數
 const deletePost = async (postId:any) => {
-  const res = await fetch(`http://localhost:3000/posts/${postId}`, {
+  const res = await fetch(`https://my-json-server.typicode.com/Zico-C/Zico-C/posts/${postId}`, {
     // 向 http://localhost:3000/posts/{postId} 發送 DELETE 請求
     method: "DELETE",
     headers: {
