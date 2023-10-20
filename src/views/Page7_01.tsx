@@ -1,38 +1,28 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
+import styles from "./page8_01.module.scss"
 
-function View() {
-  const [data, setData] = useState(''); // 初始化状态
+function Example() {
+  const [message, setMessage] = useState('Hello');
 
-  // 使用 useEffect 讀取 localStorage 中的數據設定在useState狀態中
+  // useEffect 是異步的，會在網頁渲染"後"執行，當 message 狀態改變時，它會被觸發。
   useEffect(() => {
-    const savedData = localStorage.getItem('myData');
-    savedData && setData(savedData);
-  }, []);
+    console.log('useEffect: 訊息正在更新',message); // 在渲染後執行
+  }, [message]);
 
-  // 使用 useEffect 監視數據更新狀態，並將數據儲存至 localStorage
-  useEffect(() => {
-    localStorage.setItem('myData', data);
-  }, [data]);
+  // useLayoutEffect 是同步的，會在網頁渲染"前"執行，當 message 狀態改變時，它會被立即觸發。
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect: 訊息正在更新',message); // 在渲染前執行
+  }, [message]);
 
-  // 數據變化
-  const handleDataChange = (e:any) => {
-    setData(e.target.value);
+  const handleChangeMessage = () => {
+    setMessage('World');
   };
 
   return (
-    <div>
-        <div>
-            <input
-                type="text"
-                onChange={handleDataChange}
-                placeholder="輸入資料"
-            />
-        </div><br/>
-        <div>
-            <p>從localStorage讀取到的資料為： {data}</p>
-        </div>
+    <div className={styles.main}>
+      <button onClick={handleChangeMessage}>更改訊息</button>
     </div>
   );
 }
 
-export default View;
+export default Example;

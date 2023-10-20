@@ -1,64 +1,30 @@
-import  { useState, useReducer  } from "react";
-import { ACTIONS } from "./Actions";
-import styles from "./page8_01.module.scss";
-import Todo from "./Todo";
-
-const reducer = (todos:any, action:any) => {
-  console.log(todos, action);
-  const { todoContent, id } = action.payload;
-  switch (action.type) {
-    case ACTIONS.ADD:
-      return [...todos, newTodo(todoContent)];
-    case ACTIONS.TOGGLE:
-      return todos.map((todo:any) => {
-        if (todo.id === id) {
-          return { ...todo, complete: !todo.complete };
-        }
-        return todo;
-      });
-    case ACTIONS.DELETE:
-      return todos.filter((todo:any) => todo.id !== id);
-    default:
-      return todos;
-  }
-};
-
-const newTodo = (todoContent:any) => {
-  return {
-    id: Math.floor(Math.random() * 100000),
-    todoContent,
-    complete: false,
-  };
-};
-
-function App() {
-  const [todos, dispatch] = useReducer(reducer, []);
-  const [todoContent, setTodoContent] = useState("");
-
-
-
-  const handleSubmit = (e:any) => {
-    // preventDefault 取消送出事件
-    e.preventDefault();
-    dispatch({ type: ACTIONS.ADD, payload: { todoContent: todoContent } });
-  };
-
+import { useLocation } from 'react-router-dom';
+import styles from "./page8_01.module.scss"
+function MyComponent() {
+  // 使用 useLocation 來取得當前路由位置
+  const location = useLocation();
+  
+  // 使用 URLSearchParams 來解析搜索參數
+  const searchParams = new URLSearchParams(location.search);
+  
+  // 使用 get() 方法來取得特定搜索參數的值
+  const paramValue = searchParams.get('name');
+  const paramValue2 = searchParams.get('age');
   return (
     <div className={styles.main}>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={todoContent}
-          onChange={(e) => setTodoContent(e.target.value)}
-          placeholder="Type in Something ..."
-        />
-      </form>
-
-      {todos.map((todo:any) => (
-        <Todo key={todo.id} todo={todo} dispatch={dispatch} />
-      ))}
+      <h1>搜尋參數示例</h1>
+        <p>搜尋參數 name 的值是：
+          <span style={{color:"blue",fontSize:"2.5rem"}}>
+            {paramValue}
+          </span>
+        </p>
+        <p>搜尋參數 age 的值是：
+          <span style={{color:"DeepSkyBlue",fontSize:"2.5rem"}}>
+            {paramValue2}
+          </span>
+        </p>
     </div>
   );
 }
 
-export default App;
+export default MyComponent;

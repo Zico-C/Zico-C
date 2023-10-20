@@ -13,7 +13,8 @@
   "dependencies": {
     "-": "0.0.1",
     "@ant-design/icons": "^5.2.6",
-    "@craco/craco": "^7.1.0",
+    "@craco/craco": "^5.9.0",
+    "@reach/visually-hidden": "^0.18.0",
     "antd": "^5.9.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.5.0",
@@ -32,7 +33,7 @@
     "react-leaflet": "^4.2.1",
     "react-query": "3.39.3",
     "react-redux": "^7.2.8",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.17.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.2",
     "reset-css": "^5.0.2",

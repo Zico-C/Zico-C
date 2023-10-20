@@ -27,6 +27,8 @@ const Page8_02 = lazy( () => import ("../views/Page8_02"));
 const Page8_03 = lazy( () => import ("../views/Page8_03"));
 const Page8_04 = lazy( () => import ("../views/Page8_04"));
 const Page8_05 = lazy( () => import ("../views/Page8_05"));
+const Page8_06 = lazy( () => import ("../views/Page8_06"));
+const Page8_07 = lazy( () => import ("../views/Page8_07"));
 
 import { Navigate } from "react-router-dom"
 
@@ -133,12 +135,22 @@ const Routes = [
                 element:WithLoadingComponent(<Page8_03 />)
             },
             {
-                path:"/page8/page8_04",
+                // 需要在父路由的路徑末尾加上 "*" 作為通配符，以確保子路由正確匹配。
+                path:"/page8/page8_04/*",
                 element:WithLoadingComponent(<Page8_04 />)
             },
             {
-                path:"/page8/page8_05",
+                // 需要在父路由的路徑末尾加上 "*" 作為通配符，以確保子路由正確匹配。
+                path:"/page8/page8_05/*",
                 element:WithLoadingComponent(<Page8_05 />)
+            },
+            {
+                path:"/page8/page8_06",
+                element:WithLoadingComponent(<Page8_06 />)
+            },
+            {
+                path:"/page8/page8_07",
+                element:WithLoadingComponent(<Page8_07 />)
             },
         ]
     },

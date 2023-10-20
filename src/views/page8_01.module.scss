@@ -9,7 +9,9 @@
 .main{
     margin: 2rem;
     padding: 20px;
-    font-size: 20px;
+    font-size: 2rem;
+    user-select:text;
+
     span{
         font-size: 2rem;
     }
@@ -54,5 +56,26 @@
     p{
         font-size: 1.7rem;
         margin: 20px;
+    }
+}
+.active1{
+    text-decoration: underline;
+}
+.products{
+    margin-top: 35px;
+    padding-right: 2rem;
+    span{
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+}
+
+.test{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    p{
+        font-size: 2.5rem;
+        color: #fff;
     }
 }
