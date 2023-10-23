@@ -12,9 +12,9 @@ type Action =
 
 // 初始狀態
 const initialState = { count: 0, isOn: false, texts: [] };
-
 // Reducer 函數，處理狀態更新的邏輯
 const reducer = (state: any, action: Action) => {
+  console.log(state, action)
   switch (action.type) {
     case 'INCREMENT':
       return { ...state, count: state.count + 1 }; // 增加計數器
@@ -46,7 +46,6 @@ const reducer = (state: any, action: Action) => {
       return state; // 如果沒有匹配的操作，保持原狀態不變
   }
 };
-
 function Counter() {
   // 使用 useReducer 初始化狀態和分派函數
   const [state, dispatch] = useReducer(reducer, initialState);

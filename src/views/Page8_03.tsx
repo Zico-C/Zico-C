@@ -33,8 +33,10 @@ function Counter()  {
   return (
     <div className={styles.main}>
       <p>Count: {state.count}</p> {/* 顯示當前計數器值 */}
-      <button onClick={() => dispatch({ type: 'INCREMENT' })}>增加</button> {/* 點擊按鈕執行 INCREMENT 操作 */}
-      <button onClick={() => dispatch({ type: 'DECREMENT' })}>減少</button> {/* 點擊按鈕執行 DECREMENT 操作 */}
+       {/* 點擊按鈕執行 action.type：INCREMENT 操作 */}
+      <button onClick={() => dispatch({ type: 'INCREMENT' })}>增加</button>
+       {/* 點擊按鈕執行 action.type：DECREMENT 操作 */}
+      <button onClick={() => dispatch({ type: 'DECREMENT' })}>減少</button>
     </div>
   );
 };

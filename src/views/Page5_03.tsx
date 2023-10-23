@@ -68,7 +68,9 @@ function View() {
         <div>
           <h3>Data Updated At: </h3>
           <div>
-            <button onClick={()=>{if(dexId>=2){setDexId((prev) => prev -1)}}}>Prev</button>
+            { dexId !== 1 ? 
+              <button onClick={()=>{setDexId((prev) => prev -1)}}>Prev</button> 
+              : null}
             <button onClick={()=>setDexId((prev) => prev +1)}>Next</button>
           </div>
           <div>

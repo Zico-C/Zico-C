@@ -12,6 +12,11 @@
     font-size: 2rem;
     user-select:text;
 
+    label{
+        width: 150px;
+        text-align: right;
+        display: inline-block;
+    }
     span{
         font-size: 2rem;
     }
