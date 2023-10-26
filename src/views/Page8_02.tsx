@@ -6,7 +6,7 @@ type Action =
   | { type: 'INCREMENT' }
   | { type: 'DECREMENT' }
   | { type: 'TOGGLE' }
-  | { type: 'ADD'; text: string }
+  | { type: 'ADD';text: string }
   | { type: 'TOGGLE_TODO'; id: number }
   | { type: 'REMOVE_TODO'; id: number };
 
@@ -54,7 +54,7 @@ function Counter() {
   
   const addTodo = (e: any) => {
     e.preventDefault(); // 阻止表單預設行為
-    dispatch({ type: "ADD", text: newInput }); // 觸發 ADD 類型的操作，新增文字
+    dispatch({ type: "ADD", text: newInput  }); // 觸發 ADD 類型的操作，新增文字
     setNewInput(''); // 清空輸入欄位
   }
 

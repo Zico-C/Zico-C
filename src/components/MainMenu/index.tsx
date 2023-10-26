@@ -119,8 +119,34 @@ const Comp: React.FC = () => {
         {
             label:t("MainMenu.Option 6"),
             key: 'page6' ,
-            icon:<FileOutlined />
-        },
+            icon:<FileOutlined />,
+            children:[
+                {
+                    label:t(("MainMenu.Option 6_01")),
+                    key:'page6/page6_01'
+                },
+                {
+                    label:t(("MainMenu.Option 6_02")),
+                    key:'page6/page6_02'
+                },
+                {
+                    label:t(("MainMenu.Option 6_03")),
+                    key:'page6/page6_03'
+                },
+                {
+                    label:t(("MainMenu.Option 6_04")),
+                    key:'page6/page6_04'
+                },
+                {
+                    label:t(("MainMenu.Option 6_05")),
+                    key:'page6/page6_05'
+                },
+                {
+                    label:t(("MainMenu.Option 6_06")),
+                    key:'page6/page6_06'
+                },
+            ]
+        }, 
         {
             label:t("MainMenu.Option 7"),
             key:'page7',

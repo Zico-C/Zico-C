@@ -5,15 +5,13 @@ import { Breadcrumb, Layout, theme ,Button , message, Radio } from 'antd';
 // useNavigate 可實現跳轉路徑（路由）
 import { Outlet , useNavigate } from 'react-router-dom';
 import { LogoutOutlined , HomeOutlined, UserOutlined} from '@ant-design/icons';
-
 const { Header, Content, Footer, Sider } = Layout;
 
 
 const View: React.FC = () => {
   const [saveLng,setSaveLng] = useState('');
   const [collapsed, setCollapsed] = useState(false);
-  const {  i18n} = useTranslation();
-
+  const {i18n} = useTranslation();
   const NavigateTo = useNavigate();
   // const navigateTo = useNavigate();
   const {
@@ -46,6 +44,9 @@ const View: React.FC = () => {
       setTimeout(()=>{
         // // 2.刪除 localStorage 的用戶 token
         localStorage.removeItem("lege-react-management-token");
+        localStorage.removeItem("User.name");
+        localStorage.removeItem("User.email");
+        localStorage.removeItem("User.level");
         // // 3.跳轉登入頁面
         NavigateTo("/login");
       },2000)

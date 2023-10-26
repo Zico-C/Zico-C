@@ -26,6 +26,7 @@ import { MyProvider } from './views/Context.tsx';
 //狀態管理庫
 import { Provider } from "react-redux";
 import store from "@/store";
+// import store from "./redux_redux_toolkit/store.tsx"
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root')!).render(
   //<React.StrictMode> = 嚴格模式

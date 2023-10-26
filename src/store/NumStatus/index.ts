@@ -22,13 +22,13 @@ const store={
         },
     },
     // 優化 redux-thunk 的異步寫法 模仿 Vuex的寫法
-    asyncActions:{ //只放異步方法
-        asyncAdd1(dispatch:Function){
-            setTimeout(()=>{
-                dispatch({type:"add1"})
-            },1000)
-        }
-    },
+    // asyncActions:{ //只放異步方法
+    //     asyncAdd1(dispatch:Function){
+    //         setTimeout(()=>{
+    //             dispatch({type:"add1"})
+    //         },1000)
+    //     }
+    // },
 
     // 名稱統一管理
     // add1:"add1",

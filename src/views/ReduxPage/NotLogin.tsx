@@ -1,11 +1,11 @@
 import styles from "../page8_01.module.scss"
 import {useRef } from "react"
 // 使用 Redux 定義的 function
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../store/hook";
 import { setLogin } from "./Store/UserSlice";
 function NotLogin() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const nameRef = useRef<HTMLInputElement | null>(null);
     const ageRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);

@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect , useState } from "react";
 //antd = Ant.Design UI 框架庫
 import { Input , Space , Button , message} from 'antd';
+import { useAppDispatch } from "@/store/hook.tsx";
 import styles from "./login.module.scss";
 import initLoginBg from "./init.ts";
 import './login.less'
@@ -10,8 +11,10 @@ import { generateToken } from "./xxx.tsx"
 // 從 react-router-dom 引入 useNavigate 實現跳轉頁面
 import { useNavigate } from "react-router-dom"
 import getcaptchaImg  from '../../assets/22d5n.png'
+import { setEmail, setIsLogin, setUser, setIevel } from "@/redux_redux_toolkit/store/globalSlice.tsx";
 const view = () =>{
     let NavigateTo = useNavigate();
+    const disp = useAppDispatch();
     const token = generateToken();
     // useEffect 函式用於處理副作用操作，它會在組件渲染之後執行
     //加載完這個組件之後，加載這個背景
@@ -19,6 +22,7 @@ const view = () =>{
         // 在這個 useEffect 中，我們希望執行兩個操作：
         // 1. 初始化登入背景 (initLoginBg 函式)
         initLoginBg();
+        disp(setIsLogin(false));
         // 2. 監聽瀏覽器窗口大小變化事件，並在窗口大小變化時重新載入背景
         window.onresize = function(){
             // 當窗口大小發生變化時，我們再次呼叫 initLoginBg 函式
@@ -83,13 +87,24 @@ const view = () =>{
                 //4.刪除本地保存中的 "uuid"
                 localStorage.removeItem("uuid");
             }*/
-            if (userNameValue === "zico12356" && passWordValue === "123456" && captchValue === "22d5n") {
+            if ((userNameValue === "zico12356" && passWordValue === "123456" && captchValue === "22d5n")||
+                (userNameValue === "user5566" && passWordValue === "123456" && captchValue === "22d5n")) {
                 // 1.提示登入成功
                 message.success("登入成功！");
-                // 2.保存token
+                // 2.保存token、User.name
+ 
                 localStorage.setItem("lege-react-management-token", token);
+                localStorage.setItem("User.name",userNameValue)
+                localStorage.setItem("User.email",`${userNameValue}@gmail.com`)
+
+                disp(setUser(userNameValue));
+                disp(setIsLogin(true));
+                disp(setEmail(`${userNameValue}@gmail.com`));
+                disp(setIevel(userNameValue));;
                 // 3.跳轉到(首頁) /page1
                 NavigateTo("/page1");
+
+
             } else {
                 message.error("登入失败，請檢查帳號、密碼和驗證碼！");
             }

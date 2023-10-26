@@ -1,31 +1,22 @@
-import { legacy_createStore , combineReducers , compose , applyMiddleware} from "redux";
-// import reducer from "./reducer.ts";
-import reduxThunk from "redux-thunk"
-//將模組化的 reducer 引入 使用 combineReducers 合併 reducer
-import handleArr from "./ArrStatus/reducer"
-import handleNum from "./NumStatus/reducer"
+import { configureStore } from "@reduxjs/toolkit";
+import globalSlice from "../redux_redux_toolkit/store/globalSlice";
+import UserSlice from "@/views/ReduxPage/Store/UserSlice";
+import ArrStatus from "./ArrStatus/reducer";
+import NumStatus from "./NumStatus/reducer";
+const store = configureStore({
+  reducer: {
+    ArrStatus,
+    NumStatus,
+    global: globalSlice,
+    user:UserSlice,
 
-//組合各個模組的 reducer
-const reducers = combineReducers({
-    handleNum,
-    handleArr
-})
-
-
-
-//創建數據倉庫
-//window.__REDUX_DEVTOOLS_EXTENSION__&& window.__REDUX_DEVTOOLS_EXTENSION__()
-//為了使瀏覽器正常使用「Redux-dev-tools插件」
-// const store = legacy_createStore(reducers,window.__REDUX_DEVTOOLS_EXTENSION__&& 
-// window.__REDUX_DEVTOOLS_EXTENSION__());
+  },
+});
 
 
-
-// 判断有没有__REDUX_DEVTOOLS_EXTENSION_COMPOSE__这个模块
-let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-({}):compose //rt
-
-// 把倉庫數據，瀏覽器redux-dev-tools，还有reduxThunk插件关联在store中
-const store = legacy_createStore(reducers,composeEnhancers(applyMiddleware(reduxThunk))); 
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

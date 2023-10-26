@@ -1,3 +1,29 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "id": 1,
+      "title": "111",
+      "subtitle": "222",
+      "author": "ZICO",
+      "memberNum": 1698227806239
+    }
+  ],
+  "locationIP": [
+    {
+      "id": 1,
+      "name": "asddsad",
+      "updateTime": "2023/10/26 下午4:35:13 UTC+8",
+      "latitude": 24.7739231,
+      "longitude": 121.0091414
+    }
+  ],
+  "data": {
+    "user": {
+      "userId": 123,
+      "username": "zico123456",
+      "email": "ZICO123@example.com",
+      "password": "123456"
+    },
+    "accessToken": "your-access-token"
+  }
 }

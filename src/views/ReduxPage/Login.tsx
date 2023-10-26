@@ -1,17 +1,16 @@
 import styles from "../page8_01.module.scss"
-import {RootState} from "../Page8_07"
-import { useSelector ,useDispatch } from "react-redux";
+// import {RootState} from "../Page8_07"
+import { useAppSelector ,useAppDispatch } from "../../store/hook";
 import { setLogout } from "./Store/UserSlice";
 function Login() {
 
-    const state = useSelector((state:RootState) => state.user)
+    const state = useAppSelector((state:RootState) => state.user)
     // console.log(state)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const handleLogin = () =>{
         // 引入setLogout函數 將state為初始化 並 login 為 false
         dispatch(setLogout());
     };
-
   return (
     <div className={styles.main}>
       <p>Name：{state.profile.name}</p>

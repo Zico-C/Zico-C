@@ -6,7 +6,6 @@ import Login from "../views/Login"
 //懶加載 = lazy ( () => import ("路由路徑"))
 
 // const About = lazy( () => import ("../views/About"));
-const Page6 = lazy( () => import ("../views/Page6"));
 const Page1 = lazy( () => import ("../views/Page1"));
 const Page2 = lazy( () => import ("../views/Page2"));
 const Page3_01 = lazy( () => import ("../views/Page3_01"));
@@ -22,6 +21,12 @@ const Page7_02 = lazy( () => import ("../views/Page7_02"));
 const Page7_03 = lazy( () => import ("../views/Page7_03"));
 const Page7_04 = lazy( () => import ("../views/Page7_04"));
 const Page7_05 = lazy( () => import ("../views/Page7_05"));
+const Page6_01 = lazy( () => import ("../views/Page6_01"));
+const Page6_02 = lazy( () => import ("../views/Page6_02"));
+const Page6_03 = lazy( () => import ("../views/Page6_03"));
+const Page6_04 = lazy( () => import ("../views/Page6_04"));
+const Page6_05 = lazy( () => import ("../views/Page6_05"));
+const Page6_06 = lazy( () => import ("../views/Page6_06"));
 const Page8_01 = lazy( () => import ("../views/Page8_01"));
 const Page8_02 = lazy( () => import ("../views/Page8_02"));
 const Page8_03 = lazy( () => import ("../views/Page8_03"));
@@ -99,8 +104,28 @@ const Routes = [
                 element:WithLoadingComponent(<Page5_03 />)
             },
             {
-                path:"/Page6",
-                element:WithLoadingComponent(<Page6 />)
+                path:"/Page6/Page6_01",
+                element:WithLoadingComponent(<Page6_01 />)
+            },
+            {
+                path:"/Page6/Page6_02",
+                element:WithLoadingComponent(<Page6_02 />)
+            },
+            {
+                path:"/Page6/Page6_03",
+                element:WithLoadingComponent(<Page6_03 />)
+            },
+            {
+                path:"/Page6/Page6_04",
+                element:WithLoadingComponent(<Page6_04 />)
+            },
+            {
+                path:"/Page6/Page6_05",
+                element:WithLoadingComponent(<Page6_05 />)
+            },
+            {
+                path:"/Page6/Page6_06",
+                element:WithLoadingComponent(<Page6_06 />)
             },
             {
                 path:"/page7/page7_01",

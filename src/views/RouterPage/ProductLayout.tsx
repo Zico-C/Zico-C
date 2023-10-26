@@ -7,7 +7,7 @@ function ProductLayout() {
     <> 
       <nav className={styles.products}>
         <span>
-          <Link to="/page8/page8_04/products/1">Product 1</Link>
+          <Link to="/page8/page8_04/products/1?param1=value1&param1=value2">Product 1</Link>
         </span>{" "}
         | {" "}
         <span>
@@ -19,7 +19,7 @@ function ProductLayout() {
         </span>{" "}
         | {" "}
         <span>
-          <Link to="/page8/page8_04/products/features">Product  Features</Link>
+          <Link to="/page8/page8_04/products/features?Product=4K電視&price=9999">Product  Features</Link>
         </span>
       </nav>
       {/* 需要在父組件路由中渲染子組件路由時，使用Outlet 可渲染已配對的子路由內容 
