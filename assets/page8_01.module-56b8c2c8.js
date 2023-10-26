@@ -1,1 +1,0 @@
-const t="_main_4oyz9_11",e="_toggle_4oyz9_47",_="_deletes_4oyz9_58",o="_active1_4oyz9_67",s="_products_4oyz9_71",c="_test_4oyz9_80",l={"dark-theme":"_dark-theme_4oyz9_1","light-theme":"_light-theme_4oyz9_6",main:t,toggle:e,delete:"_delete_4oyz9_51",deletes:_,active1:o,products:s,test:c};export{l as s};
