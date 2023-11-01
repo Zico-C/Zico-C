@@ -67,7 +67,7 @@ const View: React.FC = () => {
 
   // console.log(ChangeLng)
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }} >
         {/* 左側邊欄 */}
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
@@ -84,7 +84,11 @@ const View: React.FC = () => {
               <Breadcrumb items={[
                 {
                   href:"/Zico-C/page1",
-                  title: <HomeOutlined/>,
+                  title: (
+                  <>
+                    <HomeOutlined/>
+                    <span>Home</span>
+                  </>),
                 },
                 {
                   href:'/Zico-C/page3/page3_01',

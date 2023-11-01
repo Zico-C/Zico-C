@@ -1,50 +1,123 @@
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react'
+import styles from "./page8_01.module.scss"
 
-// 示例电影数据
-const movies = [
-  { id: 1, title: '玩具總動員', genre: '動畫' },
-  { id: 2, title: '靈魂急轉彎', genre: '動畫' },
-  { id: 3, title: '星際效應', genre: '科幻' },
-];
+function Page6_04() {
+  
+  const [firstNumber, setFirstNumber] = useState<string>('');  // 第一個操作數字
+  const [lastNumber, setLastNumber] = useState<string>('');    // 第二個操作數字
+  const [operator, setOperator] = useState<string>('');        // 存放運算符號
 
-function MovieList() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const handleClick = (value: string) => {
+    // 處理數字及小數點
+    if (!isNaN(parseFloat(value)) || value === '.') {
+      if (!operator) {
+        setFirstNumber(firstNumber + value);
+      } else {
+        setLastNumber(lastNumber + value);
+      }
+    }
 
-  // 从查询参数中获取过滤条件
-  const genreFilter = searchParams.get('genre');
+    // 處理運算符號
+    if ('+-*/'.includes(value)) {
+      setOperator(value);
+    }
 
-  // 根据过滤条件筛选电影
-  const filteredMovies = genreFilter
-    ? movies.filter((movie) => movie.genre === genreFilter)
-    : movies;
+    // 處理運算結果
+    if (value === '=') {
+      if (firstNumber && lastNumber && operator) {
+        const num1 = parseFloat(firstNumber);
+        const num2 = parseFloat(lastNumber);
+        let calcResult: number | string = 0;
+        switch (operator) {
+          case '+':
+            calcResult = num1 + num2;
+            break;
+          case '-':
+            calcResult = num1 - num2;
+            break;
+          case '*':
+            calcResult = num1 * num2;
+            break;
+          case '/':
+            if (num2 !== 0) {
+              calcResult = num1 / num2;
+            } else {
+              calcResult = 'Error';
+            }
+            break;
+          default:
+            break;
+        }
+        setFirstNumber(calcResult.toString());
+        setLastNumber('');
+        setOperator('');
+      }
+    }
+
+    // 處理重置
+    if (value === 'reset') {
+      setFirstNumber('');
+      setLastNumber('');
+      setOperator('');
+    }
+
+    // 處理刪除事件
+    if (value === 'DEL') {
+      if (lastNumber !== '') {
+        setLastNumber(lastNumber.slice(0, -1));
+        console.log("1")
+      }else if(operator !==''){
+        setOperator('');
+        console.log("2")
+      }else if(firstNumber !== ''){
+        setFirstNumber(firstNumber.slice(0,-1));
+        console.log("3")
+      }
+    }
+  }
+
+  console.log("firstNumber",firstNumber)
+  console.log("operator",operator)
+  console.log("lastNumber",lastNumber)
 
   return (
-    <div>
-      <h1>电影列表</h1>
-      <select
-        value={genreFilter || ''}
-        onChange={(e) => {
-          // 更新查询参数
-          setSearchParams({ genre: e.target.value });
-        }}
-      >
-        <option value="">所有类型</option>
-        <option value="動畫">動畫</option>
-        <option value="科幻">科幻</option>
-      </select>
-      <ul>
-        {filteredMovies.map((movie) => (
-          <li key={movie.id}>{movie.title}</li>
-        ))}
-      </ul>
-      <hr/>
-      <ul>
-        {movies.map((mo)=>(
-          <li key={mo.id}>{mo.id} | {mo.title} | {mo.genre}</li>
-        ))}
-      </ul>
+    <div className={styles.calc}>
+      <h1>計算機</h1>
+      <div className={styles.textshow}>
+        <p>{firstNumber} {operator} {lastNumber}</p>
+      </div>
+      <div className={styles.calcButtons}>
+        <div className={styles.buttons}>
+          <button  onClick={()=>handleClick('7')}>7</button>
+          <button  onClick={()=>handleClick('8')}>8</button>
+          <button  onClick={()=>handleClick('9')}>9</button>
+          <button  onClick={()=>handleClick('DEL')}>DEL</button>
+        </div>     
+        <div className={styles.buttons}>
+          <button onClick={()=>handleClick('4')}>4</button>
+          <button onClick={()=>handleClick('5')}>5</button>
+          <button onClick={()=>handleClick('6')}>6</button>
+          <button onClick={()=>handleClick('+')}>+</button>
+        </div>
+        <div className={styles.buttons}>
+          <button onClick={()=>handleClick('1')}>1</button>
+          <button onClick={()=>handleClick('2')}>2</button>
+          <button onClick={()=>handleClick('3')}>3</button>
+          <button onClick={()=>handleClick('-')}>-</button>
+        </div>
+        <div className={styles.buttons}>
+          <button onClick={()=>handleClick('.')}>.</button>
+          <button onClick={()=>handleClick('0')}>0</button>
+          <button onClick={()=>handleClick('/')}>/</button>
+          <button onClick={()=>handleClick('*')}>*</button>
+        </div>
+        <div className={styles.buttons}>
+          <button onClick={()=>handleClick('reset')}>RESET</button>
+          <button onClick={()=>handleClick('=')}>=</button>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default MovieList;
+export default Page6_04

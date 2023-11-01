@@ -57,11 +57,17 @@
             color: #fff;
 
         }
+        &.scroll {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-behavior: smooth; /* 添加平滑滚动效果 */
+        }
     }
     p{
         font-size: 1.7rem;
         margin: 20px;
     }
+
 }
 .active1{
     text-decoration: underline;
@@ -112,3 +118,66 @@
         transition: 0.2s;
     }
   }
+
+.calc{
+    width: 45vh;
+    height: 70vh;
+    margin: 20px;
+    font-size: 2rem;
+    background-color: rgba(0, 0, 0, .6);
+    background-size: cover;
+    background-position: center center;
+    border-radius: 20px;
+    h1{
+        color:seashell;
+        padding-top: 20px;
+        text-align: center;
+        font-family:'Courier New', Courier, monospace;
+        font-weight: bolder;
+    }
+    .textshow{
+        margin-top: 3vh;
+        line-height: 30px;
+        height: 7vh;
+        color: #fff;
+        padding: 15px;
+        margin-left: 25px;
+        margin-right: 25px;
+        background-color: rgb(68, 70, 77);
+        border: 1px rgb(68, 70, 77) solid;
+        border-radius: 15px;
+        text-align: right;
+    }
+
+    .calcButtons{
+        width: auto;
+        margin-top: 5vh;
+        margin-left: 25px;
+        margin-right: 25px;
+        background-color: rgb(68, 70, 77);
+        padding: 15px;
+        border-radius: 20px;
+        
+    }
+    .buttons{
+        height: 9vh;
+        display: grid;
+        grid-template-columns: repeat(var(--button-columns, 4), 1fr); /* 使用變數設定列數 */
+        gap: 10px;
+        button{
+            font-size: 25px;
+            border-radius: 20px;
+            background-color:seashell;
+            color:slategray;
+            &:hover{
+                background-color:cadetblue;
+                color: #fff;
+                transition: 0.5s;
+            }
+        }
+    }
+    .buttons:last-child{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}

@@ -77,4 +77,73 @@
             }
         }
     }
+    @media (max-width: 425px) {
+        .loginBox {
+            width: 87%; // 使用100%寬度，以適應小屏幕
+            .title {
+                &::before,&::after {
+                    width: 15%;
+                    left: auto;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -5px;
+                }
+            }       
+        }
+    }
+    @media (max-width: 375px) {
+        .loginBox {
+            .title {
+                &::before,&::after {
+                    width: 15%;
+                    left: auto;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -5px;
+                }
+            }
+            h1{
+                font-size: 20px;
+            }             
+        }
+    }
+    @media (max-width: 320px) {
+        .loginBox {
+            .title {
+                &::before,&::after {
+                    width: 13%;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -1px;
+                }
+            } 
+            h1{
+                font-size: 18px;
+            }      
+        }
+    }
 }
+
+
+

@@ -27,6 +27,7 @@ const Page6_03 = lazy( () => import ("../views/Page6_03"));
 const Page6_04 = lazy( () => import ("../views/Page6_04"));
 const Page6_05 = lazy( () => import ("../views/Page6_05"));
 const Page6_06 = lazy( () => import ("../views/Page6_06"));
+const Page6_07 = lazy( () => import ("../views/Page6_07"));
 const Page8_01 = lazy( () => import ("../views/Page8_01"));
 const Page8_02 = lazy( () => import ("../views/Page8_02"));
 const Page8_03 = lazy( () => import ("../views/Page8_03"));
@@ -126,6 +127,10 @@ const Routes = [
             {
                 path:"/Page6/Page6_06",
                 element:WithLoadingComponent(<Page6_06 />)
+            },
+            {
+                path:"/Page6/Page6_07",
+                element:WithLoadingComponent(<Page6_07 />)
             },
             {
                 path:"/page7/page7_01",
