@@ -1,44 +1,47 @@
+import { useState, useEffect } from 'react';
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplateNoReload,
+  validateCaptcha
+} from 'react-simple-captcha';
 
-import { useRef,useState } from "react"
-import styles from "./page8_01.module.scss"
+function RandomCode() {
+  const [captcha, setCaptcha] = useState('');
 
-function Page5_01() {
-  const [items, setItems] = useState<string[]>([]);
-  const [query, setQuery] = useState("");
+  useEffect(() => {
+    loadCaptchaEnginge(4);
+  }, []);
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const filteredItems = items.filter((item:string) =>
-    item.toLowerCase().includes(query.toLowerCase())
-  );
-
-  const addItem = () => {
-    const searchText = inputRef.current?.value;
-    if (searchText !== undefined) {
-      setItems((prev: string[]) => [...prev, searchText]);
-    }
+  const handleCaptchaChange = (e:any) => {
+    setCaptcha(e.target.value);
   };
-  
+
+    console.log(captcha)
+
+  const doSubmit = () => {
+    let user_captcha = captcha;
+
+    if (validateCaptcha(user_captcha)===true) {
+        alert('成功');
+        loadCaptchaEnginge(4); 
+        setCaptcha("");
+    }
+
+    else {
+        alert('失敗');
+        setCaptcha("");
+    }
+};
+
 
   return (
-    <>
-      <div className={styles.main}>Page5_01
-      <div>        
-        <input type="text"  placeholder='新增資料' ref={inputRef}/>
-        <input type="text" placeholder='搜尋資料' onChange={(e)=>setQuery(e.target.value)} />
-        <br/><br/>
-        <button onClick={addItem}>新增資料</button>
-      </div>
-      <div>
-      <ul>
-      {filteredItems.map((item) => (
-        <p key={item}>{item}</p>
-      ))}
-      </ul>
-      </div>
-      </div>
-    </>
-  )
+    <div>
+      <h1>隨機驗證碼生成器</h1>
+      <LoadCanvasTemplateNoReload />
+      <input type="text" onChange={handleCaptchaChange} />
+      <button  onClick={() => doSubmit()}>Submit</button>
+    </div>
+  );
 }
 
-export default Page5_01
+export default RandomCode;

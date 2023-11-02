@@ -1,16 +1,70 @@
 
 import ReactECharts from 'echarts-for-react';
+import { useState , useEffect } from "react";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
+interface weatherElement{
+  parameter :{
+    parameterValue:string;
+  }[];
+  weatherElement:{
+    elementValue: string;
+  }[];
+}
 
 const View = () => {
+  const [saveName , setSaveName] =useState("");
+  const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據
+  const navigateTo = useNavigate();
+  useEffect(() => {
+    const targetURL = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWA-EB3FD491-9755-4E3C-A31D-70C0FCCFD682&format=JSON";
+
+    axios.get(targetURL)
+      .then(function (response) {
+        const data = response.data.records.location;
+        setPost(data); // 將獲得的數據設定到post狀態變數中
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  let str = "2023-07-17-001-834e";
+  console.log(str.slice(0,14));
+
+  const temperature = (location:any) => {
+    
+    const filteredData = post.filter((item:any) =>
+      item.parameter[2].parameterValue.toLowerCase().includes(location.toLowerCase())
+    );
+
+    if (filteredData.length > 0) {
+      return filteredData[0].weatherElement[3].elementValue;
+    }
+    return 'N/A'; // 或者返回一個默認值，表示未找到數據
+  }
+
+  const handleURL = (name:any) => {
+    setSaveName(name.data.name);
+  }
+    useEffect(() => {
+        if(saveName !== ""){
+        navigateTo(`/page8/page8_01?selectLocation=${saveName}`);
+        window.location.reload();
+      }
+    }, [saveName]);
     // 基于准备好的dom，初始化echarts实例
     const option = {
         // 圖表的標題配置
         title: {
-          text: 'ECharts 入门示例'// 圖表的標題文字
+          text: 'ECharts 入门示例' // 圖表的標題文字
         },
         // 提示框配置，當滑鼠懸停在圖表上時會顯示提示資訊
         tooltip: {},
+        legend: {
+          data:['销量']
+        },
         // x軸配置，用於設置橫軸（通常是類別軸）
         xAxis: {
           // 橫軸的數據項目
@@ -33,53 +87,74 @@ const View = () => {
       };
     const option2 ={
       title:{
-        text:"圓餅圖練習"
+        text:"地區即時溫度",
+        left: "center"
       },
       tooltip: {
-        trigger :'item'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
       },
-      legend :{
-        top :'5%',
-        left :'center'
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
       },
+      legend: { 
+        data: '溫度',
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: ['竹北市', '楊梅區', '宜蘭市', '阿里山鄉', '大溪區'],
+          axisTick: {
+            alignWithLabel: true
+          }
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
       series: [
         {
-          name :'Access From',
-          type :'pie',
-          radius :['40%', '70%'],
-          avoidLabelOverlap :false,
-          label: {
-            show :false,
-            position :'inside'
-          },
-          emphasis :{
-            label: {
-              show :true,
-              fontSize :30,
-              fontWeight :'bold'
-            }
-          },
-          labelLine :{
-            show :false
-          },
-          data :[
-            { value :1048, name: '冰箱' },
-            { value :735, name :'電風扇' },
-            { value :580, name :'冷氣' },
-            { value :484, name :'吹風機' },
-            { value :300, name :'電視' }
+          name: '溫度',
+          type: 'bar',
+          barWidth: '60%',
+          data: [
+            { value :temperature("竹北市"), name: '竹北市'},
+            { value :temperature("楊梅區"), name :'楊梅區'},
+            { value :temperature("宜蘭市"), name :'宜蘭市' },
+            { value :temperature("阿里山鄉"), name :'阿里山鄉'},
+            { value :temperature("大溪區"), name :'大溪區' },
           ]
         }
-      ]
+      ],
+      label: {
+        show: true, // 设置为 true，以显示标签
+        position:"inside", // 设置标签显示在柱状图的顶部
+        fontSize:"2rem",
+        
+
+      },
     }
     return(
         <div className='Home'>
             <p>這是Page3_02頁面內容</p>
       {/* 使用 ReactECharts 组件来渲染图表 */}
       <ReactECharts option={option} style={{ height: '400px'}} />
-      <ReactECharts option={option2} style={{ height: '400px'}} />
+      <ReactECharts 
+        option={option2} 
+        style={{ height: '400px'}}   
+        onEvents={{ click: handleURL }}
+        notMerge={true}
+        lazyUpdate={true}
+      />
         </div>
     )
 }
 
-export default View
+export default View            

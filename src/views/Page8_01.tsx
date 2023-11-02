@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import styles from "./page8_01.module.scss";
 import axios from 'axios';
-
+import { useSearchParams } from 'react-router-dom';
 function Page8_01() {
   // 使用useState來宣告多個狀態變數
   const [post, setPost] = useState([]); // 存儲從API獲取的氣象數據
   const [searchLocation, setSearchLocation] = useState(""); // 用戶輸入的地區名稱
   const [filteredData, setFilteredData] = useState([]); // 用於存儲匹配的數據
   const [suggestions, setSuggestions] = useState<string[]>([]); // 存儲匹配的地區名稱建議
+  const [SearchParams] = useSearchParams("");
+
+  const selectLocationX = SearchParams.get("selectLocation") || "";
 
   // useEffect用於在組件加載時發起API請求以獲取氣象數據
   useEffect(() => {
@@ -21,7 +24,16 @@ function Page8_01() {
       .catch(function (error) {
         console.log(error);
       });
+      
   }, []);
+
+  useEffect(()=>{
+    if(selectLocationX){
+      setSearchLocation(selectLocationX);
+      console.log("searchLocation",searchLocation)
+      console.log("selectLocation",selectLocationX)
+    }
+  },[selectLocationX]);
 
   // useEffect用於監聽searchLocation和post的變化，並在它們改變時過濾和更新數據
   useEffect(() => {
@@ -38,7 +50,8 @@ function Page8_01() {
     if (searchLocation === '') {
       setSuggestions([]); // 如果searchLocation為空，清空建議列表
     }
-  }, [searchLocation]);
+    
+  }, [searchLocation,post]);
 
   if (!post) return "No Post !!!";
 
@@ -52,7 +65,11 @@ function Page8_01() {
   return (
     <div className={styles.main}>
       <h1>天氣預報API</h1><hr/>
-      <input value={searchLocation} type="text" placeholder='查詢地區' onChange={inputChange} />
+      <input 
+            value={searchLocation} 
+            type="text" 
+            placeholder='查詢地區1' 
+            onChange={inputChange} /> 
       {/* 顯示匹配的地區名稱建議 */}
       {filteredData.length > 0 ? 
         null : 

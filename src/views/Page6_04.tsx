@@ -76,6 +76,21 @@ function Page6_04() {
     }
   }
 
+  // const M300models = ["0136", "016C", "012C", "012D"];
+  // const M330models = ["014B", "014C", "014A", "0553"];
+  // const M331models = ["0533"];
+  // const M350models = ["015E", "015F", "0160"];
+
+  // const SearchModels = (value:string) =>{
+  //   return M300models.includes(value) && "M301"||
+  //          M330models.includes(value) && "M330"||
+  //          M331models.includes(value) && "M331"||
+  //          M350models.includes(value) && "M350"||
+  //          null
+  // }
+
+  // console.log("SearchModels",SearchModels("sss"))
+
   console.log("firstNumber",firstNumber)
   console.log("operator",operator)
   console.log("lastNumber",lastNumber)
