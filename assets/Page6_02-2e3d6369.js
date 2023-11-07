@@ -1,1 +1,0 @@
-import{r as s,j as e}from"./index-bba9d02d.js";import{s as n}from"./page8_01.module-b4857cfc.js";function u(){const[t,a]=s.useState("");return s.useEffect(()=>{console.log(t)}),e.jsxs("div",{className:n.main,children:[e.jsx("h1",{children:"Page 6_02 頁面"}),e.jsx("input",{type:"text",value:t,onChange:r=>a(r.target.value),placeholder:"請輸入文字"})]})}export{u as default};
