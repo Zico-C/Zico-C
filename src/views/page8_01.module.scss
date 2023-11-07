@@ -111,12 +111,28 @@
         margin: 20px;
     }
 }
-@media (min-width: 320px){
+@media (max-width: 420px){
     .select{
         margin: 0;
         p{
             padding: 14px;
         }
+    }
+    .main{
+        padding: 0;
+        margin: 5px;
+        font-size: 1.5rem;
+        line-height: 24px;
+        input{
+            width: 180px;
+            height: 24px;
+        }
+        label{
+            width: 120px;
+            text-align: right;
+            display: inline-block;
+        }
+        
     }
 }
 .selected {
@@ -124,6 +140,7 @@
         border: 2px solid blue;
         transition: 0.2s;
     }
+
   }
 
 .calc{
