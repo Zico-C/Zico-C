@@ -79,7 +79,7 @@
     }
     @media (max-width: 425px) {
         .loginBox {
-            width: 87%; // 使用100%寬度，以適應小屏幕
+            width: 85%; // 使用100%寬度，以適應小屏幕
             .title {
                 &::before,&::after {
                     width: 15%;

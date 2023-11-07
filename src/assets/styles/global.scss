@@ -24,3 +24,29 @@ img{
 .Home{
     line-height:35px;
 }
+@media (min-width: 320px){
+    button{
+        width: auto;
+        font-size: 15px;
+        padding: 2px;
+    }
+    .logout{
+        font:normal;
+    }
+    .buttonX{
+        margin-left:px;
+    }
+    p{
+        font-size: 18px !important;
+        line-height: 1.2rem;
+    }
+    input{
+        width: 100%;
+    }
+    h1{
+        font-size: 1.6rem;
+    }
+    h2{
+        font-size: 1.5rem;
+    }
+}

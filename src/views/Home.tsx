@@ -112,30 +112,42 @@ const View: React.FC = () => {
         <Header style={{ paddingLeft:"16px", background: colorBgContainer }} >
             {/* 麵包屑欄位 */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', lineHeight: '64px'  }}>
+              {showHamberger ? <Breadcrumb items={[
+                              {
+                                href:"/Zico-C/page1",
+                                title: (
+                                <>
+                                  <HomeOutlined/>
+                                  <span>Home</span>
+                                </>),
+                              },
+                              {
+                                title: 'Zico'
+                              }
+                              ]} />: <Breadcrumb items={[
+                              {
+                                href:"/Zico-C/page1",
+                                title: (
+                                <>
+                                  <HomeOutlined/>
+                                  <span>Home</span>
+                                </>),
+                              },
+                              {
+                                href:'/Zico-C/page3/page3_01',
+                                title: (
+                                <>
+                                  <UserOutlined/>
+                                  <span>User</span>
+                                </>),
+                              },
+                              {
+                                title: 'Zico'
+                              }
+                              ]} />}
 
-              <Breadcrumb items={[
-                {
-                  href:"/Zico-C/page1",
-                  title: (
-                  <>
-                    <HomeOutlined/>
-                    <span>Home</span>
-                  </>),
-                },
-                {
-                  href:'/Zico-C/page3/page3_01',
-                  title: (
-                  <>
-                    <UserOutlined/>
-                    <span>User</span>
-                  </>),
-                },
-                {
-                  title: 'Zico'
-                }
-                ]} />
               <div>
-                <Button type="primary" icon={<LogoutOutlined />} onClick={outlogin}>
+                <Button type="primary" icon={<LogoutOutlined />} onClick={outlogin} >
                   登出
                   {contextHolder}
                 </Button>
@@ -145,7 +157,7 @@ const View: React.FC = () => {
             </div>
         </Header>
         {/* 右邊內容欄 */}
-        <Content style={{ margin: '16px 16px 0' ,background: colorBgContainer}}>
+        <Content style={{ margin: '16px 16px 0' ,background: colorBgContainer}} className='Content'>
             {/* 窗口部分 */}
             <Outlet />
             <FloatButton.BackTop visibilityHeight={120} />

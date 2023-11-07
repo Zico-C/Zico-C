@@ -111,7 +111,14 @@
         margin: 20px;
     }
 }
-
+@media (min-width: 320px){
+    .select{
+        margin: 0;
+        p{
+            padding: 14px;
+        }
+    }
+}
 .selected {
     p{
         border: 2px solid blue;
