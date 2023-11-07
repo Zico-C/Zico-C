@@ -102,9 +102,6 @@ const View = () => {
         bottom: '3%',
         containLabel: true
       },
-      legend: { 
-        data: '溫度',
-      },
       xAxis: [
         {
           type: 'category',

@@ -254,7 +254,7 @@ const Comp: React.FC = () => {
       setOpenKeys([keys[keys.length-1]]);
     }
 
-    
+     
     return(
         <Menu 
         theme="dark" 
@@ -268,7 +268,7 @@ const Comp: React.FC = () => {
         onOpenChange={handleOpenChange}
         //當前菜單展開時的key數組
         openKeys = {openKeys}
-      />
+        />
     )
 
 

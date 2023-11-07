@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import {useState ,useEffect} from "react";
+import {useState } from "react";
 
   const fetchPokeAPI = async ({queryKey}:any) => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${queryKey[1]}/`);
@@ -30,17 +30,7 @@ function View() {
     }
   );
 
-  useEffect(() => {
-    // 在組件首次加載時，讀取 dexId 的值，若沒有讀取到給他預設為 1
-    const newPokeMonId = parseInt(localStorage.getItem('PokeMon') as string )|| 1;
-    setDexId(newPokeMonId);
-  }, []);
 
-  useEffect(() => {
-    // 在 dexId 更改時，將其保存到 localStorage
-    localStorage.setItem('PokeMon', dexId.toString());
-  }, [dexId]);
-  
   if (isError) {
     // 如果数据获取失败，则显示错误消息
     return <h1>{(error as Error).message}</h1>;

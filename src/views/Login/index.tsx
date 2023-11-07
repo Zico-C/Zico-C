@@ -10,8 +10,14 @@ import { generateToken } from "./xxx.tsx"
 // import { CaptchaAPI , LoginAPI } from "@/request/api.ts";
 // 從 react-router-dom 引入 useNavigate 實現跳轉頁面
 import { useNavigate } from "react-router-dom"
-import getcaptchaImg  from '../../assets/22d5n.png'
+// import getcaptchaImg  from '../../assets/22d5n.png'
 import { setEmail, setIsLogin, setUser, setIevel } from "@/redux_redux_toolkit/store/globalSlice.tsx";
+// 引入驗證碼
+import {
+    loadCaptchaEnginge,
+    LoadCanvasTemplateNoReload,
+    validateCaptcha
+  } from 'react-simple-captcha';
 const view = () =>{
     let NavigateTo = useNavigate();
     const disp = useAppDispatch();
@@ -28,6 +34,7 @@ const view = () =>{
             // 當窗口大小發生變化時，我們再次呼叫 initLoginBg 函式
             initLoginBg();
         };
+        loadCaptchaEnginge(5,"rgba(255, 255, 255, 0)","lime")
         // getcaptchaImg();
     },[]); //一定要加[] 空數組作為依賴，確定只要組件掛載時執行
     //背景初始化應該只在頁面加載時執行一次，而不會在用戶輸入文本或其他事件觸發時重新加載
@@ -87,8 +94,8 @@ const view = () =>{
                 //4.刪除本地保存中的 "uuid"
                 localStorage.removeItem("uuid");
             }*/
-            if ((userNameValue === "zico12356" && passWordValue === "123456" && captchValue === "22d5n")||
-                (userNameValue === "user5566" && passWordValue === "123456" && captchValue === "22d5n")) {
+            if ((userNameValue === "zico12356" && passWordValue === "123456" && validateCaptcha(captchValue)===true||
+                (userNameValue === "user5566" && passWordValue === "123456" && validateCaptcha(captchValue)===true))) {
                 // 1.提示登入成功
                 message.success("登入成功！");
                 // 2.保存token、User.name
@@ -105,8 +112,10 @@ const view = () =>{
                 NavigateTo("/page1");
 
 
-            } else {
-                message.error("登入失败，請檢查帳號、密碼和驗證碼！");
+            } else if(validateCaptcha(captchValue)===false){
+                message.error("登入失败，驗證碼輸入錯誤，請重新輸入！");
+            }else{
+                message.error("登入失败，請檢查帳號、密碼！");
             }
 
     }
@@ -149,10 +158,9 @@ const view = () =>{
                         <Input.Password placeholder="User Password"  onChange={passWordChange}/>
                         <div className="captchaBox">
                             <Input placeholder="Input Captcha" onChange={captchChange} />
-                            <div    className="captchaImg" 
-                                    // onClick={getcaptchaImg}
-                                    >
-                                <img height="38" src={getcaptchaImg} alt="" />
+                            <div  className="captchaImg">
+                                {/* <img height="38" src={getcaptchaImg} alt="" /> */}
+                                <LoadCanvasTemplateNoReload  />
                             </div>
                         </div>
                         <Button type="primary" className="loginBtn" block onClick={gotoLogin}>Sign in</Button>
