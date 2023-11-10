@@ -16,6 +16,7 @@
     "@craco/craco": "^5.9.0",
     "@reach/visually-hidden": "^0.18.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@syncfusion/ej2-react-spreadsheet": "^23.1.44",
     "antd": "^5.9.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.5.0",

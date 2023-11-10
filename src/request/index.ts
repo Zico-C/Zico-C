@@ -12,13 +12,14 @@ const instance = axios.create({
 // 請求攔截器
 instance.interceptors.request.use(config=>{
     // 請求攔截器允許你在發送請求前對請求進行一些處理，這裡不對請求進行修改，直接返回 config
+
     return config
 },err=>{
     // 如果請求出現錯誤，這裡將錯誤返回，以便後續處理
     return Promise.reject(err);
 });
 
-//響應式攔截器
+//回覆攔截器
 instance.interceptors.response.use(res=>{
     // 響應攔截器允許你在接收到響應後對其進行一些處理，這裡返回響應的數據部分
     return res.data

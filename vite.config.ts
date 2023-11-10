@@ -7,7 +7,7 @@ export default defineConfig({
   base:"/Zico-C/",
   resolve:{
     alias:{
-      "@":path.resolve(__dirname,'./src')
+      "@":path.resolve(__dirname,'./src',)
     }
   }
 })

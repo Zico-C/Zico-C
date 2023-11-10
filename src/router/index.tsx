@@ -16,6 +16,10 @@ const Page4_02 = lazy( () => import ("../views/Page4_02"));
 const Page5_01 = lazy( () => import ("../views/Page5_01"));
 const Page5_02 = lazy( () => import ("../views/Page5_02"));
 const Page5_03 = lazy( () => import ("../views/Page5_03"));
+const Page5_04 = lazy( () => import ("../views/Page5_04"));
+const Page5_05 = lazy( () => import ("../views/Page5_05"));
+const Page5_06 = lazy( () => import ("../views/Page5_06"));
+const Page5_07 = lazy( () => import ("../views/Page5_07"));
 const Page7_01 = lazy( () => import ("../views/Page7_01"));
 const Page7_02 = lazy( () => import ("../views/Page7_02"));
 const Page7_03 = lazy( () => import ("../views/Page7_03"));
@@ -103,6 +107,22 @@ const Routes = [
             {
                 path:"/Page5/Page5_03",
                 element:WithLoadingComponent(<Page5_03 />)
+            },
+            {
+                path:"/Page5/Page5_04",
+                element:WithLoadingComponent(<Page5_04 />)
+            },
+            {
+                path:"/Page5/Page5_05",
+                element:WithLoadingComponent(<Page5_05 />)
+            },
+            {
+                path:"/Page5/Page5_06",
+                element:WithLoadingComponent(<Page5_06 />)
+            },
+            {
+                path:"/Page5/Page5_07",
+                element:WithLoadingComponent(<Page5_07 />)
             },
             {
                 path:"/Page6/Page6_01",

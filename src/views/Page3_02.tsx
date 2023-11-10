@@ -21,11 +21,11 @@ const View = () => {
     const targetURL = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWA-EB3FD491-9755-4E3C-A31D-70C0FCCFD682&format=JSON";
 
     axios.get(targetURL)
-      .then(function (response) {
+      .then((response) => {
         const data = response.data.records.location;
         setPost(data); // 將獲得的數據設定到post狀態變數中
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }, []);

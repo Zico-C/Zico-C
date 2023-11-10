@@ -41,3 +41,4 @@ export interface Post {
     author:    string;
     memberNum: number;
 }
+////////////////////////////////////////
