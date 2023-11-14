@@ -1,0 +1,27 @@
+/* styles.css */
+.custom-marker-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #ff0000; /* 自定義背景色 */
+  border-radius: 50%; /* 圓形圖標 */
+  text-align: center;
+  line-height: 32px;
+  color: #ffffff; /* 字體顏色 */
+}
+
+.markerWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .markerIcon {
+    margin-top: 2px;
+    margin-left: 10px;
+    height: 1.4rem;
+    width: 1.1rem;
+  }
+  p {
+    margin: 0;
+    margin-left: 3px;
+    font-weight: 500;
+  }
+}
