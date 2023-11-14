@@ -11,15 +11,17 @@ function Page6_02() {
   const result = () =>{
     if((number1 + number2) === inputText){
       alert("成功 !!!");
+      location.reload();
     }else{
       alert("錯誤 !!!")
+      location.reload();
     }
   }
 
   return (
     <div className={styles.main}>
       <h1>Page 6_02 頁面</h1>
-      <span>{number1} + {number2}</span>
+       <span>{number1} + {number2}</span>
       <input type="number" onChange={(e)=>setInputText(e.target.valueAsNumber)} />
       <button onClick={result}>送出</button>
     </div>

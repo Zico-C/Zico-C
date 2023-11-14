@@ -33,7 +33,6 @@ const Planet = ({ planet }:any) => {
 const Planets = () => {
   const [page, setPage] = useState(1);
   // 使用 useQueryClient hook 來訪問 QueryClient 實例
-  const queryClient = useQueryClient();
 
   const fetchPlanets = async ({ queryKey }:{ queryKey:any }) => {
     console.log("queryKey",queryKey)

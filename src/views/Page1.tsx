@@ -1,10 +1,14 @@
+import axios from "axios"
 import { useAppSelector } from "../store/hook"
 import styles from "./page8_01.module.scss"
-
+import { useMutation, useQueryClient } from "react-query";
+import { useEffect } from "react";
 
 
 function Page1() {
     const {isLogin, user ,email ,level} = useAppSelector((state:RootState) => state.global)
+
+
       console.log("isLogin", isLogin)
       console.log("user" , user)
       console.log("email" , email)

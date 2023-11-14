@@ -117,7 +117,7 @@ const Routes = [
                 element:WithLoadingComponent(<Page5_05 />)
             },
             {
-                path:"/Page5/Page5_06",
+                path:"/Page5/Page5_06/*",
                 element:WithLoadingComponent(<Page5_06 />)
             },
             {

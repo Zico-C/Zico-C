@@ -49,5 +49,21 @@
       "title": "每周報告-C",
       "subtitle": "製作報告內容及熟悉 O'smart 專案，了解順序 1、Component 組件熟悉，2、了解 Report 組件"
     }
+  ],
+  "loginLog": [
+    {
+      "id": 1,
+      "user": "user5566",
+      "email": "user5566@gmail.com",
+      "level": "normal",
+      "LoginTime": "2023/11/13"
+    },
+    {
+      "id": 2,
+      "user": "user5566",
+      "email": "user5566@gmail.com",
+      "level": "normal",
+      "LoginTime": "2023-11-13 06:07:01"
+    }
   ]
 }

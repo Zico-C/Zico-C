@@ -28,6 +28,7 @@ import { Provider } from "react-redux";
 import store from "@/store";
 // import store from "./redux_redux_toolkit/store.tsx"
 const queryClient = new QueryClient();
+// 頁面第一次渲染從這裡開始
 ReactDOM.createRoot(document.getElementById('root')!).render(
   //<React.StrictMode> = 嚴格模式
   //<React.StrictMode>

@@ -12,7 +12,7 @@ function NotLogin() {
 
     const handleLogin = () =>{
       const nameValue = nameRef?.current?.value;
-      const ageValue = ageRef?.current?.value;
+      const ageValue: number = parseInt(ageRef?.current?.value || "0", 10);
       const emailValue = emailRef?.current?.value;
       dispatch(setLogin({
           name:nameValue,
@@ -21,7 +21,7 @@ function NotLogin() {
         }
       ));
     };
-
+    console.log(ageRef?.current?.type)
   return (
     <div className={styles.main}>
       <label htmlFor="name">Name：</label>

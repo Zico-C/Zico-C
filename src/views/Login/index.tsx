@@ -18,6 +18,8 @@ import {
     LoadCanvasTemplateNoReload,
     validateCaptcha
   } from 'react-simple-captcha';
+import { useMutation, useQueryClient } from "react-query";
+import axios from "axios";
 const view = () =>{
     let NavigateTo = useNavigate();
     const disp = useAppDispatch();
@@ -60,6 +62,42 @@ const view = () =>{
     const  captchChange = (e:ChangeEvent<HTMLInputElement>) => {
         setcaptchValue(e.target.value);
     }
+
+
+    const queryClient = useQueryClient();
+    let onTime = new Date();
+    const createPostAPI = async ({id,user,email,level,LoginTime}:{id:number,user:string,email:string,level:string,LoginTime:string}) => {
+      try {
+        const res = await axios("http://localhost:3005/loginLog", {
+          method:"POST",
+          headers:{
+            "content-type": "application/json",
+          },
+          data: JSON.stringify({
+          id,
+          user,
+          email,
+          level,
+          LoginTime,
+          })
+        });
+    
+        const data = await res.data;
+        return data;
+      } catch (error) {
+        console.log("Axios Error:", error);
+        throw new Error("API request Failed");
+      }
+    };
+    
+    
+    const createPostMutation = useMutation(createPostAPI, {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(data);
+        console.log(data);
+      }
+    });
+
 
     // 定義一個函數名為 gotoLogin，用於處理用戶的登入操作
     const gotoLogin = async() =>{
@@ -108,6 +146,16 @@ const view = () =>{
                 disp(setIsLogin(true));
                 disp(setEmail(`${userNameValue}@gmail.com`));
                 disp(setIevel(userNameValue));;
+                
+
+                createPostMutation.mutate({
+                    id:0,
+                    user:userNameValue,
+                    email:`${userNameValue}@gmail.com`,
+                    level:localStorage.getItem("User.level")||"",
+                    LoginTime:onTime.toISOString().slice(0, 19).replace("T", " ")
+                });
+
                 // 3.跳轉到(首頁) /page1
                 NavigateTo("/page1");
 
