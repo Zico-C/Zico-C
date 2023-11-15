@@ -1,9 +1,10 @@
-import React from "react";
 import { useAppSelector } from "@/store/hook";
 function Page6_02() {
   const { filter } = useAppSelector((state) => state.Map);
   const [getName, setGetName] = filter.name ? filter.name : "";
   const [getType, setGetType] = filter.type ? filter.type : "";
+
+  console.log(setGetName, setGetType);
 
   return (
     <>
