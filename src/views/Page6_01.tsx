@@ -2,13 +2,16 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import { useEffect, useState } from "react";
-import { Card, Checkbox, Grid, Typography } from "antd";
+import { Button, Card, Checkbox, Grid, Typography } from "antd";
 import Control from "react-leaflet-control";
 import { ControlOutlined } from "@ant-design/icons";
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
-import styles from "./page6_01.scss";
+import Meta from "antd/es/card/Meta";
+import { useAppDispatch } from "@/store/hook";
+import { setFilterName } from "@/redux_redux_toolkit/store/travelMapSlice";
+import { useNavigate } from "react-router-dom";
 // 在 React 組件中引入 CSS 檔案
 
 /*  MapContainer：這是地圖的容器，用來顯示地圖。
@@ -16,12 +19,20 @@ import styles from "./page6_01.scss";
     Marker：這是地圖上的標記點，可以用來標示位置。
     Popup：這是標記點的彈出窗口，顯示有關該標記點的信息。
 */
+
+interface MapData {
+  id: number;
+  name: string;
+  type: string;
+}
+
 const { useBreakpoint } = Grid;
 const { Text } = Typography;
 
 function MapView() {
   const screens = useBreakpoint();
-
+  const disp = useAppDispatch();
+  const navigateTo = useNavigate();
   const [disableClusteringAtZoom] = useState(15);
   // 控制是否顯示設備位置 "show Location" 是否顯示
   const [showLocation, setShowLocation] = useState(false);
@@ -48,6 +59,7 @@ function MapView() {
       type: "景點",
       officialWeb: "https://hsinchupark.hccg.gov.tw/#/home",
       googleMap: "https://maps.app.goo.gl/SxA1LHhCgrmuSoE88",
+      icon: "https://lh5.googleusercontent.com/p/AF1QipOokKFZNeZInCUZSPcQJh1gywjRP0cfASGlFqZa=w408-h272-k-no",
     },
     {
       id: 2,
@@ -55,6 +67,7 @@ function MapView() {
       name: "新竹動物園",
       type: "景點",
       googleMap: "https://maps.app.goo.gl/8Nc9JnUiJtf69ovC7",
+      icon: "https://www.dabencar.com/archive/image/article5/35b877a69be2849a.jpg",
     },
     {
       id: 3,
@@ -62,6 +75,7 @@ function MapView() {
       name: "新竹火車站",
       type: "大眾交通工具",
       officialWeb: "https://www.railway.gov.tw/tra-tip-web/tip",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/%E6%96%B0%E7%AB%B9%E7%81%AB%E8%BB%8A%E7%AB%99%EF%BC%882020%E5%B9%B4%E6%8B%8D%E6%94%9D%EF%BC%89.jpg/1200px-%E6%96%B0%E7%AB%B9%E7%81%AB%E8%BB%8A%E7%AB%99%EF%BC%882020%E5%B9%B4%E6%8B%8D%E6%94%9D%EF%BC%89.jpg",
     },
     {
       id: 4,
@@ -69,6 +83,7 @@ function MapView() {
       name: "新竹城隍廟",
       type: "美食",
       googleMap: "https://maps.app.goo.gl/zirQEaWhozH58C9Q9",
+      icon: "https://upload.wikimedia.org/wikipedia/commons/5/57/COVID-19%E6%9C%9F%E9%96%93%E7%9A%84%E6%96%B0%E7%AB%B9%E9%83%BD%E5%9F%8E%E9%9A%8D%E5%BB%9F.jpg",
     },
     {
       id: 5,
@@ -77,6 +92,7 @@ function MapView() {
       type: "美食",
       officialWeb: "https://www.febigcity.com/bigcity",
       googleMap: "https://maps.app.goo.gl/FBQxYSpNicraEdVt5",
+      icon: "https://img.ltn.com.tw/Upload/news/600/2022/11/12/4121506_1_1.jpg",
     },
   ];
   const customMarkerIcon = (location: string, index: number, type: string) =>
@@ -120,6 +136,12 @@ function MapView() {
   // 將地圖變化事件，狀態保存在本地儲存
   const onViewportChanged = (viewport: any) => {
     localStorage.setItem("viewport", JSON.stringify(viewport));
+  };
+  // 點擊 Card "view page" 點擊事件
+  const onPopClick = (makresName: MapData) => {
+    console.log("type", makresName);
+    disp(setFilterName({ name: [makresName.name], type: [makresName.type] }));
+    navigateTo("/page6/page6_02");
   };
 
   return (
@@ -207,11 +229,21 @@ function MapView() {
                 >
                   <Popup>
                     <Card
-                      bordered={false}
-                      style={{ width: "auto", margin: "0", padding: "0" }}
+                      hoverable
+                      cover={
+                        marker.icon ? (
+                          <img alt={marker.name} src={marker.icon} />
+                        ) : null
+                      }
+                      bordered={true}
+                      style={{
+                        width: 234,
+                        margin: "0",
+                        padding: "0",
+                        cursor: "auto",
+                      }}
                     >
-                      <h1>{marker.name}</h1>
-                      <p style={{ margin: "0" }}>【{marker.type}】</p>
+                      <Meta title={marker.name} description={marker.type} />
                       <hr color="gray" />
                       {marker.officialWeb && (
                         <>
@@ -229,6 +261,13 @@ function MapView() {
                           <br />
                         </>
                       )}
+                      <Button
+                        type="link"
+                        style={{ padding: 0 }}
+                        onClick={() => onPopClick(marker)}
+                      >
+                        view page
+                      </Button>
                     </Card>
                   </Popup>
                 </Marker>

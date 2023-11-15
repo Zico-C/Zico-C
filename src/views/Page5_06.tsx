@@ -1,7 +1,7 @@
 import { Map, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "react-leaflet-markercluster/dist/styles.min.css";
-import MarkerClusterGroup  from "react-leaflet-markercluster";
+import MarkerClusterGroup from "react-leaflet-markercluster";
 import { ReactNode } from "react";
 
 interface ModifiedMarkerClusterGroupProps {
@@ -21,7 +21,11 @@ const App = () => {
   ];
 
   return (
-    <Map center={[51.0, 19.0]} zoom={4} style={{ height: "100vh", width: "100%" }}>
+    <Map
+      center={[51.0, 19.0]}
+      zoom={4}
+      style={{ height: "100vh", width: "100%" }}
+    >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useMutation } from "react-query";
-import styles from "./page8_01.module.scss"
-import { message} from "antd";
+import styles from "./page8_01.module.scss";
+import { message } from "antd";
 // 定義傳送座標資料到後端的異步函數
-const sendCoordinatesToBackend = async (data:any) => {
+const sendCoordinatesToBackend = async (data: any) => {
   try {
     // 使用 fetch 函數向後端 API 傳送 POST 要求
     const response = await fetch("http://localhost:3005/locationIP", {
@@ -36,26 +36,24 @@ function App() {
 
   const warning = () => {
     messageApi.open({
-      type: 'warning',
-      content: '請填入上傳人員',
-
+      type: "warning",
+      content: "請填入上傳人員",
     });
   };
-
 
   // 當點擊按鈕時觸發的函數
   const getLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
         const { latitude, longitude } = position.coords;
-        
+
         const name = inputNameRef.current?.value;
-        
-        if(name !== "" && name?.trim() !== ""){
-          const updateTime = new Date().toLocaleString('zh-TW');
+
+        if (name !== "" && name?.trim() !== "") {
+          const updateTime = new Date().toLocaleString("zh-TW");
           setLatitude(latitude);
           setLongitude(longitude);
-          
+
           // 使用mutate觸發mutation，傳遞參數
           createPostMutation.mutate({
             id: 0,
@@ -64,29 +62,25 @@ function App() {
             latitude: latitude,
             longitude: longitude,
           });
-        }else{         
-          warning() ;
+        } else {
+          warning();
           inputNameRef.current?.focus();
         }
       });
     } else {
       console.log("瀏覽器不支援地理位置服務"); // 如果瀏覽器不支援地理位置服務，則輸出錯誤日誌
     }
-  }
+  };
 
   return (
-    
     <div className={styles.main}>
       {contextHolder}
-      <input 
-        type="text" 
-        placeholder="上傳人員" 
-        ref={inputNameRef} /><br/>
+      <input type="text" placeholder="上傳人員" ref={inputNameRef} />
+      <br />
       <button onClick={getLocation}>獲取並發送座標</button>
       <p>緯度：{latitude}</p>
       <p>經度：{longitude}</p>
     </div>
-
   );
 }
 

@@ -1,31 +1,18 @@
-import { useState } from "react";
-import styles from "./page8_01.module.scss"
-
-
-var number1 = Math.floor(Math.random()*101);
-var number2 = Math.floor(Math.random()*101);
-
+import React from "react";
+import { useAppSelector } from "@/store/hook";
 function Page6_02() {
-  const [inputText,setInputText] = useState(0);
-
-  const result = () =>{
-    if((number1 + number2) === inputText){
-      alert("成功 !!!");
-      location.reload();
-    }else{
-      alert("錯誤 !!!")
-      location.reload();
-    }
-  }
+  const { filter } = useAppSelector((state) => state.Map);
+  const [getName, setGetName] = filter.name ? filter.name : "";
+  const [getType, setGetType] = filter.type ? filter.type : "";
 
   return (
-    <div className={styles.main}>
-      <h1>Page 6_02 頁面</h1>
-       <span>{number1} + {number2}</span>
-      <input type="number" onChange={(e)=>setInputText(e.target.valueAsNumber)} />
-      <button onClick={result}>送出</button>
-    </div>
-  )
+    <>
+      <div>
+        <h1>{getName}</h1>
+        <h1>{getType}</h1>
+      </div>
+    </>
+  );
 }
 
-export default Page6_02
+export default Page6_02;

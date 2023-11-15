@@ -3,13 +3,14 @@ import globalSlice from "../redux_redux_toolkit/store/globalSlice";
 import UserSlice from "@/views/ReduxPage/Store/UserSlice";
 import ArrStatus from "./ArrStatus/reducer";
 import NumStatus from "./NumStatus/reducer";
+import travelMapSlice from "../redux_redux_toolkit/store/travelMapSlice";
 const store = configureStore({
   reducer: {
     ArrStatus,
     NumStatus,
     global: globalSlice,
-    user:UserSlice,
-
+    user: UserSlice,
+    Map: travelMapSlice.reducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

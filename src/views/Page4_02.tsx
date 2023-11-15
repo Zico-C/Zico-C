@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-
-
+import { useState, useEffect } from "react";
 
 function View() {
   const [varA, setVarA] = useState(0);
@@ -11,18 +9,15 @@ function View() {
 
     return () => clearTimeout(timeout);
   }, [varA]);
-  
- 
+
   useEffect(() => {
     const timeout = setTimeout(() => setVarB((prev) => prev + 2), 2000);
 
     return () => clearTimeout(timeout);
   }, [varB]);
 
-
-
   return (
-    <div className='Home'>
+    <div className="Home">
       <h1>這是page4_02的頁面</h1>
       <p>VarA ：{varA}</p>
       <p>VarB ：{varB}</p>
@@ -30,4 +25,4 @@ function View() {
   );
 }
 
-export default View
+export default View;
