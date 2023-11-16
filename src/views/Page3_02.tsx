@@ -23,7 +23,7 @@ const View = () => {
     axios
       .get(targetURL)
       .then((response) => {
-        const data = response.data.records.location;
+        const data = response.data.records.Station;
         setPost(data); // 將獲得的數據設定到post狀態變數中
       })
       .catch((error) => {
@@ -33,16 +33,23 @@ const View = () => {
 
   let str = "2023-07-17-001-834e";
   console.log(str.slice(0, 14));
+  console.log(post);
 
-  const temperature = (location: any) => {
-    const filteredData = post.filter((item: any) =>
-      item.parameter[2].parameterValue
-        .toLowerCase()
-        .includes(location.toLowerCase())
+  console.log(
+    post.filter((item: any) => {
+      console.log(
+        item.GeoInfo.TownName.toLowerCase().includes("竹北".toLowerCase())
+      );
+    })
+  );
+
+  const temperature = (location: string) => {
+    const filteredData: any = post.filter((item: any) =>
+      item.GeoInfo.TownName.toLowerCase().includes(location.toLowerCase())
     );
 
     if (filteredData.length > 0) {
-      return filteredData[0].weatherElement[3].elementValue;
+      return filteredData[0].WeatherElement?.AirTemperature;
     }
     return "N/A"; // 或者返回一個默認值，表示未找到數據
   };
@@ -53,7 +60,6 @@ const View = () => {
   useEffect(() => {
     if (saveName !== "") {
       navigateTo(`/page8/page8_01?selectLocation=${saveName}`);
-      window.location.reload();
     }
   }, [saveName]);
   // 基于准备好的dom，初始化echarts实例

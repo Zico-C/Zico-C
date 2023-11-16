@@ -41,7 +41,6 @@
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "1.4.1",
     "mammoth": "^1.6.0",
-    "messaging-api-line": "^1.1.0",
     "pdfkit": "^0.13.0",
     "pdfmake": "^0.2.7",
     "postcss": "^8.4.31",

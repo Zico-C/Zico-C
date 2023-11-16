@@ -20,7 +20,7 @@ function Page8_01() {
     axios
       .get(targetURL)
       .then(function (response) {
-        const data = response.data.records.location;
+        const data = response.data.records.Station;
         setPost(data); // 將獲得的數據設定到post狀態變數中
       })
       .catch(function (error) {
@@ -39,20 +39,19 @@ function Page8_01() {
   // useEffect用於監聽searchLocation和post的變化，並在它們改變時過濾和更新數據
   useEffect(() => {
     // 使用過濾邏輯來找到匹配的數據
-    const filtered = post.filter(
-      (item: any) =>
-        item.parameter[2].parameterValue.toLowerCase() === searchLocation
+    const filtered: any = post.filter(
+      (item: any) => item.GeoInfo.TownName.toLowerCase() === searchLocation
     );
     setFilteredData(filtered); // 更新filteredData狀態變數
 
     // 過濾匹配的地區名稱並存儲在suggestions中
     const matchingSuggestions = post
       .filter((item: any) =>
-        item.parameter[2].parameterValue
-          .toLowerCase()
-          .includes(searchLocation.toLowerCase())
+        item.GeoInfo.TownName.toLowerCase().includes(
+          searchLocation.toLowerCase()
+        )
       )
-      .map((item: any) => item.parameter[2].parameterValue);
+      .map((item: any) => item.GeoInfo.TownName);
     setSuggestions(matchingSuggestions); // 更新suggestions狀態變數
 
     if (searchLocation === "") {
@@ -63,6 +62,7 @@ function Page8_01() {
   if (!post) return "No Post !!!";
 
   console.log("post", post);
+  console.log("filteredData");
 
   // 處理用戶輸入的函數，當輸入框的值變化時觸發
   const inputChange = (value: any) => {
@@ -106,19 +106,41 @@ function Page8_01() {
       <ul>
         {filteredData.map((item: any, index: any) => (
           <li key={index}>
-            <p>縣市：{item.parameter[0].parameterValue}</p>
-            <p>地區：{item.parameter[2].parameterValue}</p>
-            <p>測站位置：{item.locationName}</p>
-            <p>當前溫度：{item.weatherElement[3].elementValue}</p>
-            <p>更新時間：{item.time.obsTime}</p>
-            {item.weatherElement[20].elementValue != -99 ? (
+            <p>縣市：{item.GeoInfo.CountyName}</p>
+            <p>地區：{item.GeoInfo.TownName}</p>
+            <p>測站位置：{item.StationName}</p>
+            <p>
+              當前溫度：
+              {item.WeatherElement.AirTemperature}
+            </p>
+            <p>
+              更新時間：
+              {item.ObsTime.DateTime.toString()
+                .replace("T", " ")
+                .replace(/:/g, "-")
+                .substring(0, 19)}
+            </p>
+            {item.WeatherElement.AirTemperature != -99 ? (
               <>
-                <p>天氣：{item.weatherElement[20].elementValue}</p>
+                <p>天氣：{item.WeatherElement.Weather}</p>
               </>
             ) : null}
-            {item.weatherElement[19].elementValue != -99 ? (
+            {item.WeatherElement.AirTemperature != -99 ? (
               <>
-                <p>十分鐘後溫度預測：{item.weatherElement[19].elementValue}</p>
+                <p>
+                  今日最高溫：
+                  {
+                    item.WeatherElement?.DailyExtreme?.DailyHigh
+                      ?.TemperatureInfo?.AirTemperature
+                  }
+                </p>
+                <p>
+                  今日最低溫：
+                  {
+                    item.WeatherElement?.DailyExtreme?.DailyLow?.TemperatureInfo
+                      ?.AirTemperature
+                  }
+                </p>
               </>
             ) : null}
             <hr />
