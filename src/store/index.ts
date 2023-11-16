@@ -10,7 +10,7 @@ const store = configureStore({
     NumStatus,
     global: globalSlice,
     user: UserSlice,
-    Map: travelMapSlice.reducer,
+    Map: travelMapSlice,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

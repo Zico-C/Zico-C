@@ -1,15 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Marker {
+  id: number;
+  position: [number, number];
+  name: string;
+  type: string;
+  officialWeb?: string;
+  googleMap?: string;
+  icon?: string;
+}
 interface travelMapSlice {
   filter: Record<string, string[]>;
+  markers: Marker[];
 }
 
-export const initialState: travelMapSlice = {
+const initialState: travelMapSlice = {
   filter: {
     id: [],
     name: [],
     type: [],
   },
+  markers: JSON.parse(localStorage.getItem("markers") || "[]"),
 };
 
 const travelMapSlice = createSlice({
@@ -19,12 +30,12 @@ const travelMapSlice = createSlice({
     setFilterName: (state, action: PayloadAction<travelMapSlice["filter"]>) => {
       state.filter = action.payload;
     },
-    setFilterType: (state, action: PayloadAction<travelMapSlice["filter"]>) => {
-      state.filter = action.payload;
+    setMarkersS: (state, action: PayloadAction<travelMapSlice["markers"]>) => {
+      state.markers = action.payload;
     },
   },
 });
 
-export const { setFilterName, setFilterType } = travelMapSlice.actions;
+export const { setFilterName, setMarkersS } = travelMapSlice.actions;
 
-export default travelMapSlice;
+export default travelMapSlice.reducer;

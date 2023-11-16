@@ -10,8 +10,14 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
 import Meta from "antd/es/card/Meta";
 import { useAppDispatch } from "@/store/hook";
-import { setFilterName } from "@/redux_redux_toolkit/store/travelMapSlice";
+import {
+  setFilterName,
+  setMarkersS,
+} from "@/redux_redux_toolkit/store/travelMapSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useQuery } from "react-query";
+import { setTimeZone } from "@/redux_redux_toolkit/store/globalSlice";
 // 在 React 組件中引入 CSS 檔案
 
 /*  MapContainer：這是地圖的容器，用來顯示地圖。
@@ -24,6 +30,17 @@ interface MapData {
   id: number;
   name: string;
   type: string;
+}
+
+// 定義 Marker 介面
+interface Markers {
+  id: number;
+  position: [number, number];
+  name: string;
+  type: string;
+  officialWeb?: string;
+  googleMap?: string;
+  icon?: string;
 }
 
 const { useBreakpoint } = Grid;
@@ -39,10 +56,13 @@ function MapView() {
   // 控制是否顯示設備位置 "show Type" 是否顯示
   const [showType, setShowType] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  // 保存 地圖 viewport 位置
   const [viewport, setViewPort] = useState({
     center: [24.80063398900308, 120.97787231991643],
     zoom: 12,
   });
+  // 保存 axios 請求回來的 map_markers (地圖標記)API
+  const [markers, setMarkers] = useState<Markers[]>([]);
   useEffect(() => {
     const localViewport = localStorage.getItem("viewport");
     if (!localViewport) {
@@ -50,51 +70,35 @@ function MapView() {
     }
     setViewPort(JSON.parse(localViewport));
   }, []);
-  // 設定地圖上的標記聚類行為
-  const markers = [
-    {
-      id: 1,
-      position: [24.80063398900308, 120.97787231991643],
-      name: "新竹公園",
-      type: "景點",
-      officialWeb: "https://hsinchupark.hccg.gov.tw/#/home",
-      googleMap: "https://maps.app.goo.gl/SxA1LHhCgrmuSoE88",
-      icon: "https://lh5.googleusercontent.com/p/AF1QipOokKFZNeZInCUZSPcQJh1gywjRP0cfASGlFqZa=w408-h272-k-no",
-    },
-    {
-      id: 2,
-      position: [24.80016211057047, 120.97992782840024],
-      name: "新竹動物園",
-      type: "景點",
-      googleMap: "https://maps.app.goo.gl/8Nc9JnUiJtf69ovC7",
-      icon: "https://www.dabencar.com/archive/image/article5/35b877a69be2849a.jpg",
-    },
-    {
-      id: 3,
-      position: [24.801613979783625, 120.97158683304652],
-      name: "新竹火車站",
-      type: "大眾交通工具",
-      officialWeb: "https://www.railway.gov.tw/tra-tip-web/tip",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/%E6%96%B0%E7%AB%B9%E7%81%AB%E8%BB%8A%E7%AB%99%EF%BC%882020%E5%B9%B4%E6%8B%8D%E6%94%9D%EF%BC%89.jpg/1200px-%E6%96%B0%E7%AB%B9%E7%81%AB%E8%BB%8A%E7%AB%99%EF%BC%882020%E5%B9%B4%E6%8B%8D%E6%94%9D%EF%BC%89.jpg",
-    },
-    {
-      id: 4,
-      position: [24.804515249498532, 120.96593682133481],
-      name: "新竹城隍廟",
-      type: "美食",
-      googleMap: "https://maps.app.goo.gl/zirQEaWhozH58C9Q9",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/5/57/COVID-19%E6%9C%9F%E9%96%93%E7%9A%84%E6%96%B0%E7%AB%B9%E9%83%BD%E5%9F%8E%E9%9A%8D%E5%BB%9F.jpg",
-    },
-    {
-      id: 5,
-      position: [24.809903505194157, 120.97507425837118],
-      name: "Big City遠東巨城購物中心",
-      type: "美食",
-      officialWeb: "https://www.febigcity.com/bigcity",
-      googleMap: "https://maps.app.goo.gl/FBQxYSpNicraEdVt5",
-      icon: "https://img.ltn.com.tw/Upload/news/600/2022/11/12/4121506_1_1.jpg",
-    },
-  ];
+  // 請求地圖上的標記
+  const fetchData = async () => {
+    try {
+      axios.defaults.baseURL = "https://zico-c.github.io/mapMarkers_api";
+      const response = await axios.get("/mapMarkers.json");
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching data：", error);
+    }
+  };
+  // 將發起的請求 fetchData 由 useQuery 自動發起請求並保存資料
+  const { data, status } = useQuery(["map_Markers"], fetchData, {
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+    cacheTime: Infinity,
+    // staleTime: 300000, // 5 分钟（根据需要调整）
+  });
+
+  useEffect(() => {
+    if (status === "success") {
+      setMarkers(data?.markers);
+      disp(setMarkersS(data?.markers));
+      localStorage.setItem("markers", JSON.stringify(data?.markers));
+      disp(setTimeZone("123"));
+    }
+  }, [data]);
+  console.log("data", data);
+  console.log("markers", markers);
+
   const customMarkerIcon = (location: string, index: number, type: string) =>
     divIcon({
       className: "",
