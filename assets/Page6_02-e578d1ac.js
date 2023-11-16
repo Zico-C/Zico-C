@@ -1,1 +1,0 @@
-import{u as c,j as e}from"./index-6665707e.js";function i(){const{filter:t}=c(a=>a.Map),[s,n]=t.name?t.name:"",[r,o]=t.type?t.type:"";return console.log(n,o),e.jsx(e.Fragment,{children:e.jsxs("div",{children:[e.jsx("h1",{children:s}),e.jsx("h1",{children:r})]})})}export{i as default};
