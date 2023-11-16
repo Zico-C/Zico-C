@@ -132,7 +132,7 @@ const View: React.FC = () => {
       {/* 右邊內容 */}
       <Layout>
         {/* 右邊上方欄位； */}
-        <Header style={{ paddingLeft: "16px", background: colorBgContainer }}>
+        <Header style={{ padding: "0 16px", background: colorBgContainer }}>
           {/* 麵包屑欄位 */}
           <div
             style={{

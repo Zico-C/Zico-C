@@ -1,4 +1,4 @@
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import { useEffect, useState } from "react";
@@ -8,6 +8,8 @@ import { ControlOutlined } from "@ant-design/icons";
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
+import { MdDining } from "react-icons/md";
+import { IoMdTrain } from "react-icons/io";
 import Meta from "antd/es/card/Meta";
 import { useAppDispatch } from "@/store/hook";
 import {
@@ -105,23 +107,36 @@ function MapView() {
       html: renderToStaticMarkup(
         // style={{whiteSpace:"nowrap"}}：使樣式空白不換行，解決location、type 字體垂直顯示問題
         <div key={index} style={{ whiteSpace: "nowrap" }}>
-          <TiLocation
-            style={
-              type === "美食"
-                ? {
-                    color: "#006400",
-                    fontSize: "2rem",
-                    marginLeft: "-11px",
-                    marginTop: "-20px",
-                  }
-                : {
-                    color: "#dc3545",
-                    fontSize: "2rem",
-                    marginLeft: "-11px",
-                    marginTop: "-20px",
-                  }
-            }
-          />
+          {type === "景點" && (
+            <TiLocation
+              style={{
+                color: "#006400",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          )}
+          {type === "大眾交通工具" && (
+            <IoMdTrain
+              style={{
+                color: "#008FC7",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          )}
+          {type === "美食" && (
+            <MdDining
+              style={{
+                color: "#dc3545",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          )}
           <p
             style={
               showLocation
@@ -153,7 +168,7 @@ function MapView() {
       <Card
         style={{
           border: "1px solid gray",
-          margin: "2rem",
+          margin: "0",
         }}
       >
         <div id="map" style={{ height: "100%", width: "auto" }}>
@@ -231,7 +246,11 @@ function MapView() {
                   icon={customMarkerIcon(marker.name, index, marker.type)}
                   style={{ color: "red", backgoundcolor: "blue" }}
                 >
-                  <Popup>
+                  {/* 座標提示：當滑鼠移至座標時自動顯示他的資訊 */}
+                  <Tooltip direction="bottom" offset={[-1, 10]}>
+                    {marker.name}
+                  </Tooltip>
+                  <Popup offset={[0, -11]}>
                     <Card
                       hoverable
                       cover={
@@ -283,10 +302,11 @@ function MapView() {
           {!screens.xs && (
             <>
               <TiLocation style={{ color: "#006400", fontSize: "1.3rem" }} />
-              <Text>美食</Text>
-
-              <TiLocation style={{ color: "#dc3545", fontSize: "1.3rem" }} />
               <Text>景點</Text>
+              <IoMdTrain style={{ color: "#008FC7", fontSize: "1.3rem" }} />
+              <Text>大眾交通工具</Text>
+              <MdDining style={{ color: "#dc3545", fontSize: "1.3rem" }} />
+              <Text>美食</Text>
             </>
           )}
         </div>

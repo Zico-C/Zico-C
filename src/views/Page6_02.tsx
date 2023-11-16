@@ -27,8 +27,7 @@ function Page6_02() {
   console.log(markersData[0].name.toString());
 
   console.log("filter.name", filter.name);
-  console.log("getName", markerName);
-
+  console.log("...render ");
   const handleChange = (value: string) => {
     setMarkerName(value);
     console.log(`selected ${value}`);
