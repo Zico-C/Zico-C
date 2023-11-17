@@ -94,6 +94,7 @@ function MapView() {
     if (status === "success") {
       setMarkers(data?.markers);
       disp(setMarkersS(data?.markers));
+      // JSON.stringify() ：物件變 JSON  | JSON.parse()：JSON 變物件
       localStorage.setItem("markers", JSON.stringify(data?.markers));
       disp(setTimeZone("123"));
     }

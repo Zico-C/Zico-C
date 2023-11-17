@@ -2,16 +2,24 @@ import { useState, useEffect } from "react";
 import styles from "./page8_01.module.scss";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
+import { weatherElement } from "./Page3_02";
 function Page8_01() {
   // 使用useState來宣告多個狀態變數
-  const [post, setPost] = useState([]); // 存儲從API獲取的氣象數據
+  const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據
   const [searchLocation, setSearchLocation] = useState(""); // 用戶輸入的地區名稱
-  const [filteredData, setFilteredData] = useState([]); // 用於存儲匹配的數據
+  const [filteredData, setFilteredData] = useState<weatherElement[]>([]); // 用於存儲匹配的數據
   const [suggestions, setSuggestions] = useState<string[]>([]); // 存儲匹配的地區名稱建議
   const [SearchParams] = useSearchParams("");
 
   const selectLocationX = SearchParams.get("selectLocation") || "";
 
+  console.log(
+    "postTest",
+    post.map((xxx) => {
+      // 使用花括號 {} 包裹，並使用 return 返回值
+      return xxx?.GeoInfo?.TownName;
+    })
+  );
   // useEffect用於在組件加載時發起API請求以獲取氣象數據
   useEffect(() => {
     const targetURL =
@@ -110,10 +118,19 @@ function Page8_01() {
             <p>縣市：{item.GeoInfo.CountyName}</p>
             <p>地區：{item.GeoInfo.TownName}</p>
             <p>測站位置：{item.StationName}</p>
-            <p>
-              當前溫度：
-              {item.WeatherElement.AirTemperature}
-            </p>
+            {item.WeatherElement.AirTemperature != -99 ? (
+              <>
+                <p>
+                  當前溫度：
+                  {item.WeatherElement.AirTemperature}
+                </p>
+              </>
+            ) : (
+              <>
+                <p style={{ color: "red" }}>溫度缺值 或 資料異常</p>
+              </>
+            )}
+
             <p>
               更新時間：
               {item.ObsTime.DateTime.toString()

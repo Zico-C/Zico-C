@@ -16,7 +16,7 @@ function Page6_02() {
   const { filter } = useAppSelector((state) => state.Map);
   const { markers } = useAppSelector((state) => state.Map);
   const [markersData] = useState(markers);
-
+  console.log("filter.name", filter?.name.toString());
   // const [markerName, setMarkerName] = useState("");
   const [markerName, setMarkerName] = useState(
     filter.name.length !== 0 ? filter.name.toString() : ""
@@ -24,10 +24,6 @@ function Page6_02() {
   // 保存 axios 請求回來的 map_markers (地圖標記)API
   // 將發起的請求 fetchData 由 useQuery 自動發起請求並保存資料
 
-  console.log(markersData[0].name.toString());
-
-  console.log("filter.name", filter.name);
-  console.log("...render ");
   const handleChange = (value: string) => {
     setMarkerName(value);
     console.log(`selected ${value}`);
