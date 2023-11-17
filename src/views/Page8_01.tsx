@@ -34,6 +34,7 @@ function Page8_01() {
       console.log("searchLocation", searchLocation);
       console.log("selectLocation", selectLocationX);
     }
+    // 當 selectLocationX 發生變化時，賦值給 setSearchLocation
   }, [selectLocationX]);
 
   // useEffect用於監聽searchLocation和post的變化，並在它們改變時過濾和更新數據
@@ -76,7 +77,7 @@ function Page8_01() {
       <input
         value={searchLocation}
         type="text"
-        placeholder="查詢地區1"
+        placeholder="查詢地區"
         onChange={inputChange}
       />
       {/* 顯示匹配的地區名稱建議 */}
@@ -91,10 +92,10 @@ function Page8_01() {
                   cursor: "pointer",
                   color: "#001529",
                   borderRadius: "20px",
-                  width: "10%",
+                  width: "100%",
                   marginTop: "10px",
                   padding: "10px",
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 {suggestion}
