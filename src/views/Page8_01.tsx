@@ -117,7 +117,6 @@ function Page8_01() {
               更新時間：
               {item.ObsTime.DateTime.toString()
                 .replace("T", " ")
-                .replace(/:/g, "-")
                 .substring(0, 19)}
             </p>
             {item.WeatherElement.AirTemperature != -99 ? (

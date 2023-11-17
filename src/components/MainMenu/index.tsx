@@ -277,7 +277,6 @@ const Comp: React.FC = () => {
   // 當面渲染時自動將 currentRoute.pathname 放入到 setSelectedKey("") 內 實現子路徑頁面渲染時 自動抓取 pathname 渲染 Menu
   useEffect(() => {
     console.log("路由變化", currentRoute.pathname);
-
     console.log("selectedKey", selectedKey);
     setSelectedKey(currentRoute.pathname);
   }, [currentRoute.pathname]);
