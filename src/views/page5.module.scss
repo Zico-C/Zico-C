@@ -4,6 +4,7 @@
   background: #222;
   color: #ddd;
   text-align: center;
+
   h1 {
     color: #ffff57;
     font-size: 3em;
@@ -17,11 +18,29 @@
     background: transparent;
     border: 3px solid #ccc;
     border-radius: 20px;
-    padding: 10px;
+    padding: 20px;
     color: #ccc;
     font-size: 1.2em;
     cursor: pointer;
   }
+  .Postbutton {
+    button {
+      padding: 30px;
+
+      padding-top: 5px;
+    }
+  }
+  input {
+    margin: 0 10px;
+    background: transparent;
+    border: 3px solid #ccc;
+    border-radius: 20px;
+    padding: 12px;
+    color: #ccc;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
   button:hover {
     color: #fff;
     border-color: #fff;
@@ -56,8 +75,46 @@
       color: #ffff57;
     }
   }
+  .card5_5 {
+    padding: 8px 16px;
+    background: #1b1b1b;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    user-select: text;
+    max-width: 800px;
+    transform: translateY(0);
+    transition: transform 0.5s linear 0s;
+    text-align: left;
+    overflow: hidden;
+    border: 1px solid gray;
+    &:hover {
+      transform: scale(1.1, 1.1);
+      transform: translateY(-10px);
+      transition: transform 0.5s linear 0s;
+    }
+    p {
+      margin: 6px 0;
+      color: #fff;
+    }
+    span {
+      margin: 10px 0;
+      color: #ffff57;
+    }
+  }
 }
-
+@media (max-width: 425px) {
+  .APImain {
+    h1 {
+      font-size: 2.1rem;
+    }
+    input {
+      font-size: 1.1em;
+      max-width: 300px;
+    }
+  }
+}
 .travel {
   margin: 0;
   padding: 0;

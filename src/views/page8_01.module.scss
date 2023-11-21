@@ -1,228 +1,247 @@
-.dark-theme{
-    background-color: darkslategrey;
-    color: #fff;
+.dark-theme {
+  background-color: darkslategrey;
+  color: #fff;
 }
-.light-theme{
-    background-color: #ff8fb1;
-    color:fff;
+.light-theme {
+  background-color: #ff8fb1;
+  color: fff;
 }
-.main{
-    margin: 2rem;
+.main {
+  margin: 15px;
+  padding: 5px;
+  font-size: 2rem;
+  user-select: text;
+
+  label {
+    width: 150px;
+    text-align: right;
+    display: inline-block;
+  }
+  span {
+    font-size: 2rem;
+  }
+  input {
+    font-size: 1.5rem;
+    max-width: 400px;
     padding: 20px;
+    border: 1px solid gray;
+    &:hover {
+      border-radius: 15px;
+      transition: 0.5s;
+    }
+    &:focus {
+      border: 1px solid gray;
+    }
+  }
+  button {
+    border-radius: 5px;
+    border: 1px solid transparent;
+    margin: 20px;
+    padding: 0.3em 0.8em;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 15px;
+    &.toggle {
+      background-color: rgb(29, 143, 163);
+      color: #fff;
+    }
+    &.delete {
+      background-color: darkcyan;
+      color: #fff;
+      border-radius: 20px;
+      margin-bottom: 5px;
+      margin-top: 0px;
+    }
+    &.deletes {
+      background-color: darkcyan;
+      color: #fff;
+    }
+    &.scroll {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-behavior: smooth; /* 添加平滑滚动效果 */
+    }
+  }
+  p {
+    font-size: 1.7rem;
+    margin: 20px;
+  }
+}
+.active1 {
+  text-decoration: underline;
+}
+.products {
+  margin-top: 35px;
+  padding-right: 2rem;
+  span {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+}
+
+.test {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  p {
+    font-size: 2.5rem;
+    color: #fff;
+  }
+}
+
+.select {
+  display: flex;
+  font-size: 2rem;
+  margin: 1.4rem;
+  justify-self: center;
+  align-items: center;
+  justify-content: center;
+  img {
+    margin: auto;
+    display: block;
+  }
+  p {
     font-size: 2rem;
-    user-select:text;
-
-    label{
-        width: 150px;
-        text-align: right;
-        display: inline-block;
-    }
-    span{
-        font-size: 2rem;
-    }
-    input{
-        font-size: 1.8rem;
-        padding: 20px;
-        border:1px solid gray;
-        &:hover{
-            border-radius: 15px;
-            transition: 0.5s;
-        }
-        &:focus{
-            border:1px solid gray;
-        }
-    }
-    button {
-        border-radius: 5px;
-        border: 1px solid transparent;
-        margin: 20px;
-        padding: 0.3em 0.8em;
-        font-size: 1.5rem;
-        font-weight: 500;
-        cursor: pointer;
-        margin-left: 15px;
-        &.toggle{
-            background-color: rgb(29, 143, 163);
-            color: #fff;
-        }
-        &.delete {
-            background-color: darkcyan;
-            color: #fff;
-            border-radius: 20px;
-            margin-bottom: 5px;
-            margin-top: 0px;
-        }
-        &.deletes {
-            background-color: darkcyan;
-            color: #fff;
-
-        }
-        &.scroll {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-behavior: smooth; /* 添加平滑滚动效果 */
-        }
-    }
-    p{
-        font-size: 1.7rem;
-        margin: 20px;
-    }
-
-}
-.active1{
-    text-decoration: underline;
-}
-.products{
-    margin-top: 35px;
-    padding-right: 2rem;
-    span{
-        margin-left: 25px;
-        margin-right: 25px;
-    }
-}
-
-.test{
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    p{
-        font-size: 2.5rem;
-        color: #fff;
-    }
-}
-
-.select{
-    display: flex;
-    font-size: 2rem;
-    margin: 1.4rem;
-    justify-self: center;
-    align-items: center;
+    padding: 20px;
+    background-color: slategray;
+    color: #fff;
     justify-content: center;
-    img{
-        margin: auto;
-        display: block;
-    }
-    p{
-        font-size: 2rem;
-        padding: 20px;
-        background-color: slategray;
-        color: #fff;
-        justify-content: center;
-        margin: 20px;
-    }
+    margin: 20px;
+  }
 }
-@media (max-width: 420px){
-    .select{
-        margin: 0;
-        p{
-            padding: 14px;
-        }
+@media (max-width: 425px) {
+  .select {
+    margin: 0;
+    p {
+      padding: 14px;
     }
-    .main{
-        padding: 0;
-        margin: 5px;
-        font-size: 1.5rem;
-        line-height: 24px;
-        input{
-            width: 180px;
-            height: 24px;
-        }
-        label{
-            width: 120px;
-            text-align: right;
-            display: inline-block;
-        }
-        
+  }
+  .main {
+    padding: 0;
+    margin: 5px;
+    font-size: 1.5rem;
+    line-height: 24px;
+    input {
+      width: 180px;
+      height: 24px;
     }
+    label {
+      width: 120px;
+      text-align: right;
+      display: inline-block;
+    }
+  }
 }
 .selected {
-    p{
-        border: 2px solid blue;
-        transition: 0.2s;
-    }
+  p {
+    border: 2px solid blue;
+    transition: 0.2s;
+  }
+}
 
+.calc {
+  width: 45vh;
+  height: 75vh;
+  margin: 20px;
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  background-size: cover;
+  background-position: center center;
+  border-radius: 20px;
+  h1 {
+    color: seashell;
+    padding-top: 20px;
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bolder;
+  }
+  .textshow {
+    margin-top: 3vh;
+    line-height: 30px;
+    height: 7vh;
+    color: #fff;
+    padding: 15px;
+    margin-left: 25px;
+    margin-right: 25px;
+    background-color: rgb(68, 70, 77);
+    border: 1px rgb(68, 70, 77) solid;
+    border-radius: 15px;
+    text-align: right;
   }
 
-.calc{
-    width: 45vh;
-    height: 75vh;
-    margin: 20px;
-    font-size: 2rem;
-    background-color: rgba(0, 0, 0, .6);
-    background-size: cover;
-    background-position: center center;
+  .calcButtons {
+    width: auto;
+    margin-top: 5vh;
+    margin-left: 25px;
+    margin-right: 25px;
+    background-color: rgb(68, 70, 77);
+    padding: 15px;
     border-radius: 20px;
-    h1{
-        color:seashell;
-        padding-top: 20px;
-        text-align: center;
-        font-family:'Courier New', Courier, monospace;
-        font-weight: bolder;
-    }
-    .textshow{
-        margin-top: 3vh;
-        line-height: 30px;
-        height: 7vh;
+  }
+  .buttons {
+    height: 9vh;
+    display: grid;
+    grid-template-columns: repeat(
+      var(--button-columns, 4),
+      1fr
+    ); /* 使用變數設定列數 */
+    gap: 10px;
+    button {
+      font-size: 25px;
+      border-radius: 20px;
+      background-color: seashell;
+      color: slategray;
+      &:hover {
+        background-color: cadetblue;
         color: #fff;
-        padding: 15px;
-        margin-left: 25px;
-        margin-right: 25px;
-        background-color: rgb(68, 70, 77);
-        border: 1px rgb(68, 70, 77) solid;
-        border-radius: 15px;
-        text-align: right;
+        transition: 0.5s;
+      }
     }
-
-    .calcButtons{
-        width: auto;
-        margin-top: 5vh;
-        margin-left: 25px;
-        margin-right: 25px;
-        background-color: rgb(68, 70, 77);
-        padding: 15px;
-        border-radius: 20px;
-        
-    }
-    .buttons{
-        height: 9vh;
-        display: grid;
-        grid-template-columns: repeat(var(--button-columns, 4), 1fr); /* 使用變數設定列數 */
-        gap: 10px;
-        button{
-            font-size: 25px;
-            border-radius: 20px;
-            background-color:seashell;
-            color:slategray;
-            &:hover{
-                background-color:cadetblue;
-                color: #fff;
-                transition: 0.5s;
-            }
-        }
-    }
-    .buttons:last-child{
-        grid-template-columns: repeat(2,1fr);
-    }
-
+  }
+  .buttons:last-child {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.page5_01{
-    div{
-        border: 1px gray solid;
-        padding: 15px;
-        margin: 10px;
-        margin-left: 50px;
-        margin-right: 50px;
-        background-color: whitesmoke;
+.page5_01 {
+  div {
+    border: 1px gray solid;
+    padding: 15px;
+    margin: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: whitesmoke;
+  }
+  p {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  span {
+    font-size: 1.8rem;
+    color: teal;
+  }
+}
+@media (max-width: 426px) {
+  .calc {
+    max-width: 393px;
+    height: calc(70vh - 70px);
+    margin: 0;
+    font-size: 1.2rem;
+    .calcButtons {
+      margin-top: 35px;
     }
-    p{
-        font-size: 1.5rem;
-        line-height: 2rem;
-        margin-bottom: 5px;
-        margin-top: 5px;
+    .textshow {
+      margin-top: 2vh;
     }
-    span{
-        font-size: 1.8rem;
-        color:teal;
-        
+    .buttons {
+      height: calc(20vh - 125px);
+      gap: 10px;
+      button {
+        font-size: 25px;
+        border-radius: 25px;
+      }
     }
+  }
 }

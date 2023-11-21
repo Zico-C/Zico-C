@@ -156,7 +156,7 @@ const View = () => {
     xAxis: [
       {
         type: "category",
-        data: ["竹北市", "楊梅區", "宜蘭市", "阿里山鄉", "大溪區", "桃園區"],
+        data: ["竹北市", "楊梅區", "宜蘭市", "阿里山鄉", "大溪區", "花蓮市"],
         axisTick: {
           alignWithLabel: true,
         },
@@ -178,7 +178,7 @@ const View = () => {
           { value: temperature("宜蘭市"), name: "宜蘭市" },
           { value: temperature("阿里山鄉"), name: "阿里山鄉" },
           { value: temperature("大溪區"), name: "大溪區" },
-          { value: temperature("桃園區"), name: "桃園區" },
+          { value: temperature("花蓮市"), name: "花蓮市" },
         ],
       },
     ],

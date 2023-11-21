@@ -35,7 +35,7 @@ interface MapData {
 }
 
 // 定義 Marker 介面
-interface Markers {
+export interface Markers {
   id: number;
   position: [number, number];
   name: string;
@@ -106,8 +106,11 @@ function MapView() {
     divIcon({
       className: "",
       html: renderToStaticMarkup(
-        // style={{whiteSpace:"nowrap"}}：使樣式空白不換行，解決location、type 字體垂直顯示問題
-        <div key={index} style={{ whiteSpace: "nowrap" }}>
+        /* 1、在 <p> 標籤 加入 style={{whiteSpace: "nowrap", display: "inline"}：使樣式空白不換行，解決location、type 字體垂直顯示問題，
+              確保文字內容不換行，並將元素以行內方式顯示在同一行上。
+           2、使用 <div> 將 <p> 標籤的文字包覆並給予背景色，需使用 style={{display: "inline-block"} 才能使 <p>標籤內文字撐開 <div>
+        */
+        <div key={index}>
           {type === "景點" && (
             <TiLocation
               style={{
@@ -138,18 +141,47 @@ function MapView() {
               }}
             />
           )}
-          <p
+          <div
             style={
-              showLocation
-                ? { fontWeight: "bold", marginBottom: "3px" }
+              showLocation || showType
+                ? {
+                    backgroundColor: "#fff",
+                    opacity: "0.85",
+                    border: "1px solid #002fa7",
+                    borderRadius: "10px",
+                    padding: "5px",
+                    display: "inline-block", // 將 div 設定為行內區塊，就可以使p段落文字撐開div
+                  }
                 : { display: "none" }
             }
           >
-            {location}
-          </p>
-          <p style={showType ? { fontWeight: "bold" } : { display: "none" }}>
-            {type}
-          </p>
+            <p
+              style={
+                showLocation
+                  ? {
+                      fontWeight: "bold",
+                      marginBottom: "3px",
+                      whiteSpace: "nowrap",
+                    }
+                  : { display: "none" }
+              }
+            >
+              {location}
+              <br />
+            </p>
+            <p
+              style={
+                showType
+                  ? {
+                      fontWeight: "bold",
+                      whiteSpace: "nowrap",
+                    }
+                  : { display: "none" }
+              }
+            >
+              {type}
+            </p>
+          </div>
         </div>
       ),
     });
