@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Checkbox, Grid, Typography } from "antd";
 import Control from "react-leaflet-control";
 import { ControlOutlined } from "@ant-design/icons";
-import { divIcon } from "leaflet";
+import { divIcon, Point } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
 import { MdDining } from "react-icons/md";
@@ -87,9 +87,8 @@ function MapView() {
     refetchOnWindowFocus: false,
     keepPreviousData: true,
     cacheTime: Infinity,
-    // staleTime: 300000, // 5 分钟（根据需要调整）
+    // staleTime: 300000, // 5分鐘
   });
-
   useEffect(() => {
     if (status === "success") {
       setMarkers(data?.markers);

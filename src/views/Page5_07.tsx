@@ -1,33 +1,86 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ReactECharts from "echarts-for-react";
 
-function Page5_07() {
-  const [count] = useState<number[]>([1, 2, 3, 4, 5, 6, 3, 3, 3, 10]);
-  const [number, setNumber] = useState(count);
-  const [numberArr, setNumberArr] = useState(count);
+const EChartsComponent = () => {
+  const [seriesData, setSeriesData] = useState(500);
+  const [seriesDataSecond, setSeriesDataSecond] = useState(800);
 
-  const handleClick = () => {
-    // 使用MAP一一比對陣列內的值 是否等於 3
-    // 若 等於 3 返回 0   ，  不等於 3 則顯示原有 Value
-    setNumber(number?.map((value) => (value === 3 ? 0 : value)));
+  useEffect(() => {
+    const Times = setInterval(() => {
+      setSeriesData(500 * Math.round(Math.random() * 5) + 1);
+      console.log("Times render...", seriesData);
+    }, 2000);
+
+    const TimesSecond = setInterval(() => {
+      setSeriesDataSecond(500 * Math.round(Math.random() * 5) + 1);
+      console.log("Times2 render...", seriesDataSecond);
+    }, 2500);
+
+    return () => {
+      clearInterval(Times);
+      clearInterval(TimesSecond);
+    };
+  }, [seriesDataSecond, seriesDataSecond]);
+
+  const option = {
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      top: "5%",
+      left: "center",
+    },
+    series: [
+      {
+        name: "Access From",
+        type: "pie",
+        center: ["50%", "55%"], // 調整圓心位置
+        radius: ["40%", "70%"],
+        avoidLabelOverlap: false,
+
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: "#fff",
+          borderWidth: 2,
+        },
+        label: {
+          show: true,
+          formatter(param: any) {
+            return param.name + " (" + param.value + ")";
+          },
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 20,
+            fontWeight: "bold",
+          },
+        },
+        labelLine: {
+          show: false,
+        },
+        data: [
+          { value: 1048, name: "冰箱" },
+          { value: 735, name: "冷氣" },
+          { value: 580, name: "電視" },
+          { value: seriesDataSecond, name: "除濕機" },
+          { value: seriesData, name: "電風扇" },
+        ],
+      },
+    ],
   };
-  const handleClick2 = () => {
-    // 使用 filter 刪除數組中所有值為 3 的元素
-    setNumberArr(numberArr.filter((value) => value !== 3));
-  };
-
   return (
-    <>
-      <div style={{ fontSize: "3rem" }}>
-        <h1>Before：{count.join(" , ")}</h1>
-        <h1>After：{number.join(" , ")}</h1>
-
-        <button onClick={handleClick}>將數字陣列中，為 3 的數值變成 0</button>
-        <br />
-        <h1>After：{numberArr.join(" , ")}</h1>
-        <button onClick={handleClick2}>將數字陣列中，為 3 的數值刪除</button>
-      </div>
-    </>
+    <div>
+      <ReactECharts
+        option={option}
+        //
+        lazyUpdate={true}
+        //notMerge(不合並設置)：使用true時 每當接收到新的配置後，會將新的配置完全替換舊的配置，並重新渲染整個圖表，
+        //舉例：假設設定 true 將圖表 {冰箱、冷氣、電視} 隱藏，當有新的資料進來，則 重新渲染新的圖表，隱藏效果被重製
+        notMerge={true}
+      />
+    </div>
   );
-}
+};
 
-export default Page5_07;
+export default EChartsComponent;
