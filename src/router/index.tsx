@@ -39,6 +39,7 @@ const Page8_04 = lazy(() => import("../views/Page8_04"));
 const Page8_05 = lazy(() => import("../views/Page8_05"));
 const Page8_06 = lazy(() => import("../views/Page8_06"));
 const Page8_07 = lazy(() => import("../views/Page8_07"));
+const Page8_08 = lazy(() => import("../views/Page8_08"));
 
 import { Navigate } from "react-router-dom";
 
@@ -200,6 +201,10 @@ const Routes = [
       {
         path: "/page8/page8_07",
         element: WithLoadingComponent(<Page8_07 />),
+      },
+      {
+        path: "/page8/page8_08",
+        element: WithLoadingComponent(<Page8_08 />),
       },
     ],
   },

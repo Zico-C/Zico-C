@@ -1,205 +1,436 @@
-import ReactECharts from "echarts-for-react";
+import { Card, Row, Col, Spin } from "antd";
 import { useState, useEffect } from "react";
+import Screens from "./Page3_03";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { Map, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import { divIcon } from "leaflet";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import Meta from "antd/es/card/Meta";
+import { renderToStaticMarkup } from "react-dom/server";
+import { MdDirectionsBike } from "react-icons/md";
+import { BiSolidMessageAltError } from "react-icons/bi";
+import { height } from "pdfkit/js/page";
 
-export interface weatherElement {
-  StationName: string;
-  StationId: string;
-  ObsTime: ObsTime;
-  GeoInfo: GeoInfo;
-  WeatherElement: WeatherElementClass;
+export interface YouBike {
+  sno: string;
+  sna: string;
+  tot: number;
+  sbi: number;
+  sarea: Sarea;
+  mday: string;
+  lat: number;
+  lng: number;
+  ar: string;
+  sareaen: Sareaen;
+  snaen: string;
+  aren: string;
+  bemp: number;
+  act: string;
+  srcUpdateTime: string;
+  updateTime: string;
+  infoTime: string;
+  infoDate: string;
 }
 
-export interface GeoInfo {
-  Coordinates: Coordinate[];
-  StationAltitude: string;
-  CountyName: string;
-  TownName: string;
-  CountyCode: string;
-  TownCode: string;
+export enum Sarea {
+  中山區 = "中山區",
+  中正區 = "中正區",
+  信義區 = "信義區",
+  內湖區 = "內湖區",
+  北投區 = "北投區",
+  南港區 = "南港區",
+  士林區 = "士林區",
+  大同區 = "大同區",
+  大安區 = "大安區",
+  文山區 = "文山區",
+  松山區 = "松山區",
+  臺大公館校區 = "臺大公館校區",
+  萬華區 = "萬華區",
 }
 
-export interface Coordinate {
-  CoordinateName: string;
-  CoordinateFormat: string;
-  StationLatitude: string;
-  StationLongitude: string;
+export enum Sareaen {
+  BeitouDist = "Beitou Dist",
+  DaanDist = "Daan Dist.",
+  DatongDist = "Datong Dist",
+  NTUDist = "NTU Dist",
+  NangangDist = "Nangang Dist",
+  NeihuDist = "Neihu Dist",
+  ShilinDist = "Shilin Dist",
+  SongshanDist = "Songshan Dist",
+  WanhuaDist = "Wanhua Dist",
+  WenshanDist = "Wenshan Dist",
+  XinyiDist = "Xinyi Dist",
+  ZhongshanDist = "Zhongshan Dist",
+  ZhongzhengDist = "Zhongzheng Dist",
 }
 
-export interface ObsTime {
-  DateTime: string;
-}
-
-export interface WeatherElementClass {
-  Weather: string;
-  VisibilityDescription: string;
-  SunshineDuration: string;
-  Now: Now;
-  WindDirection: string;
-  WindSpeed: string;
-  AirTemperature: string;
-  RelativeHumidity: string;
-  AirPressure: string;
-  UVIndex: string;
-  Max10MinAverage: Max10MinAverage;
-  GustInfo: GustInfo;
-  DailyExtreme: DailyExtreme;
-}
-
-export interface DailyExtreme {
-  DailyHigh: Daily;
-  DailyLow: Daily;
-}
-
-export interface Daily {
-  TemperatureInfo: TemperatureInfo;
-}
-
-export interface TemperatureInfo {
-  AirTemperature: string;
-  Occurred_at: ObsTime;
-}
-
-export interface GustInfo {
-  PeakGustSpeed: string;
-  Occurred_at: OccurredAt;
-}
-
-export interface OccurredAt {
-  WindDirection: string;
-  DateTime: string;
-}
-
-export interface Max10MinAverage {
-  WindSpeed: string;
-  Occurred_at: OccurredAt;
-}
-
-export interface Now {
-  Precipitation: string;
-}
-
-const View = () => {
-  const [saveName, setSaveName] = useState("");
-  const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據
-  const navigateTo = useNavigate();
-  useEffect(() => {
-    const targetURL =
-      "https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWA-EB3FD491-9755-4E3C-A31D-70C0FCCFD682&format=JSON";
-
-    axios
-      .get(targetURL)
-      .then((response) => {
-        const data = response.data.records.Station;
-        setPost(data); // 將獲得的數據設定到post狀態變數中
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  let str = "2023-07-17-001-834e";
-  console.log(str.slice(0, 14));
-
-  // updateData : 將時間格式化
-  const updateData = post[0]?.ObsTime?.DateTime?.toString()
-    .replace("T", " ")
-    .substring(0, 19);
-
-  // const xx = post.map((xxx) => xxx?.WeatherElement?.AirTemperature);
-  // console.log("xx", xx);
-
-  // 接收一個 location 並使用 filter 篩選地區 若找到一樣的則返回給 filteredData，
-  // 在判斷 filteredData 陣列長度 是否大於 1 若有則回傳 溫度 若沒有 則回傳 "N/A"
-  const temperature = (location: string) => {
-    const filteredData: any = post.filter((item: any) =>
-      item.GeoInfo.TownName.toLowerCase().includes(location.toLowerCase())
-    );
-
-    if (filteredData.length > 0) {
-      const AirTemperature = filteredData[0].WeatherElement?.AirTemperature;
-      return AirTemperature === -99 ? "N/A" : AirTemperature;
-    }
-    return "N/A"; // 或者返回一個默認值，表示未找到數據
-  };
-
-  const handleURL = (name: any) => {
-    setSaveName(name.data.name);
-  };
-  useEffect(() => {
-    if (saveName !== "") {
-      console.log("new saveName", saveName);
-      navigateTo(`/page8/page8_01?selectLocation=${saveName}`);
-      location.reload();
-    }
-  }, [saveName]);
-  console.log("...render");
-  const option2 = {
-    title: {
-      text: "地區即時溫度",
-      left: "center",
-      subtext: `更新時間：${updateData}`,
-    },
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "shadow",
-      },
-    },
-    grid: {
-      left: "3%",
-      right: "4%",
-      bottom: "3%",
-      containLabel: true,
-    },
-    xAxis: [
-      {
-        type: "category",
-        data: ["竹北市", "楊梅區", "宜蘭市", "阿里山鄉", "大溪區", "花蓮市"],
-        axisTick: {
-          alignWithLabel: true,
-        },
-      },
-    ],
-    yAxis: [
-      {
-        type: "value",
-      },
-    ],
-    series: [
-      {
-        name: "溫度",
-        type: "bar",
-        barWidth: "60%",
-        data: [
-          { value: temperature("竹北市"), name: "竹北市" },
-          { value: temperature("楊梅區"), name: "楊梅區" },
-          { value: temperature("宜蘭市"), name: "宜蘭市" },
-          { value: temperature("阿里山鄉"), name: "阿里山鄉" },
-          { value: temperature("大溪區"), name: "大溪區" },
-          { value: temperature("花蓮市"), name: "花蓮市" },
-        ],
-      },
-    ],
-    label: {
-      show: true, // 设置为 true，以显示标签
-      position: "inside", // 设置标签显示在柱状图的顶部
-      fontSize: "2rem",
-    },
-  };
+const Charts = ({
+  title,
+  children,
+  bodyStyle,
+}: {
+  title: string;
+  children: React.ReactNode;
+  bodyStyle?: React.ComponentProps<typeof Card>;
+}) => {
   return (
-    <div className="Home">
-      {/* 使用 ReactECharts 组件来渲染图表 */}
-      <ReactECharts
-        option={option2}
-        style={{ height: "400px" }}
-        onEvents={{ click: handleURL }}
-        notMerge={true}
-        lazyUpdate={true}
-      />
-    </div>
+    <>
+      <Card
+        title={title}
+        // 標題樣式
+        headStyle={{
+          backgroundColor: "#002FA7",
+          color: "white",
+          textAlign: "center",
+        }}
+        bodyStyle={{
+          padding: 3,
+          height: "303px",
+          userSelect: "text",
+          ...bodyStyle,
+        }}
+      >
+        {children}
+        {/*加入{children} 能接受任何 React 元素，包括文字、組件、陣列等，這些內容都會透過 {children} 存取與渲染 
+      例如 <DashCard title="My Card">This is some text content.</DashCard>，若沒有 {children} 則不會渲染內部文字或組件*/}
+      </Card>
+    </>
   );
 };
 
-export default View;
+function Page3_02() {
+  const [viewport, setViewPort] = useState({
+    center: [25.035751357120876, 121.52047467202769],
+    zoom: 12,
+  });
+  const [marker, setMarkers] = useState<YouBike[]>();
+  // 取得所有場站總停車格的數量
+  const [youbikeTotNum, setYoubikeTotNum] = useState<number | undefined>(0);
+  // 取得所有場站可還空位數
+  const [youbikeBempNum, setYoubikeBempNum] = useState<number | undefined>(0);
+  // 取得所有場站可借車位數
+  const [youbikeSbiNum, setYoubikeSbiNum] = useState<number | undefined>(0);
+
+  useEffect(() => {
+    const localViewport = localStorage.getItem("page3_02-viewport");
+    if (!localViewport) {
+      return;
+    }
+    setViewPort(JSON.parse(localViewport));
+  }, []);
+
+  const fetchYouBikeAPI = async () => {
+    try {
+      const response = await axios.get(
+        "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json"
+      );
+      return response.data;
+    } catch (error) {
+      console.log((error as Error).message);
+    }
+  };
+
+  const { data, status, isLoading, isFetching } = useQuery(
+    ["TaipeiYouBike"],
+    fetchYouBikeAPI,
+    {
+      refetchOnWindowFocus: false,
+      keepPreviousData: true,
+      cacheTime: 60000,
+      staleTime: Infinity, // 設置 staleTime 為 Infinity，表示即使過期，仍然使用舊資料直到新資料到來
+      refetchInterval: 60000, // 設置 refetchInterval 為 60000 毫秒 (1 分鐘)，自動觸發一次重新查詢
+    }
+  );
+
+  useEffect(() => {
+    if (status === "success") {
+      console.log("data", data);
+      setMarkers(data);
+    }
+  }, [data]);
+
+  // 將地圖變化事件，狀態保存在本地儲存
+  const onViewportChanged = (viewport: any) => {
+    localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
+  };
+
+  const customMarkerIcon = (
+    index: number,
+    tot: number,
+    sbi: number,
+    act: string
+  ) =>
+    divIcon({
+      className: "",
+      html: renderToStaticMarkup(
+        <div key={index}>
+          {act === "1" && tot / sbi >= 3 ? (
+            <MdDirectionsBike
+              style={{
+                color: "#cf1322",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          ) : act === "1" && tot / sbi >= 2 ? (
+            <MdDirectionsBike
+              style={{
+                color: "#d48806",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          ) : act === "1" ? (
+            <MdDirectionsBike
+              style={{
+                color: "#006400",
+                fontSize: "2rem",
+                marginLeft: "-11px",
+                marginTop: "-20px",
+              }}
+            />
+          ) : (
+            act === "0" && (
+              <BiSolidMessageAltError
+                style={{
+                  color: "#dc3545",
+                  fontSize: "2rem",
+                  marginLeft: "-11px",
+                  marginTop: "-20px",
+                }}
+              />
+            )
+          )}
+        </div>
+      ),
+    });
+
+  useEffect(() => {
+    const youbikeTotNumArray = marker?.map((youbike) => youbike.tot);
+    const totNumber = youbikeTotNumArray?.reduce((acc, cur) => acc + cur + 0);
+    const youbikeBempNumArray = marker?.map((youbike) => youbike.bemp);
+    const bempNumber = youbikeBempNumArray?.reduce((acc, cur) => acc + cur + 0);
+    const youbikeSbiNumArray = marker?.map((youbike) => youbike.sbi);
+    const sbiNumber = youbikeSbiNumArray?.reduce((acc, cur) => acc + cur + 0);
+
+    console.log(totNumber);
+    setYoubikeTotNum(totNumber);
+    setYoubikeBempNum(bempNumber);
+    setYoubikeSbiNum(sbiNumber);
+  }, [marker]);
+  console.log("youbikeTotNum", youbikeTotNum);
+  return (
+    <>
+      <Row>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
+          <Charts
+            title="目前場站所有總停車格"
+            bodyStyle={{
+              // @ts-ignore
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            {isLoading || isFetching ? (
+              <>
+                <Spin />
+              </>
+            ) : (
+              <h1
+                style={{
+                  fontSize: "2.5rem",
+                  fontWeight: "bold",
+                  color: "#002FA7",
+                }}
+              >
+                {youbikeTotNum}
+              </h1>
+            )}
+          </Charts>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
+          <Charts
+            title="目前所有可還空位數"
+            bodyStyle={{
+              // @ts-ignore
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            {isLoading || isFetching ? (
+              <>
+                <Spin />
+              </>
+            ) : (
+              <h1
+                style={{
+                  fontSize: "2.5rem",
+                  fontWeight: "bold",
+                  color: "#002FA7",
+                }}
+              >
+                {youbikeBempNum}
+              </h1>
+            )}
+          </Charts>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
+          <Charts
+            title="目前所有可借車位數"
+            bodyStyle={{
+              // @ts-ignore
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            {isLoading || isFetching ? (
+              <>
+                <Spin />
+              </>
+            ) : (
+              <h1
+                style={{
+                  fontSize: "2.5rem",
+                  fontWeight: "bold",
+                  color: "#002FA7",
+                }}
+              >
+                {youbikeSbiNum}
+              </h1>
+            )}
+          </Charts>
+        </Col>
+        <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
+          <Charts
+            title="Charts4"
+            bodyStyle={{
+              // @ts-ignore
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+            }}
+          >
+            <Spin />
+          </Charts>
+        </Col>
+      </Row>
+      <Screens />
+      <Card
+        bodyStyle={{
+          margin: 0,
+          padding: 0,
+          height: "100%",
+        }}
+      >
+        <div style={{ margin: 0, padding: 0 }}>
+          <Map
+            // @ts-ignore
+            viewport={viewport}
+            onViewportChange={onViewportChanged}
+            style={{ height: "calc(55vh - 60px)" }}
+            key={data}
+          >
+            {/* 地圖圖層 */}
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> 貢獻者'
+              //地圖圖層的URL
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {/* <Control></Control> */}
+            <MarkerClusterGroup
+              // 控制地圖縮放級別，當地圖縮放到這個級別時，標記不再聚合。
+              disableClusteringAtZoom={18}
+              // removeOutsideVisibleBounds ：當設為 true 時，地圖上不在可見範圍內的標記將被自動移除。
+              // 對於大量標記的地圖，可以使用這個屬性來優化性能，只顯示可見範圍內的標記。  *預設值為 false *
+              removeOutsideVisibleBounds={true}
+              spiderfyDistanceMultiplier={1}
+              showCoverageOnHover={false}
+              maxClusterRadius={35}
+            >
+              {marker?.map((marker, index) => (
+                <Marker
+                  key={index}
+                  position={[marker.lat, marker.lng]}
+                  icon={customMarkerIcon(
+                    index,
+                    marker.tot,
+                    marker.sbi,
+                    marker.act
+                  )}
+                >
+                  <Tooltip direction="bottom">{marker.sna}</Tooltip>
+                  <Popup>
+                    <Card bodyStyle={{ display: "inline-block", padding: 15 }}>
+                      <Meta
+                        title={marker.sna}
+                        description={marker.sarea}
+                        style={{
+                          textAlign: "center",
+                        }}
+                      />
+                      <hr
+                        style={{
+                          color: "gray",
+                          width: "90%",
+                          marginTop: "10px",
+                        }}
+                      />
+                      {isFetching || isLoading ? (
+                        <>
+                          <Spin
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              position: "relative",
+                              height: "171.93800px",
+                            }}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {marker.tot && (
+                            <>
+                              <p>場站總停車格：{marker.tot}</p>
+                            </>
+                          )}
+                          {marker.sbi >= 0 && (
+                            <>
+                              <p>可借車位數：{marker.sbi}</p>
+                            </>
+                          )}
+                          {marker.bemp && (
+                            <>
+                              <p>可還空位數：{marker.bemp}</p>
+                            </>
+                          )}
+                          {marker.srcUpdateTime && (
+                            <>
+                              <p>上次更新時間：{marker.srcUpdateTime}</p>
+                            </>
+                          )}
+                        </>
+                      )}
+                    </Card>
+                  </Popup>
+                </Marker>
+              ))}
+            </MarkerClusterGroup>
+          </Map>
+        </div>
+      </Card>
+    </>
+  );
+}
+
+export default Page3_02;

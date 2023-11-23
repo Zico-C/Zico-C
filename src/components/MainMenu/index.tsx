@@ -225,6 +225,10 @@ const Comp: React.FC = () => {
           label: t("MainMenu.Option 8_07"),
           key: "/page8/page8_07",
         },
+        {
+          label: t("MainMenu.Option 8_08"),
+          key: "/page8/page8_08",
+        },
       ],
     },
   ];

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Checkbox, Grid, Typography } from "antd";
 import Control from "react-leaflet-control";
 import { ControlOutlined } from "@ant-design/icons";
-import { divIcon, Point } from "leaflet";
+import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
 import { MdDining } from "react-icons/md";
@@ -198,19 +198,21 @@ function MapView() {
   return (
     <>
       <Card
-        style={{
+        bodyStyle={{
           border: "1px solid gray",
           margin: "0",
+          height: "calc(100vh - 150px)",
         }}
       >
         <div id="map" style={{ height: "100%", width: "auto" }}>
-          <h1>Leaflet 地圖示例</h1>
+          <h1>Leaflet 標記群組演示</h1>
           {/* 地圖容器 */}
           <Map
             // @ts-ignore
             viewport={viewport}
             onViewportChange={onViewportChanged}
-            style={{ height: "700px" }}
+            style={{ height: "95%" }}
+            key={data}
           >
             {/* 地圖圖層 */}
             <TileLayer
@@ -270,6 +272,9 @@ function MapView() {
               // removeOutsideVisibleBounds ：當設為 true 時，地圖上不在可見範圍內的標記將被自動移除。
               // 對於大量標記的地圖，可以使用這個屬性來優化性能，只顯示可見範圍內的標記。  *預設值為 false *
               removeOutsideVisibleBounds={true}
+              spiderfyDistanceMultiplier={1}
+              showCoverageOnHover={false}
+              maxClusterRadius={35}
             >
               {markers.map((marker, index) => (
                 <Marker

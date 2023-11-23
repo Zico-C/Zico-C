@@ -6,6 +6,11 @@ import HsinchuZoo from "./travelPage/HsinchuZoo";
 import HsinchuStation from "./travelPage/HsinchuStation";
 import HsinchuTemple from "./travelPage/HsinchuTemple";
 import BigCity from "./travelPage/BigCity";
+import ZhubeiStation from "./travelPage/ZhubeiStation";
+import HsinchuHarbor from "./travelPage/HsinchuHarbor";
+import GreenGrassLake from "./travelPage/GreenGrassLake";
+import ZhubeiTofuRock from "./travelPage/ZhubeiTofuRock";
+
 // 建立一個介面來表示 Select 的選項
 type SelectOption = {
   label: string;
@@ -33,7 +38,7 @@ function Page6_02() {
   const uniqueTypes = new Set<string>();
   // 創建一個空陣列來存儲最終的選項
   const uniqueOptions: SelectOption[] = [];
-
+  console.log(markers);
   // 遍歷 markersData 陣列
   markersData.forEach((marker) => {
     // 檢查這個 type 是否已經處理過，若沒有，就執行下面的代碼
@@ -58,27 +63,35 @@ function Page6_02() {
       // 使用 map 將每個元素轉換為包含 label 和 value 的對象
       .map((marker) => ({ label: marker.name, value: marker.name })),
   }));
-
+  console.log(options);
   const markerComponents = {
     新竹公園: <HsinchuPark />,
     新竹動物園: <HsinchuZoo />,
     新竹火車站: <HsinchuStation />,
     新竹城隍廟: <HsinchuTemple />,
     "Big City遠東巨城購物中心": <BigCity />,
+    竹北後火車站: <ZhubeiStation />,
+    南寮魚鱗天梯: <HsinchuHarbor />,
+    青草湖: <GreenGrassLake />,
+    豆腐岩: <ZhubeiTofuRock />,
     // 添加更多的 key-value 對應
   };
 
   return (
     <>
       <Card>
-        <div>
+        <div style={{ margin: 0, padding: 0 }}>
           <Select
             defaultValue={markerName}
             bordered={true}
-            style={{ width: "auto" }}
+            style={{ width: 200 }}
             onChange={handleChange}
             options={options}
-            dropdownStyle={{ width: "auto" }}
+            dropdownStyle={{
+              width: "auto",
+              maxWidth: 220,
+              position: "relative",
+            }}
           />
         </div>
         {markerName && (
