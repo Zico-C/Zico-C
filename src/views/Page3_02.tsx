@@ -1,6 +1,6 @@
 import { Card, Row, Col, Spin, Typography } from "antd";
 import { useState, useEffect } from "react";
-import Screens from "./Page3_03";
+// import Screens from "./Page3_03";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { Map, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
