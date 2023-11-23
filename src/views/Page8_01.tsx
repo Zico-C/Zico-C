@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "./page8_01.module.scss";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-import { weatherElement } from "./Page3_02";
+import { weatherElement } from "./Page8_08";
 function Page8_01() {
   // 使用useState來宣告多個狀態變數
   const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據

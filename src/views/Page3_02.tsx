@@ -10,7 +10,6 @@ import Meta from "antd/es/card/Meta";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MdDirectionsBike } from "react-icons/md";
 import { BiSolidMessageAltError } from "react-icons/bi";
-import { height } from "pdfkit/js/page";
 
 export interface YouBike {
   sno: string;
