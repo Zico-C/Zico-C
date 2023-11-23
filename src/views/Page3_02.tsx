@@ -1,4 +1,4 @@
-import { Card, Row, Col, Spin } from "antd";
+import { Card, Row, Col, Spin, Typography } from "antd";
 import { useState, useEffect } from "react";
 import Screens from "./Page3_03";
 import axios from "axios";
@@ -10,6 +10,7 @@ import Meta from "antd/es/card/Meta";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MdDirectionsBike } from "react-icons/md";
 import { BiSolidMessageAltError } from "react-icons/bi";
+const { Text } = Typography;
 
 export interface YouBike {
   sno: string;
@@ -110,7 +111,11 @@ function Page3_02() {
   const [youbikeBempNum, setYoubikeBempNum] = useState<number | undefined>(0);
   // 取得所有場站可借車位數
   const [youbikeSbiNum, setYoubikeSbiNum] = useState<number | undefined>(0);
-
+  // 取得第一筆的更新時間
+  const [youbikeUpdateTime, setYoubikeUpdateTime] = useState<[string, string]>([
+    "",
+    "",
+  ]);
   useEffect(() => {
     const localViewport = localStorage.getItem("page3_02-viewport");
     if (!localViewport) {
@@ -209,16 +214,28 @@ function Page3_02() {
 
   useEffect(() => {
     const youbikeTotNumArray = marker?.map((youbike) => youbike.tot);
-    const totNumber = youbikeTotNumArray?.reduce((acc, cur) => acc + cur + 0);
+    const totNumber = youbikeTotNumArray?.reduce(
+      (acc, cur) => acc + cur + 0
+    ) as number;
     const youbikeBempNumArray = marker?.map((youbike) => youbike.bemp);
-    const bempNumber = youbikeBempNumArray?.reduce((acc, cur) => acc + cur + 0);
+    const bempNumber = youbikeBempNumArray?.reduce(
+      (acc, cur) => acc + cur + 0
+    ) as number;
     const youbikeSbiNumArray = marker?.map((youbike) => youbike.sbi);
-    const sbiNumber = youbikeSbiNumArray?.reduce((acc, cur) => acc + cur + 0);
-
+    const sbiNumber = youbikeSbiNumArray?.reduce(
+      (acc, cur) => acc + cur + 0
+    ) as number;
+    const youbikeUpdateTime = marker?.[600]?.mday
+      ?.toString()
+      .slice(-8) as string;
+    const youbikeUpdateDate = marker?.[600]?.mday
+      ?.toString()
+      .slice(0, 10) as string;
     console.log(totNumber);
     setYoubikeTotNum(totNumber);
     setYoubikeBempNum(bempNumber);
     setYoubikeSbiNum(sbiNumber);
+    setYoubikeUpdateTime([youbikeUpdateDate, youbikeUpdateTime]);
   }, [marker]);
   console.log("youbikeTotNum", youbikeTotNum);
   return (
@@ -310,7 +327,7 @@ function Page3_02() {
         </Col>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
           <Charts
-            title="Charts4"
+            title="數據更新時間"
             bodyStyle={{
               // @ts-ignore
               display: "flex",
@@ -319,11 +336,25 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            <Spin />
+            {isLoading || isFetching ? (
+              <>
+                <Spin />
+              </>
+            ) : (
+              <h1
+                style={{
+                  fontSize: "2.5rem",
+                  fontWeight: "bold",
+                  color: "#002FA7",
+                }}
+              >
+                {youbikeUpdateTime[1]}
+              </h1>
+            )}
           </Charts>
         </Col>
       </Row>
-      <Screens />
+      {/* <Screens /> */}
       <Card
         bodyStyle={{
           margin: 0,
@@ -336,7 +367,7 @@ function Page3_02() {
             // @ts-ignore
             viewport={viewport}
             onViewportChange={onViewportChanged}
-            style={{ height: "calc(55vh - 60px)" }}
+            style={{ height: "calc(55vh - 50px)" }}
             key={data}
           >
             {/* 地圖圖層 */}
@@ -413,9 +444,9 @@ function Page3_02() {
                               <p>可還空位數：{marker.bemp}</p>
                             </>
                           )}
-                          {marker.srcUpdateTime && (
+                          {marker.mday && (
                             <>
-                              <p>上次更新時間：{marker.srcUpdateTime}</p>
+                              <p>上次更新時間：{marker.mday}</p>
                             </>
                           )}
                         </>
@@ -426,6 +457,23 @@ function Page3_02() {
               ))}
             </MarkerClusterGroup>
           </Map>
+        </div>
+        <div>
+          <>
+            <Text style={{ verticalAlign: "4px" }}>站點可借數量： </Text>
+            <MdDirectionsBike
+              style={{ color: "#006400", fontSize: "1.3rem" }}
+            />
+            <Text style={{ verticalAlign: "4px" }}> 充足 </Text>
+            <MdDirectionsBike
+              style={{ color: "#d48806", fontSize: "1.3rem" }}
+            />
+            <Text style={{ verticalAlign: "4px" }}> 適中 </Text>
+            <MdDirectionsBike
+              style={{ color: "#cf1322", fontSize: "1.3rem" }}
+            />
+            <Text style={{ verticalAlign: "4px" }}> 有限 </Text>
+          </>
         </div>
       </Card>
     </>

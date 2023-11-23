@@ -339,11 +339,11 @@ function MapView() {
           {!screens.xs && (
             <>
               <TiLocation style={{ color: "#006400", fontSize: "1.3rem" }} />
-              <Text>景點</Text>
+              <Text style={{ verticalAlign: "4px" }}> 景點 </Text>
               <IoMdTrain style={{ color: "#008FC7", fontSize: "1.3rem" }} />
-              <Text>大眾交通工具</Text>
+              <Text style={{ verticalAlign: "4px" }}> 大眾交通工具 </Text>
               <MdDining style={{ color: "#dc3545", fontSize: "1.3rem" }} />
-              <Text>美食</Text>
+              <Text style={{ verticalAlign: "4px" }}> 美食 </Text>
             </>
           )}
         </div>
