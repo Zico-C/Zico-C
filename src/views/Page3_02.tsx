@@ -143,7 +143,7 @@ function Page3_02() {
       keepPreviousData: true,
       cacheTime: 60000,
       staleTime: Infinity, // 設置 staleTime 為 Infinity，表示即使過期，仍然使用舊資料直到新資料到來
-      refetchInterval: 5000, // 設置 refetchInterval 為 60000 毫秒 (1 分鐘)，自動觸發一次重新查詢
+      refetchInterval: 60000, // 設置 refetchInterval 為 60000 毫秒 (1 分鐘)，自動觸發一次重新查詢
     }
   );
 
