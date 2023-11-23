@@ -134,7 +134,7 @@ function Page3_02() {
       console.log((error as Error).message);
     }
   };
-
+  console.log("render....");
   const { data, status, isLoading, isFetching } = useQuery(
     ["TaipeiYouBike"],
     fetchYouBikeAPI,
@@ -143,7 +143,7 @@ function Page3_02() {
       keepPreviousData: true,
       cacheTime: 60000,
       staleTime: Infinity, // 設置 staleTime 為 Infinity，表示即使過期，仍然使用舊資料直到新資料到來
-      refetchInterval: 60000, // 設置 refetchInterval 為 60000 毫秒 (1 分鐘)，自動觸發一次重新查詢
+      refetchInterval: 5000, // 設置 refetchInterval 為 60000 毫秒 (1 分鐘)，自動觸發一次重新查詢
     }
   );
 
@@ -252,7 +252,7 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || youbikeTotNum === 0 ? (
               <>
                 <Spin />
               </>
@@ -280,7 +280,7 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || youbikeBempNum === 0 ? (
               <>
                 <Spin />
               </>
@@ -308,7 +308,7 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || youbikeSbiNum === 0 ? (
               <>
                 <Spin />
               </>
@@ -336,7 +336,7 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || youbikeUpdateTime[1] === "" ? (
               <>
                 <Spin />
               </>
@@ -368,7 +368,6 @@ function Page3_02() {
             viewport={viewport}
             onViewportChange={onViewportChanged}
             style={{ height: "calc(55vh - 50px)" }}
-            key={data}
           >
             {/* 地圖圖層 */}
             <TileLayer
@@ -399,7 +398,7 @@ function Page3_02() {
                   )}
                 >
                   <Tooltip direction="bottom">{marker.sna}</Tooltip>
-                  <Popup>
+                  <Popup offset={[0, -13]}>
                     <Card bodyStyle={{ display: "inline-block", padding: 15 }}>
                       <Meta
                         title={marker.sna}
@@ -415,7 +414,7 @@ function Page3_02() {
                           marginTop: "10px",
                         }}
                       />
-                      {isFetching || isLoading ? (
+                      {isLoading || isFetching ? (
                         <>
                           <Spin
                             style={{
