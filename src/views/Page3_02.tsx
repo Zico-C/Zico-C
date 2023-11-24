@@ -83,6 +83,7 @@ const Charts = ({
           backgroundColor: "#002FA7",
           color: "white",
           textAlign: "center",
+          borderRadius: 0,
         }}
         bodyStyle={{
           padding: 3,
@@ -173,7 +174,7 @@ function Page3_02() {
             <MdDirectionsBike
               style={{
                 color: "#cf1322",
-                fontSize: "2rem",
+                fontSize: "1.8rem",
                 marginLeft: "-11px",
                 marginTop: "-20px",
               }}
@@ -182,7 +183,7 @@ function Page3_02() {
             <MdDirectionsBike
               style={{
                 color: "#d48806",
-                fontSize: "2rem",
+                fontSize: "1.8rem",
                 marginLeft: "-11px",
                 marginTop: "-20px",
               }}
@@ -191,7 +192,7 @@ function Page3_02() {
             <MdDirectionsBike
               style={{
                 color: "#006400",
-                fontSize: "2rem",
+                fontSize: "1.8rem",
                 marginLeft: "-11px",
                 marginTop: "-20px",
               }}
@@ -201,7 +202,7 @@ function Page3_02() {
               <BiSolidMessageAltError
                 style={{
                   color: "#dc3545",
-                  fontSize: "2rem",
+                  fontSize: "1.8rem",
                   marginLeft: "-11px",
                   marginTop: "-20px",
                 }}
@@ -357,7 +358,7 @@ function Page3_02() {
       {/* <Screens /> */}
       <Card
         bodyStyle={{
-          margin: 0,
+          margin: 5,
           padding: 0,
           height: "100%",
         }}
@@ -378,12 +379,12 @@ function Page3_02() {
             {/* <Control></Control> */}
             <MarkerClusterGroup
               // 控制地圖縮放級別，當地圖縮放到這個級別時，標記不再聚合。
-              disableClusteringAtZoom={18}
+              disableClusteringAtZoom={16}
               // removeOutsideVisibleBounds ：當設為 true 時，地圖上不在可見範圍內的標記將被自動移除。
               // 對於大量標記的地圖，可以使用這個屬性來優化性能，只顯示可見範圍內的標記。  *預設值為 false *
               removeOutsideVisibleBounds={true}
               spiderfyDistanceMultiplier={1}
-              showCoverageOnHover={false}
+              showCoverageOnHover={true}
               maxClusterRadius={35}
             >
               {marker?.map((marker, index) => (
@@ -397,7 +398,9 @@ function Page3_02() {
                     marker.act
                   )}
                 >
-                  <Tooltip direction="bottom">{marker.sna}</Tooltip>
+                  <Tooltip direction="bottom" offset={[0, 7]}>
+                    {marker.sna}
+                  </Tooltip>
                   <Popup offset={[0, -13]}>
                     <Card bodyStyle={{ display: "inline-block", padding: 15 }}>
                       <Meta
@@ -448,6 +451,21 @@ function Page3_02() {
                               <p>上次更新時間：{marker.mday}</p>
                             </>
                           )}
+                          {marker.act === "0" && (
+                            <>
+                              <p
+                                style={{
+                                  color: "red",
+                                  textAlign: "center",
+                                  fontSize: "1.2rem",
+                                  margin: 0,
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                此站目前為禁用狀態
+                              </p>
+                            </>
+                          )}
                         </>
                       )}
                     </Card>
@@ -457,9 +475,11 @@ function Page3_02() {
             </MarkerClusterGroup>
           </Map>
         </div>
-        <div>
+        <div style={{ marginTop: "5px" }}>
           <>
-            <Text style={{ verticalAlign: "4px" }}>站點可借數量： </Text>
+            <Text style={{ verticalAlign: "4px" }}>
+              臺北市 YouBike2.0 即時資訊：{" "}
+            </Text>
             <MdDirectionsBike
               style={{ color: "#006400", fontSize: "1.3rem" }}
             />

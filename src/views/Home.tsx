@@ -212,7 +212,16 @@ const View: React.FC = () => {
         >
           {/* 窗口部分 */}
           <Outlet />
-          <FloatButton.BackTop visibilityHeight={120} />
+          <FloatButton.BackTop
+            visibilityHeight={120}
+            style={{
+              position: "fixed",
+              bottom: 5,
+              right: 20,
+              zIndex: 999,
+              border: "1px gray solid",
+            }}
+          />
         </Content>
         {/* 右邊底部 */}
         <Footer
