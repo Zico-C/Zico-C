@@ -33,7 +33,7 @@ const MyMap: React.FC = () => {
       <MarkerClusterGroup
         // 設置為 true 可以提高地圖性能，因為它僅顯示使用者地圖可見區域內的標記，使用者可見區域外的標記全部移除。
         // 設置為 false 則會顯示所有標記，即使它們在可見區域之外。
-        removeOutsideVisibleBounds={true}
+        removeOutsideVisibleBounds={false}
         // removeOutsideVisibleBounds={false}
       >
         {/* 渲染 5000 隨機標記 */}

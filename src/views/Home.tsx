@@ -172,7 +172,7 @@ const View: React.FC = () => {
                     ),
                   },
                   {
-                    href: "/Zico-C/page3/page3_01",
+                    href: "/Zico-C/page3/page3_02",
                     title: (
                       <>
                         <UserOutlined />
