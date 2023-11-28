@@ -110,6 +110,7 @@ function Page3_02() {
   const [youbikeTotNum, setYoubikeTotNum] = useState<number | undefined>(0);
   // 取得所有場站可還空位數
   const [youbikeBempNum, setYoubikeBempNum] = useState<number | undefined>(0);
+  console.log("youbikeBempNum", youbikeBempNum);
   // 取得所有場站可借車位數
   const [youbikeSbiNum, setYoubikeSbiNum] = useState<number | undefined>(0);
   // 取得第一筆的更新時間
@@ -253,7 +254,10 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching || youbikeTotNum === 0 ? (
+            {isLoading ||
+            isFetching ||
+            youbikeTotNum === 0 ||
+            youbikeBempNum === undefined ? (
               <>
                 <Spin />
               </>
@@ -281,7 +285,10 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching || youbikeBempNum === 0 ? (
+            {isLoading ||
+            isFetching ||
+            youbikeBempNum === 0 ||
+            youbikeBempNum === undefined ? (
               <>
                 <Spin />
               </>
@@ -309,7 +316,10 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching || youbikeSbiNum === 0 ? (
+            {isLoading ||
+            isFetching ||
+            youbikeSbiNum === 0 ||
+            youbikeBempNum === undefined ? (
               <>
                 <Spin />
               </>
@@ -337,7 +347,10 @@ function Page3_02() {
               position: "relative",
             }}
           >
-            {isLoading || isFetching || youbikeUpdateTime[1] === "" ? (
+            {isLoading ||
+            isFetching ||
+            youbikeUpdateTime[1] === "" ||
+            youbikeBempNum === undefined ? (
               <>
                 <Spin />
               </>

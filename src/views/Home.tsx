@@ -120,7 +120,7 @@ const View: React.FC = () => {
         trigger={showHamberger && null}
         style={
           showHamberger
-            ? { zIndex: "999", left: "0", height: "100%", position: "fixed" }
+            ? { zIndex: "9999", left: "0", height: "100%", position: "fixed" }
             : {}
         }
       >

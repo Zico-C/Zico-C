@@ -81,6 +81,14 @@ function Page8_01() {
   return (
     <div className={styles.main}>
       <h1>天氣預報API</h1>
+      <a
+        href="https://opendata.cwa.gov.tw/opendatadoc/Observation/O-A0003-001.pdf"
+        style={{ fontSize: "1.2rem" }}
+        target="_New"
+      >
+        中央氣象署開放資料平臺資料標準說明文件 ｜ 發布時間：2023-11-15 ｜ 版次
+        1.0
+      </a>
       <hr />
       <input
         value={searchLocation}

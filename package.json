@@ -28,6 +28,7 @@
     "echarts-for-react": "^3.0.2",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
+    "framer-motion": "^10.16.5",
     "gh-pages": "^6.0.0",
     "html-pdf": "^3.0.1",
     "html2canvas": "^1.4.1",

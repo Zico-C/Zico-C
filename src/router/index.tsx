@@ -11,6 +11,9 @@ const Page2 = lazy(() => import("../views/Page2"));
 const Page3_01 = lazy(() => import("../views/Page3_01"));
 const Page3_02 = lazy(() => import("../views/Page3_02"));
 const Page3_03 = lazy(() => import("../views/Page3_03"));
+const Page3_04 = lazy(() => import("../views/Page3_04"));
+const Page3_05 = lazy(() => import("../views/Page3_05"));
+const Page3_06 = lazy(() => import("../views/Page3_06"));
 const Page4_01 = lazy(() => import("../views/Page4_01"));
 const Page4_02 = lazy(() => import("../views/Page4_02"));
 const Page5_01 = lazy(() => import("../views/Page5_01"));
@@ -87,6 +90,18 @@ const Routes = [
       {
         path: "/Page3/Page3_03",
         element: WithLoadingComponent(<Page3_03 />),
+      },
+      {
+        path: "/Page3/Page3_04",
+        element: WithLoadingComponent(<Page3_04 />),
+      },
+      {
+        path: "/Page3/Page3_05",
+        element: WithLoadingComponent(<Page3_05 />),
+      },
+      {
+        path: "/Page3/Page3_06",
+        element: WithLoadingComponent(<Page3_06 />),
       },
       {
         path: "/Page4/Page4_01",

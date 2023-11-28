@@ -78,6 +78,18 @@ const Comp: React.FC = () => {
           label: t("MainMenu.Option 3_03"),
           key: "/page3/page3_03",
         },
+        {
+          label: t("MainMenu.Option 3_04"),
+          key: "/page3/page3_04",
+        },
+        {
+          label: t("MainMenu.Option 3_05"),
+          key: "/page3/page3_05",
+        },
+        {
+          label: t("MainMenu.Option 3_06"),
+          key: "/page3/page3_06",
+        },
       ],
     },
     {
