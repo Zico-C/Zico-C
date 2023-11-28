@@ -87,7 +87,7 @@ const Charts = ({
         }}
         bodyStyle={{
           padding: 3,
-          height: "303px",
+          height: "289px",
           userSelect: "text",
           ...bodyStyle,
         }}

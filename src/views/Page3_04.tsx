@@ -22,7 +22,7 @@ function Page3_04() {
       // viewport={{ once: true }}
       >
         <Row gutter={[16, 16]}>
-          {Array.from({ length: 8 }).map((_, i) => (
+          {Array.from({ length: 8 }).map((_unused, i) => (
             <Col key={i} span={6}>
               <TestCard key={i} order={i} />
             </Col>

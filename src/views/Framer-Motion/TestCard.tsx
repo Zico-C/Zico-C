@@ -3,13 +3,15 @@ import { motion, useAnimation } from "framer-motion";
 const TestCard = ({ order }: any) => {
   const delay = order >= 4 ? (8 - order - 1) * 0.3 : order * 0.3;
   // 定義淡入的變體
-  const fadeIn = () => {
+  const fadeIn = (direction?: string, delay?: number, duration?: number) => {
     const x = order >= 4 ? 100 : -100;
     return {
+      // hidden 隱藏的時候
       hidden: {
         opacity: 0,
         x,
       },
+      // visible 可見的時候
       visible: {
         opacity: 1,
         x: 0,
