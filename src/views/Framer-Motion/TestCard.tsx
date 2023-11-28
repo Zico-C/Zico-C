@@ -49,7 +49,7 @@ const TestCard = ({ order }: any) => {
       animate={controls}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
-      viewport={{ once: true }}
+      // viewport={{ once: true }}
     >
       <h2 style={{ fontSize: "1.2rem" }}>Card</h2>
       <br />
