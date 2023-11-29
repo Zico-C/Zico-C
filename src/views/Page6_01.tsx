@@ -91,13 +91,14 @@ function MapView() {
   });
   useEffect(() => {
     if (status === "success") {
-      setMarkers(data?.markers);
+      // 當API請求成功時
+      setMarkers(data?.markers); // 將 api回來的 json data 傳入 useState中 保存
       disp(setMarkersS(data?.markers));
       // JSON.stringify() ：物件變 JSON  | JSON.parse()：JSON 變物件
       localStorage.setItem("markers", JSON.stringify(data?.markers));
       disp(setTimeZone("123"));
     }
-  }, [data]);
+  }, [data]); // 每當 api 請求回來的 data 改變成 重新 render 執行裡面操作 將最新資料保存至 useState
   console.log("data", data);
   console.log("markers", markers);
 

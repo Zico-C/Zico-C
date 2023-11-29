@@ -49,7 +49,7 @@ function View() {
       </>
     );
   }
-
+  console.log(data);
   return (
     <>
       <div>

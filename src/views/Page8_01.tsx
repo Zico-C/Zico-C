@@ -3,6 +3,15 @@ import styles from "./page8_01.module.scss";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { weatherElement } from "./Page8_08";
+import { Card, Row, Col } from "antd";
+import CloudyDay from "../../public/images/2682849_cloud_cloudy_day_forecast_sun_icon.svg";
+import SunnyDay from "../../public/images/2682848_day_forecast_sun_sunny_weather_icon.svg";
+import CloudyfogDay from "../../public/images/2682812_cloud_coudy_day_fog_mist_icon.svg";
+import Rainy from "../../public/images/2682834_cloud_day_forecast_rain_rainy_icon.svg";
+import CloudyfogNight from "../../public/images/2682811_cloud_cloudy_fog_mist_moon_icon.svg";
+import RainyNight from "../../public/images/2682843_cloud_forecast_moon_night_rain_icon.svg";
+import moonNight from "../../public/images/2682847_eclipse_forecast_moon_night_space_icon.svg";
+import CloudyNight from "../../public/images/2682846_cloud_cloudy_forecast_moon_night_icon.svg";
 function Page8_01() {
   // 使用useState來宣告多個狀態變數
   const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據
@@ -12,7 +21,7 @@ function Page8_01() {
   const [SearchParams] = useSearchParams("");
 
   const selectLocationX = SearchParams.get("selectLocation") || "";
-
+  console.log(filteredData);
   console.log(
     "postTest",
     post.map((xxx) => {
@@ -138,7 +147,6 @@ function Page8_01() {
                 <p style={{ color: "red" }}>溫度缺值 或 資料異常</p>
               </>
             )}
-
             <p>
               更新時間：
               {item.ObsTime.DateTime.toString()
@@ -168,8 +176,153 @@ function Page8_01() {
                 </p>
               </>
             ) : null}
-            <hr />
             {/* 其他欄位 */}
+            <Card style={{ width: "525px", borderRadius: "2rem" }}>
+              <Row>
+                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                  <h1
+                    style={{
+                      fontSize: "2rem",
+                      fontWeight: "bold",
+                      color: "darkcyan",
+                    }}
+                  >
+                    {item.GeoInfo.CountyName}
+                  </h1>
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                  <h2 style={{ fontSize: "1.5rem", margin: "5px 0 0 0" }}>
+                    {item.GeoInfo.TownName}
+                  </h2>
+                </Col>
+
+                {item.WeatherElement.AirTemperature != -99 ? (
+                  <>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                      <p
+                        style={{
+                          fontSize: "3.5rem",
+                          fontWeight: "500",
+                          color: "darkblue",
+                          margin: "20px 0",
+                        }}
+                      >
+                        {item.WeatherElement.AirTemperature}°C
+                      </p>
+                    </Col>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                      {item.ObsTime.DateTime.toString()
+                        .replace("T", " ")
+                        .substring(11, 13) <= "18" &&
+                      item.ObsTime.DateTime.toString()
+                        .replace("T", " ")
+                        .substring(11, 13) >= "06" ? (
+                        item.WeatherElement.Weather.includes("雨") ? (
+                          <img src={Rainy} alt="" style={{ height: "140px" }} />
+                        ) : item.WeatherElement.Weather.slice(0, 2) ===
+                          "多雲" ? (
+                          <img
+                            src={CloudyfogDay}
+                            alt=""
+                            style={{ height: "140px" }}
+                          />
+                        ) : item.WeatherElement.Weather.slice(0, 1) === "晴" ? (
+                          <img
+                            src={SunnyDay}
+                            alt=""
+                            style={{ height: "140px" }}
+                          />
+                        ) : item.WeatherElement.Weather.slice(0, 1) === "陰" ? (
+                          <img
+                            src={CloudyDay}
+                            alt=""
+                            style={{ height: "140px" }}
+                          />
+                        ) : null
+                      ) : item.WeatherElement.Weather.includes("雨") ? (
+                        <img
+                          src={RainyNight}
+                          alt=""
+                          style={{ height: "140px" }}
+                        />
+                      ) : item.WeatherElement.Weather.slice(0, 2) === "多雲" ? (
+                        <img
+                          src={CloudyfogNight}
+                          alt=""
+                          style={{ height: "140px" }}
+                        />
+                      ) : item.WeatherElement.Weather.slice(0, 1) === "晴" ? (
+                        <img
+                          src={moonNight}
+                          alt=""
+                          style={{ height: "140px" }}
+                        />
+                      ) : item.WeatherElement.Weather.slice(0, 1) === "陰" ? (
+                        <img
+                          src={CloudyNight}
+                          alt=""
+                          style={{ height: "140px" }}
+                        />
+                      ) : null}
+                    </Col>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ color: "red" }}>溫度缺值 或 資料異常</p>
+                  </>
+                )}
+                {item.WeatherElement.AirTemperature != -99 ? (
+                  <>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <p style={{ margin: "5px 0 15px 0" }}>
+                        今日最高溫 ：
+                        {
+                          item.WeatherElement?.DailyExtreme?.DailyHigh
+                            ?.TemperatureInfo?.AirTemperature
+                        }
+                      </p>
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+                      <p style={{ margin: "0 0 15px 0 " }}>
+                        今日最高溫 ：
+                        {
+                          item.WeatherElement?.DailyExtreme?.DailyLow
+                            ?.TemperatureInfo?.AirTemperature
+                        }
+                      </p>
+                    </Col>
+                  </>
+                ) : null}
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      margin: "15px 0 0 0",
+                    }}
+                  >
+                    測站位置 ：{item.StationName}
+                  </p>
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                  <p
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      color: "gray",
+                      fontWeight: "500",
+                      fontSize: "18px",
+                      margin: "15px 0 0 0",
+                    }}
+                  >
+                    最後觀測時間 ：
+                    {item.ObsTime.DateTime.toString()
+                      .replace("T", " ")
+                      .substring(11, 19)}
+                  </p>
+                </Col>
+              </Row>
+            </Card>
+            <hr />
           </li>
         ))}
       </ul>

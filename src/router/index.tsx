@@ -14,8 +14,14 @@ const Page3_03 = lazy(() => import("../views/Page3_03"));
 const Page3_04 = lazy(() => import("../views/Page3_04"));
 const Page3_05 = lazy(() => import("../views/Page3_05"));
 const Page3_06 = lazy(() => import("../views/Page3_06"));
+const Page3_07 = lazy(() => import("../views/Page3_07"));
+const Page3_08 = lazy(() => import("../views/Page3_08"));
 const Page4_01 = lazy(() => import("../views/Page4_01"));
 const Page4_02 = lazy(() => import("../views/Page4_02"));
+const Page4_03 = lazy(() => import("../views/Page4_03"));
+const Page4_04 = lazy(() => import("../views/Page4_04"));
+const Page4_05 = lazy(() => import("../views/Page4_05"));
+const Page4_06 = lazy(() => import("../views/Page4_06"));
 const Page5_01 = lazy(() => import("../views/Page5_01"));
 const Page5_02 = lazy(() => import("../views/Page5_02"));
 const Page5_03 = lazy(() => import("../views/Page5_03"));
@@ -104,12 +110,36 @@ const Routes = [
         element: WithLoadingComponent(<Page3_06 />),
       },
       {
+        path: "/Page3/Page3_07",
+        element: WithLoadingComponent(<Page3_07 />),
+      },
+      {
+        path: "/Page3/Page3_08",
+        element: WithLoadingComponent(<Page3_08 />),
+      },
+      {
         path: "/Page4/Page4_01",
         element: WithLoadingComponent(<Page4_01 />),
       },
       {
         path: "/Page4/Page4_02",
         element: WithLoadingComponent(<Page4_02 />),
+      },
+      {
+        path: "/Page4/Page4_03",
+        element: WithLoadingComponent(<Page4_03 />),
+      },
+      {
+        path: "/Page4/Page4_04",
+        element: WithLoadingComponent(<Page4_04 />),
+      },
+      {
+        path: "/Page4/Page4_05",
+        element: WithLoadingComponent(<Page4_05 />),
+      },
+      {
+        path: "/Page4/Page4_06",
+        element: WithLoadingComponent(<Page4_06 />),
       },
       {
         path: "/Page5/Page5_01",
