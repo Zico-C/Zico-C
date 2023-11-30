@@ -1,6 +1,10 @@
 import { motion, useAnimation } from "framer-motion";
+import { Grid } from "antd";
+const { useBreakpoint } = Grid;
 
 const TestCard = ({ order }: any) => {
+  const screens = useBreakpoint();
+
   const delay = order >= 4 ? (8 - order - 1) * 0.3 : order * 0.3;
   // 定義淡入的變體
   const fadeIn = () => {
@@ -32,8 +36,8 @@ const TestCard = ({ order }: any) => {
     <motion.div
       // 設定卡片樣式
       style={{
-        minWidth: "300px",
-        height: "250px",
+        minWidth: screens.xs ? "80px" : screens.sm ? "80px" : "300px",
+        height: screens.xs ? "100px" : screens.sm ? "200px" : "250px",
         padding: "10px",
         borderRadius: "0.5rem",
         background: "gray",

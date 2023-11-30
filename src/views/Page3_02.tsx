@@ -1,4 +1,4 @@
-import { Card, Row, Col, Spin, Typography } from "antd";
+import { Card, Row, Col, Spin, Typography, Grid } from "antd";
 import { useState, useEffect } from "react";
 // import Screens from "./Page3_03";
 import axios from "axios";
@@ -11,6 +11,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { MdDirectionsBike } from "react-icons/md";
 import { BiSolidMessageAltError } from "react-icons/bi";
 import ReactECharts from "echarts-for-react";
+const { useBreakpoint } = Grid;
+
 const { Text } = Typography;
 
 export interface YouBike {
@@ -100,85 +102,7 @@ const Charts = ({
     </>
   );
 };
-const charts = ({ tot, bemp, sbi, updateTime }: any) => {
-  const utilizationRate = ((bemp / tot) * 100).toFixed(2);
-  const option = {
-    tooltip: {
-      trigger: "item",
-      formatter: "{b}: {c} ({d}%)", // 顯示百分比
-    },
-    graphic: [
-      {
-        type: "text",
-        left: "center",
-        top: "35%",
-        style: {
-          text: "目前使用量",
-          textAlign: "center",
-          fill: "#555", // 文字顏色
-          fontSize: 16, // 文字大小
-          fontWeight: "bold",
-        },
-      },
 
-      {
-        type: "text",
-        left: "center",
-        top: "45%", // 調整此值以垂直居中
-        style: {
-          text: `${utilizationRate} %`, // 這裡設置你的使用量百分比
-          textAlign: "center",
-          fill: "#555", // 文字顏色
-          fontSize: 20, // 文字大小
-          fontWeight: "bold",
-        },
-      },
-      {
-        type: "text",
-        left: "center",
-        top: "88%", // 調整此值以垂直居中
-        style: {
-          text: `上次更新時間 ${updateTime}`, // 這裡設置你的使用量百分比
-          textAlign: "center",
-          fill: "#555", // 文字顏色
-          fontSize: 20, // 文字大小
-          fontWeight: "bold",
-        },
-      },
-    ],
-    series: [
-      {
-        name: "Access From",
-        type: "pie",
-        radius: ["45%", "70%"],
-        center: ["50%", "45%"], // 調整整個圓餅圖的位置
-        avoidLabelOverlap: false,
-        label: {
-          show: true,
-          position: "outside",
-          formatter: "{b}\n{c}", // 顯示數值和名稱
-          fontSize: 14,
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 16,
-            fontWeight: "bold",
-          },
-        },
-        labelLine: {
-          show: true,
-        },
-        data: [
-          { value: bemp, name: "可還空位數" },
-          { value: sbi, name: "可借車位數" },
-        ],
-      },
-    ],
-  };
-  return option;
-};
-console.log(charts);
 function Page3_02() {
   const [viewport, setViewPort] = useState({
     center: [25.035751357120876, 121.52047467202769],
@@ -197,6 +121,8 @@ function Page3_02() {
     "",
     "",
   ]);
+  const screens = useBreakpoint();
+
   useEffect(() => {
     const localViewport = localStorage.getItem("page3_02-viewport");
     if (!localViewport) {
@@ -293,6 +219,89 @@ function Page3_02() {
       ),
     });
 
+  const charts = ({ tot, bemp, sbi, updateTime }: any) => {
+    const utilizationRate = ((bemp / tot) * 100).toFixed(2);
+    const option = {
+      tooltip: {
+        trigger: "item",
+        formatter: "{b}: {c} ({d}%)", // 顯示百分比
+      },
+      graphic: [
+        {
+          type: "text",
+          left: "center",
+          top: "35%",
+          style: {
+            text: "目前使用量",
+            textAlign: "center",
+            fill: "#555", // 文字顏色
+            fontSize: 16, // 文字大小
+            fontWeight: "bold",
+          },
+        },
+
+        {
+          type: "text",
+          left: "center",
+          top: "45%", // 調整此值以垂直居中
+          style: {
+            text: `${utilizationRate} %`, // 這裡設置你的使用量百分比
+            textAlign: "center",
+            fill: "#555", // 文字顏色
+            fontSize: 20, // 文字大小
+            fontWeight: "bold",
+          },
+        },
+        {
+          type: "text",
+          left: "center",
+          top: "88%", // 調整此值以垂直居中
+          style: {
+            text: `上次更新時間 ${updateTime}`, // 這裡設置你的使用量百分比
+            textAlign: "center",
+            fill: "#555", // 文字顏色
+            fontSize: 20, // 文字大小
+            fontWeight: "bold",
+          },
+        },
+      ],
+      series: [
+        {
+          name: "Access From",
+          type: "pie",
+          radius: ["45%", "66%"],
+          center: ["50%", "45%"], // 調整整個圓餅圖的位置
+          avoidLabelOverlap: false,
+          label: screens.xs
+            ? { show: false }
+            : {
+                show: true,
+                position: "outside",
+                formatter: "{b}\n{c}",
+                fontSize: 14,
+              },
+          emphasis: {
+            label: {
+              show: screens.xs ? false : true,
+              fontSize: 16,
+              fontWeight: "bold",
+            },
+          },
+          labelLine: screens.xs
+            ? { show: false }
+            : {
+                show: true,
+              },
+          data: [
+            { value: bemp, name: "可還空位數" },
+            { value: sbi, name: "可借車位數" },
+          ],
+        },
+      ],
+    };
+    return option;
+  };
+  console.log(charts);
   useEffect(() => {
     const youbikeTotNumArray = marker?.map((youbike) => youbike.tot);
     const totNumber = youbikeTotNumArray?.reduce(

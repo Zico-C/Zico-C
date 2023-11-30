@@ -3,7 +3,7 @@ import styles from "./page8_01.module.scss";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { weatherElement } from "./Page8_08";
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Grid } from "antd";
 import CloudyDay from "../../public/images/2682849_cloud_cloudy_day_forecast_sun_icon.svg";
 import SunnyDay from "../../public/images/2682848_day_forecast_sun_sunny_weather_icon.svg";
 import CloudyfogDay from "../../public/images/2682812_cloud_coudy_day_fog_mist_icon.svg";
@@ -12,6 +12,8 @@ import CloudyfogNight from "../../public/images/2682811_cloud_cloudy_fog_mist_mo
 import RainyNight from "../../public/images/2682843_cloud_forecast_moon_night_rain_icon.svg";
 import moonNight from "../../public/images/2682847_eclipse_forecast_moon_night_space_icon.svg";
 import CloudyNight from "../../public/images/2682846_cloud_cloudy_forecast_moon_night_icon.svg";
+
+const { useBreakpoint } = Grid;
 function Page8_01() {
   // 使用useState來宣告多個狀態變數
   const [post, setPost] = useState<weatherElement[]>([]); // 存儲從API獲取的氣象數據
@@ -19,6 +21,7 @@ function Page8_01() {
   const [filteredData, setFilteredData] = useState<weatherElement[]>([]); // 用於存儲匹配的數據
   const [suggestions, setSuggestions] = useState<string[]>([]); // 存儲匹配的地區名稱建議
   const [SearchParams] = useSearchParams("");
+  const screens = useBreakpoint();
 
   const selectLocationX = SearchParams.get("selectLocation") || "";
   console.log(filteredData);
@@ -89,14 +92,29 @@ function Page8_01() {
 
   return (
     <div className={styles.main}>
-      <h1>天氣預報API</h1>
+      <h1
+        style={
+          screens.xs
+            ? { fontSize: "1.5rem", fontWeight: "500" }
+            : { fontSize: "1.8rem" }
+        }
+      >
+        天氣預報API
+      </h1>
       <a
         href="https://opendata.cwa.gov.tw/opendatadoc/Observation/O-A0003-001.pdf"
-        style={{ fontSize: "1.2rem" }}
+        style={screens.xs ? { fontSize: "1rem" } : { fontSize: "1.2rem" }}
         target="_New"
       >
-        中央氣象署開放資料平臺資料標準說明文件 ｜ 發布時間：2023-11-15 ｜ 版次
-        1.0
+        中央氣象署開放資料平臺資料標準說明文件{" "}
+        {screens.xs ? (
+          <>
+            <br />
+          </>
+        ) : (
+          <>｜</>
+        )}
+        發布時間：2023-11-15 ｜ 版次 1.0
       </a>
       <hr />
       <input
@@ -177,12 +195,18 @@ function Page8_01() {
               </>
             ) : null}
             {/* 其他欄位 */}
-            <Card style={{ width: "525px", borderRadius: "2rem" }}>
+            <Card
+              style={{
+                width: screens.xs ? "385px" : "525px",
+                borderRadius: "2rem",
+                padding: screens.xs ? "0" : "12px",
+              }}
+            >
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
                   <h1
                     style={{
-                      fontSize: "2rem",
+                      fontSize: screens.xs ? "35px" : "2.5rem",
                       fontWeight: "bold",
                       color: "darkcyan",
                     }}
@@ -191,7 +215,7 @@ function Page8_01() {
                   </h1>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                  <h2 style={{ fontSize: "1.5rem", margin: "5px 0 0 0" }}>
+                  <h2 style={{ fontSize: "1.8rem", margin: "5px 0 0 0" }}>
                     {item.GeoInfo.TownName}
                   </h2>
                 </Col>
@@ -199,16 +223,17 @@ function Page8_01() {
                 {item.WeatherElement.AirTemperature != -99 ? (
                   <>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                      <p
+                      <h3
                         style={{
-                          fontSize: "3.5rem",
+                          fontSize: screens.xs ? "50px" : "3.5rem",
+                          display: "flex",
                           fontWeight: "500",
                           color: "darkblue",
-                          margin: "20px 0",
+                          margin: screens.xs ? "20px 20px 0 0" : "20px 0",
                         }}
                       >
                         {item.WeatherElement.AirTemperature}°C
-                      </p>
+                      </h3>
                     </Col>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
                       {item.ObsTime.DateTime.toString()
@@ -274,51 +299,71 @@ function Page8_01() {
                 {item.WeatherElement.AirTemperature != -99 ? (
                   <>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                      <p style={{ margin: "5px 0 15px 0" }}>
+                      <h6
+                        style={
+                          screens.xs
+                            ? { fontSize: "20px", margin: "5px 0 0 0" }
+                            : {
+                                fontSize: "1.5rem",
+                                fontWeight: "500",
+                                margin: "5px 0 15px 0",
+                              }
+                        }
+                      >
                         今日最高溫 ：
                         {
                           item.WeatherElement?.DailyExtreme?.DailyHigh
                             ?.TemperatureInfo?.AirTemperature
                         }
-                      </p>
+                      </h6>
                     </Col>
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-                      <p style={{ margin: "0 0 15px 0 " }}>
+                      <h6
+                        style={
+                          screens.xs
+                            ? { fontSize: "20px", margin: "5px 0 5px 0" }
+                            : {
+                                fontSize: "1.5rem",
+                                fontWeight: "500",
+                                margin: "0 0 15px 0",
+                              }
+                        }
+                      >
                         今日最高溫 ：
                         {
                           item.WeatherElement?.DailyExtreme?.DailyLow
                             ?.TemperatureInfo?.AirTemperature
                         }
-                      </p>
+                      </h6>
                     </Col>
                   </>
                 ) : null}
                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                  <p
+                  <h6
                     style={{
-                      fontSize: "18px",
-                      margin: "15px 0 0 0",
+                      fontSize: screens.xs ? "18px" : "25px",
+                      margin: screens.xs ? "5px 0 0 0 " : "15px 0 0 0",
                     }}
                   >
                     測站位置 ：{item.StationName}
-                  </p>
+                  </h6>
                 </Col>
                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
-                  <p
+                  <h6
                     style={{
                       display: "flex",
                       flexDirection: "row-reverse",
                       color: "gray",
                       fontWeight: "500",
-                      fontSize: "18px",
-                      margin: "15px 0 0 0",
+                      fontSize: screens.xs ? "18px" : "25px",
+                      margin: screens.xs ? "5px 0 0 0 " : "15px 0 0 0",
                     }}
                   >
-                    最後觀測時間 ：
+                    觀測時間 ：
                     {item.ObsTime.DateTime.toString()
                       .replace("T", " ")
                       .substring(11, 19)}
-                  </p>
+                  </h6>
                 </Col>
               </Row>
             </Card>
