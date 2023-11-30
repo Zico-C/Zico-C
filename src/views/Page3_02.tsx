@@ -699,8 +699,9 @@ function Page3_02() {
                             (screens.xs ? (
                               <>
                                 <a
-                                  href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
-                                  target="_New"
+                                  href={`comgooglemaps://?daddr=${marker.lat},${marker.lng}&directionsmode=walking`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
                                   style={{
                                     fontSize: "1rem",
                                     textAlign: "left",
@@ -716,6 +717,7 @@ function Page3_02() {
                                 <a
                                   href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
                                   target="_blank"
+                                  rel="noopener noreferrer"
                                 >
                                   打開 Google 地圖導航
                                 </a>
