@@ -705,7 +705,7 @@ function Page3_02() {
                               <>
                                 <a
                                   href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
-                                  target="_New"
+                                  target="_blank"
                                 >
                                   打開 Google 地圖導航
                                 </a>
