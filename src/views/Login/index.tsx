@@ -216,22 +216,13 @@ const view = () => {
         {/* 登入表單部分 */}
         <div className="form">
           <Space direction="vertical" size="large" style={{ display: "flex" }}>
-            <Input
-              placeholder="User Account"
-              onChange={userNameChange}
-              style={{ outline: "none" }}
-            />
+            <Input placeholder="User Account" onChange={userNameChange} />
             <Input.Password
               placeholder="User Password"
               onChange={passWordChange}
-              style={{ outline: "none" }}
             />
             <div className="captchaBox">
-              <Input
-                placeholder="Input Captcha"
-                onChange={captchChange}
-                style={{ outline: "none" }}
-              />
+              <Input placeholder="Input Captcha" onChange={captchChange} />
               <div className="captchaImg">
                 {/* <img height="38" src={getcaptchaImg} alt="" /> */}
                 <LoadCanvasTemplateNoReload />
