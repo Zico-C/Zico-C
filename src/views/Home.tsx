@@ -100,7 +100,7 @@ const View: React.FC = () => {
           style={{
             zIndex: "999",
             right: "10%",
-            bottom: "10%",
+            bottom: "6%",
             position: "fixed",
           }}
           icon={

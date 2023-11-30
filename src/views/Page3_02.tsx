@@ -1,4 +1,4 @@
-import { Card, Row, Col, Spin, Typography, Grid } from "antd";
+import { Card, Row, Col, Spin, Typography, Grid, Button } from "antd";
 import { useState, useEffect } from "react";
 // import Screens from "./Page3_03";
 import axios from "axios";
@@ -10,7 +10,9 @@ import Meta from "antd/es/card/Meta";
 import { renderToStaticMarkup } from "react-dom/server";
 import { MdDirectionsBike } from "react-icons/md";
 import { BiSolidMessageAltError } from "react-icons/bi";
+import { MdOutlineEmojiPeople } from "react-icons/md";
 import ReactECharts from "echarts-for-react";
+
 const { useBreakpoint } = Grid;
 
 const { Text } = Typography;
@@ -90,7 +92,7 @@ const Charts = ({
         }}
         bodyStyle={{
           padding: 3,
-          height: "303px",
+          height: "299px",
           userSelect: "text",
           ...bodyStyle,
         }}
@@ -113,7 +115,6 @@ function Page3_02() {
   const [youbikeTotNum, setYoubikeTotNum] = useState<number | undefined>(0);
   // 取得所有場站可還空位數
   const [youbikeBempNum, setYoubikeBempNum] = useState<number | undefined>(0);
-  console.log("youbikeBempNum", youbikeBempNum);
   // 取得所有場站可借車位數
   const [youbikeSbiNum, setYoubikeSbiNum] = useState<number | undefined>(0);
   // 取得第一筆的更新時間
@@ -121,6 +122,9 @@ function Page3_02() {
     "",
     "",
   ]);
+  const [getLatitude, setGetLatitude] = useState(0); // 存儲緯度的狀態
+  const [getLongitude, setGetLongitude] = useState(0); // 存儲經度的狀態
+  const [showUserMarker, setShowUserMarker] = useState(false); // 顯示使用者座標
   const screens = useBreakpoint();
 
   useEffect(() => {
@@ -156,7 +160,7 @@ function Page3_02() {
 
   useEffect(() => {
     if (status === "success") {
-      console.log("data", data);
+      // console.log("data", data);
       setMarkers(data);
     }
   }, [data]);
@@ -165,7 +169,27 @@ function Page3_02() {
   const onViewportChanged = (viewport: any) => {
     localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
   };
+  useEffect(() => {
+    localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
+  }, [showUserMarker]);
 
+  const userMarkerIcon = () => {
+    return divIcon({
+      className: "",
+      html: renderToStaticMarkup(
+        <>
+          <MdOutlineEmojiPeople
+            style={{
+              color: "#263ea0",
+              fontSize: "1.8rem",
+              marginLeft: "-11px",
+              marginTop: "-20px",
+            }}
+          />
+        </>
+      ),
+    });
+  };
   const customMarkerIcon = (
     index: number,
     tot: number,
@@ -301,7 +325,8 @@ function Page3_02() {
     };
     return option;
   };
-  console.log(charts);
+  // console.log(charts);
+
   useEffect(() => {
     const youbikeTotNumArray = marker?.map((youbike) => youbike.tot);
     const totNumber = youbikeTotNumArray?.reduce(
@@ -321,13 +346,36 @@ function Page3_02() {
     const youbikeUpdateDate = marker?.[600]?.mday
       ?.toString()
       .slice(0, 10) as string;
-    console.log(totNumber);
+    // console.log(totNumber);
     setYoubikeTotNum(totNumber);
     setYoubikeBempNum(bempNumber);
     setYoubikeSbiNum(sbiNumber);
     setYoubikeUpdateTime([youbikeUpdateDate, youbikeUpdateTime]);
   }, [marker]);
-  console.log("youbikeTotNum", youbikeTotNum);
+  // console.log("youbikeTotNum", youbikeTotNum);
+
+  const handleGetPosition = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const { latitude, longitude } = position.coords;
+        setGetLatitude(latitude);
+        setGetLongitude(longitude);
+        // console.log("latitude", latitude, "longitude", longitude);
+        // console.log("viewport", viewport);
+        setViewPort((prev) => ({
+          ...prev,
+          center: [latitude, longitude],
+          zoom: 18,
+        }));
+        setShowUserMarker(true);
+      });
+    } else {
+      console.log("瀏覽器不支援地理位置服務"); // 如果瀏覽器不支援地理位置服務，則輸出錯誤日誌
+    }
+    // localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
+  };
+  // console.log("getLatitude", getLatitude, "getLongitude", getLongitude);
+
   return (
     <>
       <Row>
@@ -492,7 +540,7 @@ function Page3_02() {
             >
               {marker?.map((marker, index) => (
                 <Marker
-                  key={index}
+                  key={`${marker.lat}-${marker.lng}-${index}`}
                   position={[marker.lat, marker.lng]}
                   icon={customMarkerIcon(
                     index,
@@ -575,11 +623,35 @@ function Page3_02() {
                   </Popup>
                 </Marker>
               ))}
+              {showUserMarker && (
+                <Marker
+                  position={[getLatitude, getLongitude]}
+                  icon={userMarkerIcon()}
+                >
+                  {/* 用於用戶位置的自定義標記圖標 */}
+                  <Tooltip direction="bottom" offset={[-3, 8]} permanent={true}>
+                    我的位置
+                  </Tooltip>
+                  <Popup offset={[-3, -13]} closeButton={false}>
+                    <Button onClick={() => setShowUserMarker(false)}>
+                      close Marker
+                    </Button>
+                  </Popup>
+                </Marker>
+              )}
             </MarkerClusterGroup>
           </Map>
         </div>
-        <div style={{ marginTop: "5px" }}>
-          <>
+        <div
+          style={{
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            flexDirection: screens.xs ? "column" : "row",
+          }}
+        >
+          <div>
             <Text style={{ verticalAlign: "4px" }}>
               臺北市 YouBike2.0 即時資訊：{" "}
             </Text>
@@ -595,7 +667,18 @@ function Page3_02() {
               style={{ color: "#cf1322", fontSize: "1.3rem" }}
             />
             <Text style={{ verticalAlign: "4px" }}> 有限 </Text>
-          </>
+          </div>
+          <div>
+            <Button
+              style={{
+                verticalAlign: "4px",
+                padding: "0 5px 0 5px",
+              }}
+              onClick={handleGetPosition}
+            >
+              尋找我的座標
+            </Button>
+          </div>
         </div>
       </Card>
     </>
