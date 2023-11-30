@@ -1,4 +1,4 @@
-import { Card, Row, Col, Spin, Typography, Grid, Button } from "antd";
+import { Card, Row, Col, Spin, Typography, Grid, Button, message } from "antd";
 import { useState, useEffect } from "react";
 // import Screens from "./Page3_03";
 import axios from "axios";
@@ -125,6 +125,8 @@ function Page3_02() {
   const [getLatitude, setGetLatitude] = useState(0); // 存儲緯度的狀態
   const [getLongitude, setGetLongitude] = useState(0); // 存儲經度的狀態
   const [showUserMarker, setShowUserMarker] = useState(false); // 顯示使用者座標
+  const [messageApi, contextHolder] = message.useMessage();
+
   const screens = useBreakpoint();
 
   useEffect(() => {
@@ -356,20 +358,28 @@ function Page3_02() {
 
   const handleGetPosition = () => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const { latitude, longitude } = position.coords;
-        setGetLatitude(latitude);
-        setGetLongitude(longitude);
-        // console.log("latitude", latitude, "longitude", longitude);
-        // console.log("viewport", viewport);
-        setViewPort((prev) => ({
-          ...prev,
-          center: [latitude, longitude],
-          zoom: screens.xs ? 16 : 18,
-        }));
-        setShowUserMarker(true);
-      });
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const { latitude, longitude } = position.coords;
+          setGetLatitude(latitude);
+          setGetLongitude(longitude);
+          // console.log("latitude", latitude, "longitude", longitude);
+          // console.log("viewport", viewport);
+          setViewPort((prev) => ({
+            ...prev,
+            center: [latitude, longitude],
+            zoom: screens.xs ? 16 : 18,
+          }));
+          setShowUserMarker(true);
+        },
+        function (error) {
+          if (error.code === error.PERMISSION_DENIED) {
+            messageApi.warning("請開啟瀏覽器位置存取權限!");
+          } else console.log(`無法取得位置：${error.message}`);
+        }
+      );
     } else {
+      messageApi.error("瀏覽器不支援地理位置服務");
       console.log("瀏覽器不支援地理位置服務"); // 如果瀏覽器不支援地理位置服務，則輸出錯誤日誌
     }
     // localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
@@ -800,6 +810,7 @@ function Page3_02() {
           </div>
         </div>
       </Card>
+      {contextHolder}
     </>
   );
 }

@@ -12,6 +12,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
+
     <title>Vite + React + TS 後台練習</title>
     <script type="text/javascript">
       (function (l) {
@@ -30,6 +31,12 @@
           );
         }
       })(window.location);
+    </script>
+    <script>
+      // 禁用手機上的縮放
+      document.addEventListener("gesturestart", function (e) {
+        e.preventDefault();
+      });
     </script>
   </head>
   <body>
