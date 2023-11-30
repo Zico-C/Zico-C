@@ -365,7 +365,7 @@ function Page3_02() {
         setViewPort((prev) => ({
           ...prev,
           center: [latitude, longitude],
-          zoom: 18,
+          zoom: screens.xs ? 16 : 18,
         }));
         setShowUserMarker(true);
       });
@@ -553,13 +553,43 @@ function Page3_02() {
                     {marker.sna}
                   </Tooltip>
                   <Popup offset={[0, -13]}>
-                    <Card bodyStyle={{ display: "inline-block", padding: 15 }}>
+                    <Card
+                      bodyStyle={
+                        screens.xs
+                          ? {
+                              display: "inline-block",
+                              padding: "5px 0 5px 0",
+                            }
+                          : { display: "inline-block", padding: 15 }
+                      }
+                    >
                       <Meta
-                        title={marker.sna}
+                        title={
+                          <div
+                            style={
+                              screens.xs
+                                ? {
+                                    fontSize: "1rem",
+                                    padding: "0 15px 0 15px",
+                                  }
+                                : {
+                                    fontSize: "1.2rem",
+                                    maxWidth: "244px",
+                                    whiteSpace: "pre-line",
+                                  }
+                            }
+                          >
+                            {screens.xs
+                              ? marker.sna.replace(/\([^)]*\)/g, "")
+                              : marker.sna}
+                          </div>
+                        }
                         description={marker.sarea}
-                        style={{
-                          textAlign: "center",
-                        }}
+                        style={
+                          screens.xs
+                            ? { fontSize: "0.9rem", textAlign: "center" }
+                            : { textAlign: "center" }
+                        }
                       />
                       <hr
                         style={{
@@ -584,34 +614,103 @@ function Page3_02() {
                         <>
                           {marker.tot && (
                             <>
-                              <p>場站總停車格：{marker.tot}</p>
+                              {screens.xs ? (
+                                <h6
+                                  style={{
+                                    fontSize: "1rem",
+                                    textAlign: "left",
+                                    margin: "10px 0 0 0",
+                                    padding: "0 0 0 15px",
+                                  }}
+                                >
+                                  場站總停車格：{marker.tot}
+                                </h6>
+                              ) : (
+                                <p>場站總停車格：{marker.tot}</p>
+                              )}
                             </>
                           )}
                           {marker.sbi >= 0 && (
                             <>
-                              <p>可借車位數：{marker.sbi}</p>
+                              {screens.xs ? (
+                                <h6
+                                  style={{
+                                    fontSize: "1rem",
+                                    textAlign: "left",
+                                    margin: "10px 0 0 0",
+                                    padding: "0 0 0 15px",
+                                  }}
+                                >
+                                  可借車位數：{marker.sbi}
+                                </h6>
+                              ) : (
+                                <p>可借車位數：{marker.sbi}</p>
+                              )}
                             </>
                           )}
                           {marker.bemp && (
                             <>
-                              <p>可還空位數：{marker.bemp}</p>
+                              {screens.xs ? (
+                                <h6
+                                  style={{
+                                    fontSize: "1rem",
+                                    textAlign: "left",
+                                    margin: "10px 0 0 0",
+                                    padding: "0 0 0 15px",
+                                  }}
+                                >
+                                  可還空位數：{marker.bemp}
+                                </h6>
+                              ) : (
+                                <p>可還空位數：{marker.bemp}</p>
+                              )}
                             </>
                           )}
                           {marker.mday && (
                             <>
-                              <p>上次更新時間：{marker.mday}</p>
+                              {screens.xs ? (
+                                <h6
+                                  style={
+                                    screens.xs
+                                      ? {
+                                          fontSize: "1rem",
+                                          textAlign: "left",
+                                          margin: "10px 0 0 0",
+                                          padding: "0 0 0 15px",
+                                        }
+                                      : {}
+                                  }
+                                >
+                                  更新時間：{marker.mday.slice(11, 19)}
+                                </h6>
+                              ) : (
+                                <p style={{ margin: 0 }}>
+                                  上次更新時間：{marker.mday}
+                                </p>
+                              )}
                             </>
                           )}
                           {marker.act === "0" && (
                             <>
                               <p
-                                style={{
-                                  color: "red",
-                                  textAlign: "center",
-                                  fontSize: "1.2rem",
-                                  margin: 0,
-                                  fontWeight: "bold",
-                                }}
+                                style={
+                                  screens.xs
+                                    ? {
+                                        color: "red",
+                                        textAlign: "center",
+                                        fontSize: "1.2rem",
+                                        margin: "10px 0 0 0 ",
+                                        fontWeight: "bold",
+                                      }
+                                    : {
+                                        color: "red",
+                                        textAlign: "center",
+                                        fontSize: "1.2rem",
+                                        margin: "10px 0 0 0 ",
+
+                                        fontWeight: "bold",
+                                      }
+                                }
                               >
                                 此站目前為禁用狀態
                               </p>
