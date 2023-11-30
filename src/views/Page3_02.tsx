@@ -160,7 +160,7 @@ function Page3_02() {
 
   useEffect(() => {
     if (status === "success") {
-      // console.log("data", data);
+      console.log("data", data);
       setMarkers(data);
     }
   }, [data]);
@@ -670,26 +670,47 @@ function Page3_02() {
                             <>
                               {screens.xs ? (
                                 <h6
-                                  style={
-                                    screens.xs
-                                      ? {
-                                          fontSize: "1rem",
-                                          textAlign: "left",
-                                          margin: "10px 0 0 0",
-                                          padding: "0 0 0 15px",
-                                        }
-                                      : {}
-                                  }
+                                  style={{
+                                    fontSize: "1rem",
+                                    textAlign: "left",
+                                    margin: "10px 0 10px 0",
+                                    padding: "0 0 0 15px",
+                                  }}
                                 >
                                   更新時間：{marker.mday.slice(11, 19)}
                                 </h6>
                               ) : (
-                                <p style={{ margin: 0 }}>
-                                  上次更新時間：{marker.mday}
-                                </p>
+                                <p>上次更新時間：{marker.mday}</p>
                               )}
                             </>
                           )}
+                          {marker.lat &&
+                            marker.lng &&
+                            (screens.xs ? (
+                              <>
+                                <a
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
+                                  target="_New"
+                                  style={{
+                                    fontSize: "1rem",
+                                    textAlign: "left",
+                                    padding: "0 0 0 15px",
+                                    margin: "0 0 10px 0 ",
+                                  }}
+                                >
+                                  打開 Google 地圖導航
+                                </a>
+                              </>
+                            ) : (
+                              <>
+                                <a
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
+                                  target="_New"
+                                >
+                                  打開 Google 地圖導航
+                                </a>
+                              </>
+                            ))}
                           {marker.act === "0" && (
                             <>
                               <p
@@ -699,7 +720,6 @@ function Page3_02() {
                                         color: "red",
                                         textAlign: "center",
                                         fontSize: "1.2rem",
-                                        margin: "10px 0 0 0 ",
                                         fontWeight: "bold",
                                       }
                                     : {
