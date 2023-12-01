@@ -696,6 +696,7 @@ function Page3_02() {
                           )}
                           {marker.lat &&
                             marker.lng &&
+                            // 手機螢幕瀏覽時 超連結為 googleMap APP URL，不是為 一般網頁 URL
                             (screens.xs ? (
                               <>
                                 <a

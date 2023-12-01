@@ -150,22 +150,36 @@ function Page8_01() {
       <ul>
         {filteredData.map((item: any, index: any) => (
           <li key={index}>
-            <p>縣市：{item.GeoInfo.CountyName}</p>
-            <p>地區：{item.GeoInfo.TownName}</p>
-            <p>測站位置：{item.StationName}</p>
+            <p style={screens.xs ? { fontSize: "20px" } : {}}>
+              縣市：{item.GeoInfo.CountyName}
+            </p>
+            <p style={screens.xs ? { fontSize: "20px" } : {}}>
+              地區：{item.GeoInfo.TownName}
+            </p>
+            <p style={screens.xs ? { fontSize: "20px" } : {}}>
+              測站位置：{item.StationName}
+            </p>
             {item.WeatherElement.AirTemperature != -99 ? (
               <>
-                <p>
+                <p style={screens.xs ? { fontSize: "20px" } : {}}>
                   當前溫度：
                   {item.WeatherElement.AirTemperature}
                 </p>
               </>
             ) : (
               <>
-                <p style={{ color: "red" }}>溫度缺值 或 資料異常</p>
+                <p
+                  style={
+                    screens.xs
+                      ? { fontSize: "20px", color: "red" }
+                      : { color: "red" }
+                  }
+                >
+                  溫度缺值 或 資料異常
+                </p>
               </>
             )}
-            <p>
+            <p style={screens.xs ? { fontSize: "20px" } : {}}>
               更新時間：
               {item.ObsTime.DateTime.toString()
                 .replace("T", " ")
@@ -173,19 +187,21 @@ function Page8_01() {
             </p>
             {item.WeatherElement.AirTemperature != -99 ? (
               <>
-                <p>天氣：{item.WeatherElement.Weather}</p>
+                <p style={screens.xs ? { fontSize: "20px" } : {}}>
+                  天氣：{item.WeatherElement.Weather}
+                </p>
               </>
             ) : null}
             {item.WeatherElement.AirTemperature != -99 ? (
               <>
-                <p>
+                <p style={screens.xs ? { fontSize: "20px" } : {}}>
                   今日最高溫：
                   {
                     item.WeatherElement?.DailyExtreme?.DailyHigh
                       ?.TemperatureInfo?.AirTemperature
                   }
                 </p>
-                <p>
+                <p style={screens.xs ? { fontSize: "20px" } : {}}>
                   今日最低溫：
                   {
                     item.WeatherElement?.DailyExtreme?.DailyLow?.TemperatureInfo
@@ -345,7 +361,7 @@ function Page8_01() {
                       margin: screens.xs ? "5px 0 0 0 " : "15px 0 0 0",
                     }}
                   >
-                    測站位置 ：{item.StationName}
+                    測站站 ：{item.StationName}
                   </h6>
                 </Col>
                 <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>

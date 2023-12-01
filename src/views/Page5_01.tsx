@@ -1,13 +1,13 @@
 import axion from "axios";
 import { useQuery } from "react-query";
 import styles from "./page8_01.module.scss";
-
+import { Grid } from "antd";
 interface TodoElement {
   id: number;
   title: string;
   subtitle: string;
 }
-
+const { useBreakpoint } = Grid;
 // 必須使用 異步函數抓取api
 async function fetchTodos() {
   try {
@@ -19,6 +19,8 @@ async function fetchTodos() {
 }
 
 function Page5_01() {
+  const screens = useBreakpoint();
+
   // const { useQuery API } useQuery(queryKey(Query名稱) , queryFunction(API請求函數))
   const { data, isLoading, isError, error, isFetched } = useQuery(
     "todo",
@@ -40,17 +42,28 @@ function Page5_01() {
       <div className={styles.page5_01}>
         <ul>
           {data?.map((todo: TodoElement) => (
-            <div key={todo.id}>
+            <div
+              key={todo.id}
+              style={
+                screens.xs ? { marginLeft: "5px", marginRight: "5px" } : {}
+              }
+            >
               <p>
-                <span>代辦ID：</span>
+                <span style={screens.xs ? { fontSize: "22px" } : {}}>
+                  代辦ID：
+                </span>
                 {todo.id}
               </p>
-              <p>
-                <span>代辦項目：</span>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                <span style={screens.xs ? { fontSize: "22px" } : {}}>
+                  代辦項目：
+                </span>
                 {todo.title}
               </p>
-              <p>
-                <span>代辦內容：</span>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                <span style={screens.xs ? { fontSize: "22px" } : {}}>
+                  代辦內容：
+                </span>
                 {todo.subtitle}
               </p>
             </div>

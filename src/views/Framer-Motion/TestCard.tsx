@@ -6,7 +6,7 @@ const TestCard = ({ order }: any) => {
   const screens = useBreakpoint();
 
   const delay = order >= 4 ? (8 - order - 1) * 0.3 : order * 0.3;
-  // 定義淡入的變體
+  // 定義淡入的功能
   const fadeIn = () => {
     const x = order >= 4 ? 100 : -100;
     return {
@@ -36,7 +36,7 @@ const TestCard = ({ order }: any) => {
     <motion.div
       // 設定卡片樣式
       style={{
-        minWidth: screens.xs ? "80px" : screens.sm ? "80px" : "300px",
+        minWidth: screens.xs ? "60px" : screens.sm ? "80px" : "300px",
         height: screens.xs ? "100px" : screens.sm ? "200px" : "250px",
         padding: "10px",
         borderRadius: "0.5rem",
@@ -57,12 +57,16 @@ const TestCard = ({ order }: any) => {
     >
       <h2 style={{ fontSize: "1.2rem" }}>Card</h2>
       <br />
-      <p style={{ fontSize: "1rem" }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente at,
-        perferendis doloremque adipisci nostrum recusandae, fuga quis nulla
-        tempora voluptas rerum officia labore beatae voluptatum dolorum pariatur
-        atque possimus quo.
-      </p>
+      {screens.xs ? (
+        <p>Framer-Motion</p>
+      ) : (
+        <p style={{ fontSize: "1rem" }}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente at,
+          perferendis doloremque adipisci nostrum recusandae, fuga quis nulla
+          tempora voluptas rerum officia labore beatae voluptatum dolorum
+          pariatur atque possimus quo.
+        </p>
+      )}
     </motion.div>
   );
 };
