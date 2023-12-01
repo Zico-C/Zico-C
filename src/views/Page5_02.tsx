@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import styles from "./page8_01.module.scss";
-
+import { Grid } from "antd";
 // 定義一個用於從伺服器獲取 post 數據的非同步函數
 const fetchPosts = async () => {
   const res = await fetch(`http://localhost:3005/posts`);
@@ -9,6 +9,7 @@ const fetchPosts = async () => {
   return data;
 };
 
+const { useBreakpoint } = Grid;
 // 定義一個用於創建新 post 的非同步函數，接受包含 id、title 和 author 的參數
 const createPosts = async ({
   id,
@@ -58,6 +59,7 @@ const deletePost = async (postId: any) => {
 
 // React 組件，用於顯示帖子數據並創建新帖子
 function View() {
+  const screens = useBreakpoint();
   const [inputTitle, setInputTitle] = useState("");
   const [insubTitle, setInsubTitle] = useState("");
 
@@ -141,21 +143,37 @@ function View() {
         {isSuccess &&
           data.map((post: any) => (
             <div key={post.id}>
-              <p>id：{post.id}</p>
-              <p>title：{post.title}</p>
-              <p>subTitle：{post.subtitle}</p>
-              <p>author：{post.author}</p>
-              <p>memberNum：{post.memberNum}</p>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                id：{post.id}
+              </p>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                title：{post.title}
+              </p>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                subTitle：{post.subtitle}
+              </p>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                author：{post.author}
+              </p>
+              <p style={screens.xs ? { fontSize: "22px" } : {}}>
+                memberNum：{post.memberNum}
+              </p>
               <button
                 onClick={() => handleDelete(post.id)}
                 className={styles.delete}
+                style={screens.xs ? { fontSize: "22px" } : {}}
               >
                 Delete Post
               </button>
               <hr color="red" />
             </div>
           ))}
-        <button onClick={handleClick}>Create Post</button>
+        <button
+          onClick={handleClick}
+          style={screens.xs ? { fontSize: "22px" } : {}}
+        >
+          Create Post
+        </button>
       </div>
     </>
   );

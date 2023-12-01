@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import { Row, Col } from "antd";
+import { Row, Col, Grid } from "antd";
 import TestCard from "./Framer-Motion/TestCard";
+const { useBreakpoint } = Grid;
+
 function Page3_04() {
+  const screens = useBreakpoint();
   return (
     <>
       <motion.div
@@ -21,7 +24,7 @@ function Page3_04() {
       // // once: true (whileInView 只執行一次，當不在螢幕中不會再回去初始狀態)
       // viewport={{ once: true }}
       >
-        <Row gutter={[16, 16]}>
+        <Row gutter={screens.xs ? [8, 8] : [16, 16]}>
           {Array.from({ length: 8 }).map((_unused, i) => (
             <Col key={i} span={6}>
               <TestCard key={i} order={i} />
@@ -31,8 +34,8 @@ function Page3_04() {
       </motion.div>
       <motion.div layout />
 
-      <div style={{ height: "70vh" }} />
-      <Row gutter={[16, 16]}>
+      <div style={{ height: "75vh" }} />
+      <Row gutter={screens.xs ? [8, 8] : [16, 16]}>
         {Array.from({ length: 4 }).map((_, i) => (
           <Col key={i} span={6}>
             <TestCard key={i} />
@@ -41,7 +44,7 @@ function Page3_04() {
       </Row>
       <div style={{ height: "75vh" }} />
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={screens.xs ? [8, 8] : [16, 16]}>
         {Array.from({ length: 4 }).map((_, i) => (
           <Col key={i} span={6}>
             <TestCard key={i} />

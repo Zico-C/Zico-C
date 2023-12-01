@@ -145,12 +145,16 @@ function Page3_06() {
         onCancel={() => setVisible(false)}
         confirmLoading={confirmLoading}
       >
-        <p>
+        <p style={{ marginBottom: "20px" }}>
           {formData.radioFirstValue} 正在 {formData.radioSecondValue}
         </p>
-        <p>這部電影 給予 {formData.radioSlider} 分</p>
-        <p>這部電影 給予 {formData.radioRate} 顆星</p>
-        <p>
+        <p style={{ marginBottom: "20px" }}>
+          這部電影 給予 {formData.radioSlider} 分
+        </p>
+        <p style={{ marginBottom: "20px" }}>
+          這部電影 給予 {formData.radioRate} 顆星
+        </p>
+        <p style={{ marginBottom: "20px", fontSize: "1rem" }}>
           出發日期 {formData.radioDateFirst} ～ 回程日期{" "}
           {formData.radioDateSecond}
         </p>

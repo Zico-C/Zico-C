@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { message } from "antd";
+import { message, Grid } from "antd";
 // 定義基本的API URL
 const baseURL = "https://jsonplaceholder.typicode.com/posts";
-
+const { useBreakpoint } = Grid;
 function View() {
   //宣告新的state變數,我們稱為"text",並給予他初始文字"Hello World！"
   const [text, setText] = useState("Hello World！");
@@ -12,6 +12,7 @@ function View() {
 
   const [post, setPost] = React.useState(null);
 
+  const screens = useBreakpoint();
   // 定义成功消息的函数 success
   const success = () => {
     // 使用 messageApi 打开消息
@@ -113,14 +114,46 @@ function View() {
       {post ? (
         <div className="Home">
           {contextHolder}
-          <p>这是 Page2 页面内容</p>
-          <p>{text}</p>
+          <p
+            style={
+              screens.xs ? { fontSize: "1.5rem", margin: "15px 0  15px 0" } : {}
+            }
+          >
+            这是 Page2 页面内容
+          </p>
+          <p
+            style={
+              screens.xs ? { fontSize: "1.5rem", margin: "15px 0  15px 0" } : {}
+            }
+          >
+            {text}
+          </p>
           <button onClick={toggleText}>更改文本</button>
           <div>
-            <h1>{post["title"]}</h1>
-            <p>{post["body"]}</p>
-            <button onClick={createPost}>Create Post</button>
-            <button onClick={updatePost}>Update Post</button>
+            <h1
+              style={
+                screens.xs
+                  ? { fontSize: "1.5rem", margin: "15px 0  15px 0" }
+                  : {}
+              }
+            >
+              {post["title"]}
+            </h1>
+            <p
+              style={
+                screens.xs
+                  ? { fontSize: "1.6rem", margin: "15px 0  15px 0" }
+                  : {}
+              }
+            >
+              {post["body"]}
+            </p>
+            <button onClick={createPost} style={{ margin: "0 10px 0 0" }}>
+              Create Post
+            </button>
+            <button onClick={updatePost} style={{ margin: "0 10px 0 0" }}>
+              Update Post
+            </button>
             <button onClick={successAndDeletePost}>Delete Post</button>
           </div>
         </div>

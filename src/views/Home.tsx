@@ -189,25 +189,38 @@ const View: React.FC = () => {
 
             <div>
               <Button
+                value="zh"
+                onClick={() => ChangeLng("zh")}
+                style={{ margin: "0 5px 0 0", borderRadius: "6px" }}
+              >
+                中文
+              </Button>
+              <Button value="en" onClick={() => ChangeLng("en")}>
+                英文
+              </Button>
+              <Button
                 type="primary"
                 icon={<LogoutOutlined />}
                 onClick={outlogin}
+                style={
+                  screens.xs
+                    ? { margin: "0 0 0 5px" }
+                    : { margin: "0 0 0 10px" }
+                }
               >
                 登出
                 {contextHolder}
               </Button>
-              <Radio.Button value="zh" onClick={() => ChangeLng("zh")}>
-                中文
-              </Radio.Button>
-              <Radio.Button value="en" onClick={() => ChangeLng("en")}>
-                英文
-              </Radio.Button>
             </div>
           </div>
         </Header>
         {/* 右邊內容欄 */}
         <Content
-          style={{ margin: "16px 16px 0", background: colorBgContainer }}
+          style={
+            screens.xs
+              ? { margin: "8px 8px 0", background: colorBgContainer }
+              : { margin: "16px 16px 0", background: colorBgContainer }
+          }
           className="Content"
         >
           {/* 窗口部分 */}
