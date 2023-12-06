@@ -1,0 +1,49 @@
+.loginbox{
+    //設定 input 帳號 與 密碼 背景為透明
+    .ant-input , .ant-input-password{
+        background-color: rgba(255, 255, 255, 0);
+        color: #fff;
+        border-color: #1890ff;
+        height: 38px;
+    }
+    //
+    .ant-input-password .ant-input{
+        //將密碼欄位置中
+        height: 28px;
+    }
+    //設定 input 預設 placeholder 字體顏色
+    .ant-input::-webkit-input-placeholder { 
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        // color: #bbb;
+        color: rgba(255, 255, 255, 0.5);
+        opacity: 1; /* Firefox */
+    }
+    .anticon.ant-input-password-icon{
+        color: #fff;
+        //滑鼠移到此icon時變色
+        &:hover{
+            color: #1890ff;
+        }
+    }
+    
+    //控制驗證碼盒子
+    .captchaBox{
+        display: flex;
+        .captchaImg{
+            margin-left: 20px;
+            //滑鼠移到此 img 改變滑鼠游標的形狀 
+            cursor: pointer;
+            height: 38px;
+
+        }
+    }
+    //控制登入按鈕
+    .loginBtn{
+        height: 38px;
+    }
+}
+#canv {
+    height: 36px; /* 设置你想要的高度 */
+    width: 130px;
+    border-radius: 10px;
+  }

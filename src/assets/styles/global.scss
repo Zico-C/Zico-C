@@ -1,0 +1,47 @@
+$color: #f6f1eb;
+
+body {
+  background: $color;
+  // 禁用文字選取狀態
+  user-select: none;
+}
+
+img {
+  //不允許用戶移動圖片
+  -webkit-user-drag: none;
+}
+
+//首頁的布局樣式
+
+.demo-logo-vertical {
+  height: 32px;
+  margin: 16px;
+  background: rgba(225, 225, 225, 0.3);
+}
+
+.Home {
+  line-height: 35px;
+}
+@media (max-width: 425px) {
+  button {
+    width: auto;
+    font-size: 15px;
+    padding: 2px;
+  }
+  .logout {
+    font: normal;
+  }
+
+  p {
+    font-size: 18px;
+  }
+  input {
+    width: 100%;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,149 @@
+// 這是一個 SCSS 樣式表
+
+// 定義名為 "loginPage" 的 CSS 父類別
+.loginPage {
+    //為相對定位，相對於其正常位置定位。
+    position: relative;
+
+    // 定義名為 "loginBox" 的 CSS 類別，這是 "loginPage" 內的子元素
+    .loginBox {
+        width: 450px;
+        //設置元素的寬度為 450 像素。
+        position: absolute;
+        //設置元素的位置屬性為絕對定位，相對於其最接近的已定位的祖先元素定位。
+        left: 50%;
+        //設置元素距離其包含元素左邊框的距離為該包含元素寬度的一半。
+        top: 50%;
+        //設置元素距離其包含元素上邊框的距離為該包含元素高度的一半。
+        transform: translate(-50%, -50%);
+        //使用 2D 轉換將元素垂直和水平居中對齊。
+        color: #fff;
+        //設置文字顏色為白色。
+
+        // 定義 loginPage 內的 "h1" 標題樣式
+        h1 {
+            font-weight: bold;
+            //設置文字為粗體字。
+            font-size: 22px;
+            //設置文字的字體大小為 22 像素。
+            text-align: center;
+            //設置文字水平置中對齊。
+            color: #fff;
+            //設置文字顏色為白色。
+        }
+
+        // 定義 loginPage 內的  "p" 段落樣式
+        p {
+            text-align: center;
+            //設置段落文字水平置中對齊。
+            margin: 20px 0;
+            //設置段落的上邊距和下邊距為 20 像素，左右邊距為零。
+        }
+
+        // 定義名為 "title" 的 CSS 類別，這是 "loginBox" 內的子元素
+        .title {
+            margin-bottom: 40px;
+            //設置標題元素的下邊距為 40 像素。
+            position: relative;
+            //設置元素的位置屬性為相對定位，相對於其正常位置定位。
+
+            // 定義名為 "::before" 和 "::after" 的偽元素，用於添加額外的樣式效果
+            &::before,
+            &::after {
+                content: "";
+                //設置偽元素的內容為空，因為它們是空元素。
+                width: 100px;
+                //設置偽元素的寬度為 100 像素。
+                height: 2px;
+                //設置偽元素的高度為 2 像素。
+                position: absolute;
+                //設置偽元素的位置屬性為絕對定位，相對於其最近的已定位祖先元素定位。
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                //設置背景為一個水平漸變顏色。
+                left: -20px;
+                //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                top: 18px;
+                //設置偽元素距離其包含元素上邊框的距離為 18 像素。
+            }
+
+            // 修改 "::after" 的位置和樣式
+            &::after {
+                left: auto;
+                //設置偽元素的左定位屬性為自動（由右邊定位）。
+                background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                //設置背景為一個水平漸變顏色。
+                right: -20px;
+                //設置偽元素距離其包含元素右邊框的距離為 -20 像素。
+            }
+        }
+    }
+    @media (max-width: 425px) {
+        .loginBox {
+            width: 85%; // 使用100%寬度，以適應小屏幕
+            .title {
+                &::before,&::after {
+                    width: 15%;
+                    left: auto;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -5px;
+                }
+            }       
+        }
+    }
+    @media (max-width: 375px) {
+        .loginBox {
+            .title {
+                &::before,&::after {
+                    width: 15%;
+                    left: auto;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -5px;
+                }
+            }
+            h1{
+                font-size: 20px;
+            }             
+        }
+    }
+    @media (max-width: 320px) {
+        .loginBox {
+            .title {
+                &::before,&::after {
+                    width: 13%;
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: -5px;
+                    //設置偽元素距離其包含元素左邊框的距離為 -20 像素。
+                    top: 18px;
+                }
+    
+                &::before {
+                    background: linear-gradient(to right, rgba(255, 255, 255, 0), #1976D2);
+                    left: auto;
+                    right: -1px;
+                }
+            } 
+            h1{
+                font-size: 18px;
+            }      
+        }
+    }
+}
+
+
+
