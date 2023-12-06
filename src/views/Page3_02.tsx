@@ -383,7 +383,73 @@ function Page3_02() {
     }
     // localStorage.setItem("page3_02-viewport", JSON.stringify(viewport));
   };
-  // console.log("getLatitude", getLatitude, "getLongitude", getLongitude);
+  // 依照區域群組資料
+  const youbikearea = data?.reduce((acc: any, currentItem: any) => {
+    const { sarea } = currentItem;
+    if (!acc[sarea]) {
+      acc[sarea] = [];
+    }
+    acc[sarea].push(currentItem);
+    return acc;
+  }, {});
+  const groupedTotals: any = {};
+
+  function calculateGroupedTotal(group: any[], property: string): number {
+    return group.reduce(
+      (sum: number, item: any) => sum + Number(item[property]),
+      0
+    );
+  }
+
+  if (youbikearea) {
+    Object.entries(youbikearea).forEach(([sarea, group]) => {
+      const total = calculateGroupedTotal(group as any[], "tot");
+      const bemp = calculateGroupedTotal(group as any[], "bemp");
+      const sbi = calculateGroupedTotal(group as any[], "sbi");
+      const utilization = ((bemp / total) * 100).toFixed(2);
+
+      groupedTotals[sarea] = {
+        tot: total,
+        bemp: bemp,
+        sbi: sbi,
+        util: utilization,
+      };
+    });
+  }
+
+  console.log(groupedTotals);
+  const option = {
+    xAxis: {
+      type: "category",
+      data: Object.keys(groupedTotals),
+      axisLabel: {
+        interval: 0, // 顯示所有標籤
+        rotate: 45, // 標籤傾斜 45 度
+      },
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        data: Object.values(groupedTotals).map((item) => (item as any).util),
+        type: "bar",
+        showBackground: true,
+        backgroundStyle: {
+          color: "rgba(180, 180, 180, 0.2)",
+        },
+        label: {
+          show: true,
+          offset: [130, -130],
+          position: "insideBottom",
+          formatter: "{c} %",
+          rotate: 40,
+          color: "gary",
+          fontWeight: "bold",
+        },
+      },
+    ],
+  };
 
   return (
     <>
@@ -452,7 +518,7 @@ function Page3_02() {
         </Col>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
           <Charts
-            title="目前所有可借車位數"
+            title="各行政區使用量"
             bodyStyle={{
               // @ts-ignore
               display: "flex",
@@ -469,15 +535,12 @@ function Page3_02() {
                 <Spin />
               </>
             ) : (
-              <h1
-                style={{
-                  fontSize: "2.5rem",
-                  fontWeight: "bold",
-                  color: "#002FA7",
-                }}
-              >
-                {youbikeSbiNum}
-              </h1>
+              <ReactECharts
+                option={option}
+                style={{ height: "303px", width: "100%" }}
+                notMerge={true}
+                lazyUpdate={true}
+              />
             )}
           </Charts>
         </Col>
@@ -589,8 +652,10 @@ function Page3_02() {
                             }
                           >
                             {screens.xs
-                              ? marker.sna.replace(/\([^)]*\)/g, "")
-                              : marker.sna}
+                              ? marker.sna
+                                  .replace(/\([^)]*\)/g, "")
+                                  .replace("YouBike2.0_", "")
+                              : marker.sna.replace("YouBike2.0_", "")}
                           </div>
                         }
                         description={marker.sarea}
