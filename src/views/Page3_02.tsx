@@ -445,7 +445,7 @@ function Page3_02() {
           formatter: "{c} %",
           rotate: 40,
           color: "gary",
-          fontWeight: "bold",
+          fontWeight:"bold"
         },
       },
     ],
@@ -518,7 +518,7 @@ function Page3_02() {
         </Col>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={6}>
           <Charts
-            title="各行政區使用量"
+            title="目前所有可借車位數"
             bodyStyle={{
               // @ts-ignore
               display: "flex",
