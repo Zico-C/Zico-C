@@ -5,10 +5,7 @@ import { useEffect, useMemo, useState } from "react"; // 引入 React 相關 hoo
 const MyWebSocketComponent = () => {
   // 定義狀態變數
   const [text, setText] = useState(0); // 用於保存 WebSocket 接收到的訊息
-  const [hasSent, setHasSent] = useState(true); // 控制是否向 Node-RED 傳送資料的狀態
   const data = useAppSelector((State: RootState) => State.global); // 使用 Redux hook 從 store 中選取全域狀態
-
-  console.log(hasSent); // 在控制台輸出 hasSent 的值
 
   // 使用 useMemo 避免每次重新渲染都重新建立 WebSocket 連線
   const ws = useMemo(() => new WebSocket("ws://localhost:1880/ws/request"), []);
@@ -19,9 +16,7 @@ const MyWebSocketComponent = () => {
     const handleOpen = () => {
       console.log("WebSocket connected");
       // 在連接建立後，可以選擇在這裡觸發發送數據的操作
-      if (hasSent) {
-        ws.send(JSON.stringify(data)); // 向 Node-RED 傳送資料
-      }
+      ws.send(JSON.stringify(data)); // 向 Node-RED 傳送資料
     };
 
     // 定義 WebSocket 接收到訊息時的處理函數
@@ -32,7 +27,7 @@ const MyWebSocketComponent = () => {
       // 只在第一次接收到訊息時發送
 
       const Message = {
-        websocketData: message.data,
+        websocketData: text,
         globalData: data,
       };
 
@@ -64,7 +59,7 @@ const MyWebSocketComponent = () => {
       //   ws.close();
       // }
     };
-  }, [ws, data, hasSent]); // 依賴項包括 ws、data 和 hasSent，當它們發生變化時，useEffect 會重新運行
+  }, [ws, data]); // 依賴項包括 ws、data 和 hasSent，當它們發生變化時，useEffect 會重新運行
 
   // 組件的渲染部分
   return (

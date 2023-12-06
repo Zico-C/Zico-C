@@ -274,11 +274,7 @@ function MapView() {
               // 對於大量標記的地圖，可以使用這個屬性來優化性能，只顯示可見範圍內的標記。  *預設值為 false *
               removeOutsideVisibleBounds={true}
               spiderfyDistanceMultiplier={1}
-<<<<<<< HEAD
               showCoverageOnHover={true}
-=======
-              showCoverageOnHover={false}
->>>>>>> b6370f662a6810eee646a7d024c97dbd6f455909
               maxClusterRadius={35}
             >
               {markers.map((marker, index) => (
