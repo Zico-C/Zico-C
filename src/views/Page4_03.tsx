@@ -1,5 +1,5 @@
 function Page4_03() {
-  return <div>Page4_03</div>;
+  return <>Page4_03</>;
 }
 
 export default Page4_03;

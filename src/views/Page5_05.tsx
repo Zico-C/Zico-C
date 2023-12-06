@@ -253,7 +253,7 @@ function Page5_05() {
         <div>
           {isSuccess && <hr style={{ width: "90%", marginBottom: "2rem" }} />}
           {isSuccess &&
-            data.map((markers: Markers) => (
+            data?.map((markers: Markers) => (
               <div key={markers.id} className={styles.card5_5}>
                 <p>
                   <span>id：</span>
