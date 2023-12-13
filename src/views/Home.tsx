@@ -18,11 +18,14 @@ import {
   UserOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
+import nodeRedWebSocket from "../websocket";
+import { useAppSelector } from "@/store/hook";
 const { Header, Content, Footer, Sider } = Layout;
-
 const { useBreakpoint } = Grid;
+import { useLocation } from "react-router-dom";
 
 const View: React.FC = () => {
+  const Location = useLocation();
   const [saveLng, setSaveLng] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const { i18n } = useTranslation();
@@ -34,6 +37,10 @@ const View: React.FC = () => {
   } = theme.useToken();
 
   const [messageApi, contextHolder] = message.useMessage();
+
+  const { level } = useAppSelector((State: RootState) => State.global);
+
+  level === "supersuper" && nodeRedWebSocket();
 
   useEffect(() => {
     // 在組件首次加載時，讀取 dexId 的值
@@ -91,17 +98,31 @@ const View: React.FC = () => {
       setCollapsed(true);
     }
   };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {showHamberger && (
         <Button
           onClick={() => setCollapsed((prev) => !prev)}
-          style={{
-            zIndex: "999",
-            right: "10%",
-            bottom: "6%",
-            position: "fixed",
-          }}
+          style={
+            // 針對 Node-Red <iframe/> 將 sidebar button 移至 footer
+            Location.pathname.includes("page3_08") ||
+            Location.pathname.includes("page3_07")
+              ? {
+                  zIndex: "10000",
+                  right: "5%",
+                  bottom: "1%",
+                  position: "fixed",
+                  color: "#fff",
+                  backgroundColor: "gray",
+                }
+              : {
+                  zIndex: "10000",
+                  right: "10%",
+                  bottom: "6%",
+                  position: "fixed",
+                }
+          }
           icon={
             <MenuUnfoldOutlined
               style={{ fontSize: "24px", lineHeight: "40px" }}

@@ -1,17 +1,17 @@
 import { Grid } from "antd";
 import { useAppSelector } from "../store/hook";
-
 import styles from "./page8_01.module.scss";
+
 const { useBreakpoint } = Grid;
+
 function Page1() {
   const { isLogin, user, email, level } = useAppSelector(
     (state: RootState) => state.global
   );
+
+  // const disp = useAppDispatch();
   const screens = useBreakpoint();
-  console.log("isLogin", isLogin);
-  console.log("user", user);
-  console.log("email", email);
-  console.log("level", level);
+
   return (
     <div className={styles.main}>
       <h1>Page1</h1>
@@ -26,6 +26,13 @@ function Page1() {
           <div>
             <hr color="red" />
             <h1 style={{ color: "orange" }}>管理員模式</h1>
+            {/* <button
+              onClick={() => {
+                disp(setWebsocket(!websocketOpen));
+              }}
+            >
+              {websocketOpen ? "開啟" : "關閉"}
+            </button> */}
           </div>
         </>
       ) : (

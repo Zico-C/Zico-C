@@ -104,6 +104,7 @@ function MapView() {
 
   const customMarkerIcon = (location: string, index: number, type: string) =>
     divIcon({
+      // 增加 className: "" 可以讓 divIcon 預設樣式失效，達到移除空格效果
       className: "",
       html: renderToStaticMarkup(
         /* 1、在 <p> 標籤 加入 style={{whiteSpace: "nowrap", display: "inline"}：使樣式空白不換行，解決location、type 字體垂直顯示問題，
