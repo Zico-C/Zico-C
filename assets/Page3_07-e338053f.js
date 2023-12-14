@@ -1,1 +1,0 @@
-import{j as e}from"./index-427ea0df.js";const r=()=>e.jsx(e.Fragment,{children:e.jsx("div",{style:{height:"100%"},children:e.jsx("iframe",{src:"http://127.0.0.1:1880/#flow/7372e1945e4b2c9e",style:{width:"100%",height:"100%"}})})});export{r as default};

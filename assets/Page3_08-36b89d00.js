@@ -1,0 +1,1 @@
+import{j as e}from"./index-a9af6b0d.js";const r=()=>e.jsx(e.Fragment,{children:e.jsx("div",{style:{height:"100%",zIndex:1},children:e.jsx("iframe",{src:"https://chigger-immune-baboon.ngrok-free.app/ui/#!/0?socketid=mmNzng447E7pHfLaAAAF",style:{width:"100%",height:"100%"}})})});export{r as default};
