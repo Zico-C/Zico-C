@@ -114,7 +114,7 @@ function Page4_03() {
   const [marker, setMarkers] = useState<YouBike[]>();
   // 新北市 Youbike 2.0  API
   const [newTaipeiMarkers, setNewTaipeiMarkers] = useState([]);
-
+  console.log(newTaipeiMarkers);
   // 取得所有場站總停車格的數量
   const [youbikeTotNum, setYoubikeTotNum] = useState<number | undefined>(0);
   // 取得所有場站可還空位數

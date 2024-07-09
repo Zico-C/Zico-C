@@ -9,4 +9,8 @@
 <p>FetchAPI：Axios</p>
 <p>Redux-toolkit</p>
 <p>useQuery、useMutation</p>
-
+<h2>遠端推送 Github 倉庫指令</h2>
+<p>1.git init</p>
+<p>2.git add .</p>
+<p>3.git commit -m "上傳版本名稱"</p>
+<p>4.git push origin main</p>

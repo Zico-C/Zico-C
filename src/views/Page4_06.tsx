@@ -31,9 +31,10 @@ const cols = { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 };
 function Page4_04() {
   // 定义 state
   const [currentBreakpoint, setCurrentBreakpoint] = useState("lg");
-  const [compactType, setCompactType] = useState("vertical");
+  // const [compactType, setCompactType] = useState("vertical");
   const [layouts, setLayouts] = useState(layout);
 
+  console.log(currentBreakpoint);
   // 定义事件处理函数
   function onBreakpointChange(breakpoint: any) {
     setCurrentBreakpoint(breakpoint);

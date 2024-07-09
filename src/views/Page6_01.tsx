@@ -2,9 +2,8 @@ import { Map, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import { useEffect, useState } from "react";
-import { Button, Card, Checkbox, Grid, Typography } from "antd";
-import Control from "react-leaflet-control";
-import { ControlOutlined } from "@ant-design/icons";
+import { Button, Card, Grid, Typography } from "antd";
+
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TiLocation } from "react-icons/ti";
@@ -54,10 +53,9 @@ function MapView() {
   const navigateTo = useNavigate();
   const [disableClusteringAtZoom] = useState(15);
   // 控制是否顯示設備位置 "show Location" 是否顯示
-  const [showLocation, setShowLocation] = useState(false);
+  const [showLocation] = useState(false);
   // 控制是否顯示設備位置 "show Type" 是否顯示
-  const [showType, setShowType] = useState(false);
-  const [isHover, setIsHover] = useState(false);
+  const [showType] = useState(false);
   // 保存 地圖 viewport 位置
   const [viewport, setViewPort] = useState({
     center: [24.80063398900308, 120.97787231991643],
