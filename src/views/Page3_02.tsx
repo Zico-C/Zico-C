@@ -492,7 +492,7 @@ function Page3_02() {
             ) : (
               <h1
                 style={{
-                  fontSize: "2.5rem",
+                  fontSize: "3.8rem",
                   fontWeight: "bold",
                   color: "#002FA7",
                 }}
@@ -523,7 +523,7 @@ function Page3_02() {
             ) : (
               <h1
                 style={{
-                  fontSize: "2.5rem",
+                  fontSize: "3.8rem",
                   fontWeight: "bold",
                   color: "#002FA7",
                 }}
