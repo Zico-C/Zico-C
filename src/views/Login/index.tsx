@@ -83,7 +83,7 @@ const view = () => {
     LoginTime: string;
   }) => {
     try {
-      const res = await axios("http://localhost:3005/loginLog", {
+      const res = await axios("http://localhost:3014/loginLog", {
         method: "POST",
         headers: {
           "content-type": "application/json",

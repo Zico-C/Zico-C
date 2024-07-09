@@ -318,7 +318,7 @@ const Comp: React.FC = () => {
   useEffect(() => {
     console.log("路由變化", currentRoute.pathname);
     console.log("selectedKey", selectedKey);
-    setSelectedKey(currentRoute.pathname);
+    setSelectedKey(currentRoute.pathname.slice(0, 15));
   }, [currentRoute.pathname]);
   return (
     <Menu

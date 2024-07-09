@@ -92,6 +92,7 @@ function MapView() {
   useEffect(() => {
     if (status === "success") {
       // 當API請求成功時
+      console.log(data);
       setMarkers(data?.markers); // 將 api回來的 json data 傳入 useState中 保存
       disp(setMarkersS(data?.markers));
       // JSON.stringify() ：物件變 JSON  | JSON.parse()：JSON 變物件
@@ -223,7 +224,7 @@ function MapView() {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {/* 地圖控制show Marker data 儀表盤 */}
-            <Control position="topright">
+            {/* <Control position="topright">
               <div
                 style={{
                   backgroundColor: "#fff",
@@ -266,7 +267,7 @@ function MapView() {
                   <ControlOutlined />
                 )}
               </div>
-            </Control>
+            </Control> */}
             {/* 地圖標記 */}
             <MarkerClusterGroup
               // 控制地圖縮放級別，當地圖縮放到這個級別時，標記不再聚合。

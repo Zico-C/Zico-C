@@ -16,20 +16,21 @@ const { useBreakpoint } = Grid;
 
 const { Text } = Typography;
 
+// 台北市 Youbike 2.0 API interface
 export interface YouBike {
   sno: string;
   sna: string;
-  tot: number;
-  sbi: number;
+  total: number;
+  available_rent_bikes: number;
   sarea: Sarea;
   mday: string;
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
   ar: string;
   sareaen: Sareaen;
   snaen: string;
   aren: string;
-  bemp: number;
+  available_return_bikes: number;
   act: string;
   srcUpdateTime: string;
   updateTime: string;
@@ -109,6 +110,7 @@ function Page3_02() {
     center: [25.035751357120876, 121.52047467202769],
     zoom: 12,
   });
+  // 台北市 Youbike 2.0  API
   const [marker, setMarkers] = useState<YouBike[]>();
   // 取得所有場站總停車格的數量
   const [youbikeTotNum, setYoubikeTotNum] = useState<number | undefined>(0);
@@ -193,15 +195,15 @@ function Page3_02() {
   };
   const customMarkerIcon = (
     index: number,
-    tot: number,
-    sbi: number,
+    total: number,
+    available_rent_bikes: number,
     act: string
   ) =>
     divIcon({
       className: "",
       html: renderToStaticMarkup(
         <div key={index}>
-          {act === "1" && tot / sbi >= 3 ? (
+          {act === "1" && total / available_rent_bikes >= 3 ? (
             <MdDirectionsBike
               style={{
                 color: "#cf1322",
@@ -210,7 +212,7 @@ function Page3_02() {
                 marginTop: "-20px",
               }}
             />
-          ) : act === "1" && tot / sbi >= 2 ? (
+          ) : act === "1" && total / available_rent_bikes >= 2 ? (
             <MdDirectionsBike
               style={{
                 color: "#d48806",
@@ -244,8 +246,13 @@ function Page3_02() {
       ),
     });
 
-  const charts = ({ tot, bemp, sbi, updateTime }: any) => {
-    const utilizationRate = ((bemp / tot) * 100).toFixed(2);
+  const charts = ({
+    total,
+    available_return_bikes,
+    available_rent_bikes,
+    updateTime,
+  }: any) => {
+    const utilizationRate = ((available_return_bikes / total) * 100).toFixed(2);
     const option = {
       tooltip: {
         trigger: "item",
@@ -318,8 +325,8 @@ function Page3_02() {
                 show: true,
               },
           data: [
-            { value: bemp, name: "可還空位數" },
-            { value: sbi, name: "可借車位數" },
+            { value: available_return_bikes, name: "可還空位數" },
+            { value: available_rent_bikes, name: "可借車位數" },
           ],
         },
       ],
@@ -329,16 +336,20 @@ function Page3_02() {
   // console.log(charts);
 
   useEffect(() => {
-    const youbikeTotNumArray = marker?.map((youbike) => youbike.tot);
-    const totNumber = youbikeTotNumArray?.reduce(
+    const youbikeTotNumArray = marker?.map((youbike) => youbike.total);
+    const totalNumber = youbikeTotNumArray?.reduce(
       (acc, cur) => acc + cur + 0
     ) as number;
-    const youbikeBempNumArray = marker?.map((youbike) => youbike.bemp);
-    const bempNumber = youbikeBempNumArray?.reduce(
+    const youbikeBempNumArray = marker?.map(
+      (youbike) => youbike.available_return_bikes
+    );
+    const available_return_bikesNumber = youbikeBempNumArray?.reduce(
       (acc, cur) => acc + cur + 0
     ) as number;
-    const youbikeSbiNumArray = marker?.map((youbike) => youbike.sbi);
-    const sbiNumber = youbikeSbiNumArray?.reduce(
+    const youbikeSbiNumArray = marker?.map(
+      (youbike) => youbike.available_rent_bikes
+    );
+    const available_rent_bikesNumber = youbikeSbiNumArray?.reduce(
       (acc, cur) => acc + cur + 0
     ) as number;
     const youbikeUpdateTime = marker?.[600]?.mday
@@ -347,10 +358,10 @@ function Page3_02() {
     const youbikeUpdateDate = marker?.[600]?.mday
       ?.toString()
       .slice(0, 10) as string;
-    // console.log(totNumber);
-    setYoubikeTotNum(totNumber);
-    setYoubikeBempNum(bempNumber);
-    setYoubikeSbiNum(sbiNumber);
+    // console.log(totalNumber);
+    setYoubikeTotNum(totalNumber);
+    setYoubikeBempNum(available_return_bikesNumber);
+    setYoubikeSbiNum(available_rent_bikesNumber);
     setYoubikeUpdateTime([youbikeUpdateDate, youbikeUpdateTime]);
   }, [marker]);
   // console.log("youbikeTotNum", youbikeTotNum);
@@ -403,15 +414,21 @@ function Page3_02() {
 
   if (youbikearea) {
     Object.entries(youbikearea).forEach(([sarea, group]) => {
-      const total = calculateGroupedTotal(group as any[], "tot");
-      const bemp = calculateGroupedTotal(group as any[], "bemp");
-      const sbi = calculateGroupedTotal(group as any[], "sbi");
-      const utilization = ((bemp / total) * 100).toFixed(2);
+      const totalal = calculateGroupedTotal(group as any[], "total");
+      const available_return_bikes = calculateGroupedTotal(
+        group as any[],
+        "available_return_bikes"
+      );
+      const available_rent_bikes = calculateGroupedTotal(
+        group as any[],
+        "available_rent_bikes"
+      );
+      const utilization = ((available_return_bikes / totalal) * 100).toFixed(2);
 
       groupedTotals[sarea] = {
-        tot: total,
-        bemp: bemp,
-        sbi: sbi,
+        total: totalal,
+        available_return_bikes: available_return_bikes,
+        available_rent_bikes: available_rent_bikes,
         util: utilization,
       };
     });
@@ -565,9 +582,9 @@ function Page3_02() {
             ) : (
               <ReactECharts
                 option={charts({
-                  tot: youbikeTotNum,
-                  bemp: youbikeBempNum,
-                  sbi: youbikeSbiNum,
+                  total: youbikeTotNum,
+                  available_return_bikes: youbikeBempNum,
+                  available_rent_bikes: youbikeSbiNum,
                   updateTime: youbikeUpdateTime[1],
                 })}
                 style={{ height: "303px", width: "100%" }}
@@ -612,12 +629,12 @@ function Page3_02() {
             >
               {marker?.map((marker, index) => (
                 <Marker
-                  key={`${marker.lat}-${marker.lng}-${index}`}
-                  position={[marker.lat, marker.lng]}
+                  key={`${marker.latitude}-${marker.longitude}-${index}`}
+                  position={[marker.latitude, marker.longitude]}
                   icon={customMarkerIcon(
                     index,
-                    marker.tot,
-                    marker.sbi,
+                    marker.total,
+                    marker.available_rent_bikes,
                     marker.act
                   )}
                 >
@@ -686,7 +703,7 @@ function Page3_02() {
                         </>
                       ) : (
                         <>
-                          {marker.tot && (
+                          {marker.total && (
                             <>
                               {screens.xs ? (
                                 <h6
@@ -697,14 +714,14 @@ function Page3_02() {
                                     padding: "0 0 0 15px",
                                   }}
                                 >
-                                  場站總停車格：{marker.tot}
+                                  場站總停車格：{marker.total}
                                 </h6>
                               ) : (
-                                <p>場站總停車格：{marker.tot}</p>
+                                <p>場站總停車格：{marker.total}</p>
                               )}
                             </>
                           )}
-                          {marker.sbi >= 0 && (
+                          {marker.available_rent_bikes >= 0 && (
                             <>
                               {screens.xs ? (
                                 <h6
@@ -715,14 +732,14 @@ function Page3_02() {
                                     padding: "0 0 0 15px",
                                   }}
                                 >
-                                  可借車位數：{marker.sbi}
+                                  可借車位數：{marker.available_rent_bikes}
                                 </h6>
                               ) : (
-                                <p>可借車位數：{marker.sbi}</p>
+                                <p>可借車位數：{marker.available_rent_bikes}</p>
                               )}
                             </>
                           )}
-                          {marker.bemp && (
+                          {marker.available_return_bikes && (
                             <>
                               {screens.xs ? (
                                 <h6
@@ -733,10 +750,12 @@ function Page3_02() {
                                     padding: "0 0 0 15px",
                                   }}
                                 >
-                                  可還空位數：{marker.bemp}
+                                  可還空位數：{marker.available_return_bikes}
                                 </h6>
                               ) : (
-                                <p>可還空位數：{marker.bemp}</p>
+                                <p>
+                                  可還空位數：{marker.available_return_bikes}
+                                </p>
                               )}
                             </>
                           )}
@@ -758,13 +777,13 @@ function Page3_02() {
                               )}
                             </>
                           )}
-                          {marker.lat &&
-                            marker.lng &&
+                          {marker.latitude &&
+                            marker.longitude &&
                             // 手機螢幕瀏覽時 超連結為 googleMap APP URL，不是為 一般網頁 URL
                             (screens.xs ? (
                               <>
                                 <a
-                                  href={`comgooglemaps://?daddr=${marker.lat},${marker.lng}&directionsmode=walking`}
+                                  href={`comgooglemaps://?daddr=${marker.latitude},${marker.longitude}&directionsmode=walking`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   style={{
@@ -780,7 +799,7 @@ function Page3_02() {
                             ) : (
                               <>
                                 <a
-                                  href={`https://www.google.com/maps/dir/?api=1&destination=${marker.lat},${marker.lng}`}
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${marker.latitude},${marker.longitude}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >

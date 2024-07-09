@@ -6,7 +6,7 @@ import { message } from "antd";
 const sendCoordinatesToBackend = async (data: any) => {
   try {
     // 使用 fetch 函數向後端 API 傳送 POST 要求
-    const response = await fetch("http://localhost:3005/locationIP", {
+    const response = await fetch("http://localhost:3014/locationIP", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

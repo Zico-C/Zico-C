@@ -11,7 +11,7 @@ const { useBreakpoint } = Grid;
 // 必須使用 異步函數抓取api
 async function fetchTodos() {
   try {
-    const response = await axion.get("http://localhost:3005/todo");
+    const response = await axion.get("http://localhost:3014/todo");
     return response.data;
   } catch (error) {
     throw new Error("代辦事項載入失敗...");

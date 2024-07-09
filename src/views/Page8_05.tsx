@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./RouterPage_Protected/Navbar";
 import Login from "./RouterPage_Protected/Login";
 import Home from "./RouterPage_Protected/Home";
@@ -16,6 +16,9 @@ const members = {
 function App() {
   const [isLogin, setIsLoing] = useState(false);
   const [isMember, setIsMember] = useState("");
+
+  const { pathname } = useLocation();
+  console.log(pathname);
   const handleButtonClick = () => {
     if (isMember === "") {
       setIsMember("User"); // 點擊後變為 "User"
@@ -26,7 +29,6 @@ function App() {
     }
   };
   const user = { login: isLogin, members: [isMember] };
-
   console.log(isLogin);
   return (
     <div className={styles.main}>
@@ -53,12 +55,16 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
       </Routes>
-      <div>
-        <button onClick={() => setIsLoing(!isLogin)}>
-          目前登錄狀態為：{isLogin ? "登入中" : "尚未登入"}
-        </button>
-        <button onClick={handleButtonClick}>目前會員是：{isMember}</button>
-      </div>
+      {pathname.includes("dashboard") || pathname.includes("account") ? (
+        <></>
+      ) : (
+        <div>
+          <button onClick={() => setIsLoing(!isLogin)}>
+            目前登錄狀態為：{isLogin ? "登入中" : "尚未登入"}
+          </button>
+          <button onClick={handleButtonClick}>目前會員是：{isMember}</button>
+        </div>
+      )}
     </div>
   );
 }

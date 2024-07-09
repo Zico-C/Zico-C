@@ -4,7 +4,7 @@ import styles from "./page8_01.module.scss";
 import { Grid } from "antd";
 // 定義一個用於從伺服器獲取 post 數據的非同步函數
 const fetchPosts = async () => {
-  const res = await fetch(`http://localhost:3005/posts`);
+  const res = await fetch(`http://localhost:3014/posts`);
   const data = await res.json();
   return data;
 };
@@ -24,8 +24,8 @@ const createPosts = async ({
   author: any;
   memberNum: number;
 }) => {
-  const res = await fetch("http://localhost:3005/posts", {
-    // 發送 POST 請求至 http://localhost:3005/posts  "localhost"
+  const res = await fetch("http://localhost:3014/posts", {
+    // 發送 POST 請求至 http://localhost:3013/posts  "localhost"
     // 發送 POST 請求至 https://my-json-server.typicode.com/Zico-C/Zico-C/posts "Github page"
     method: "POST",
     headers: {
@@ -46,7 +46,7 @@ const createPosts = async ({
 
 // 定義一個用於刪除 post 的非同步函數
 const deletePost = async (postId: any) => {
-  const res = await fetch(`http://localhost:3005/posts/${postId}`, {
+  const res = await fetch(`http://localhost:3014/posts/${postId}`, {
     // 向 http://localhost:3000/posts/{postId} 發送 DELETE 請求
     method: "DELETE",
     headers: {
