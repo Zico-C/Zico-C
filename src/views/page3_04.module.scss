@@ -1,0 +1,49 @@
+.port_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.port_labelAbove{
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.port_labelBelow {
+  margin-top: 5px;
+  font-size: 14px;
+}
+.port_Button{
+  height: unset !important;
+  padding: 4px 6px !important;
+
+}
+.port_square {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #999;
+  border-radius: 4px;
+}
+.active {
+  background-color: #4caf50;
+}
+.inactive {
+  background-color: #ccc;
+}
+.label_lan,
+.label_uplink {
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  [class^="ant-divider css-dev-only-do-not-override-3mqfnx"]{
+    margin: 0 0 16px 0 !important;
+    border-block-start: #ccc;
+  }
+}
+
+.panel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  width: 70%;
+}

@@ -20,7 +20,7 @@ const { Text } = Typography;
 export interface YouBike {
   sno: string;
   sna: string;
-  total: number;
+  Quantity: number;
   available_rent_bikes: number;
   sarea: Sarea;
   mday: string;
@@ -195,7 +195,7 @@ function Page3_02() {
   };
   const customMarkerIcon = (
     index: number,
-    total: number,
+    Quantity: number,
     available_rent_bikes: number,
     act: string
   ) =>
@@ -203,7 +203,7 @@ function Page3_02() {
       className: "",
       html: renderToStaticMarkup(
         <div key={index}>
-          {act === "1" && total / available_rent_bikes >= 3 ? (
+          {act === "1" && Quantity / available_rent_bikes >= 3 ? (
             <MdDirectionsBike
               style={{
                 color: "#cf1322",
@@ -212,7 +212,7 @@ function Page3_02() {
                 marginTop: "-20px",
               }}
             />
-          ) : act === "1" && total / available_rent_bikes >= 2 ? (
+          ) : act === "1" && Quantity / available_rent_bikes >= 2 ? (
             <MdDirectionsBike
               style={{
                 color: "#d48806",
@@ -247,12 +247,14 @@ function Page3_02() {
     });
 
   const charts = ({
-    total,
+    Quantity,
     available_return_bikes,
     available_rent_bikes,
     updateTime,
   }: any) => {
-    const utilizationRate = ((available_return_bikes / total) * 100).toFixed(2);
+    const utilizationRate = ((available_return_bikes / Quantity) * 100).toFixed(
+      2
+    );
     const option = {
       tooltip: {
         trigger: "item",
@@ -336,8 +338,8 @@ function Page3_02() {
   // console.log(charts);
 
   useEffect(() => {
-    const youbikeTotNumArray = marker?.map((youbike) => youbike.total);
-    const totalNumber = youbikeTotNumArray?.reduce(
+    const youbikeTotNumArray = marker?.map((youbike) => youbike.Quantity);
+    const QuantityNumber = youbikeTotNumArray?.reduce(
       (acc, cur) => acc + cur + 0
     ) as number;
     const youbikeBempNumArray = marker?.map(
@@ -358,8 +360,8 @@ function Page3_02() {
     const youbikeUpdateDate = marker?.[600]?.mday
       ?.toString()
       .slice(0, 10) as string;
-    // console.log(totalNumber);
-    setYoubikeTotNum(totalNumber);
+    // console.log(QuantityNumber);
+    setYoubikeTotNum(QuantityNumber);
     setYoubikeBempNum(available_return_bikesNumber);
     setYoubikeSbiNum(available_rent_bikesNumber);
     setYoubikeUpdateTime([youbikeUpdateDate, youbikeUpdateTime]);
@@ -403,9 +405,9 @@ function Page3_02() {
     acc[sarea].push(currentItem);
     return acc;
   }, {});
-  const groupedTotals: any = {};
+  const groupedQuantitys: any = {};
 
-  function calculateGroupedTotal(group: any[], property: string): number {
+  function calculateGroupedQuantity(group: any[], property: string): number {
     return group.reduce(
       (sum: number, item: any) => sum + Number(item[property]),
       0
@@ -414,19 +416,21 @@ function Page3_02() {
 
   if (youbikearea) {
     Object.entries(youbikearea).forEach(([sarea, group]) => {
-      const totalal = calculateGroupedTotal(group as any[], "total");
-      const available_return_bikes = calculateGroupedTotal(
+      const Quantityal = calculateGroupedQuantity(group as any[], "Quantity");
+      const available_return_bikes = calculateGroupedQuantity(
         group as any[],
         "available_return_bikes"
       );
-      const available_rent_bikes = calculateGroupedTotal(
+      const available_rent_bikes = calculateGroupedQuantity(
         group as any[],
         "available_rent_bikes"
       );
-      const utilization = ((available_return_bikes / totalal) * 100).toFixed(2);
+      const utilization = ((available_return_bikes / Quantityal) * 100).toFixed(
+        2
+      );
 
-      groupedTotals[sarea] = {
-        total: totalal,
+      groupedQuantitys[sarea] = {
+        Quantity: Quantityal,
         available_return_bikes: available_return_bikes,
         available_rent_bikes: available_rent_bikes,
         util: utilization,
@@ -434,11 +438,11 @@ function Page3_02() {
     });
   }
 
-  console.log(groupedTotals);
+  console.log(groupedQuantitys);
   const option = {
     xAxis: {
       type: "category",
-      data: Object.keys(groupedTotals),
+      data: Object.keys(groupedQuantitys),
       axisLabel: {
         interval: 0, // 顯示所有標籤
         rotate: 45, // 標籤傾斜 45 度
@@ -449,7 +453,7 @@ function Page3_02() {
     },
     series: [
       {
-        data: Object.values(groupedTotals).map((item) => (item as any).util),
+        data: Object.values(groupedQuantitys).map((item) => (item as any).util),
         type: "bar",
         showBackground: true,
         backgroundStyle: {
@@ -582,7 +586,7 @@ function Page3_02() {
             ) : (
               <ReactECharts
                 option={charts({
-                  total: youbikeTotNum,
+                  Quantity: youbikeTotNum,
                   available_return_bikes: youbikeBempNum,
                   available_rent_bikes: youbikeSbiNum,
                   updateTime: youbikeUpdateTime[1],
@@ -633,7 +637,7 @@ function Page3_02() {
                   position={[marker.latitude, marker.longitude]}
                   icon={customMarkerIcon(
                     index,
-                    marker.total,
+                    marker.Quantity,
                     marker.available_rent_bikes,
                     marker.act
                   )}
@@ -703,7 +707,7 @@ function Page3_02() {
                         </>
                       ) : (
                         <>
-                          {marker.total && (
+                          {marker.Quantity && (
                             <>
                               {screens.xs ? (
                                 <h6
@@ -714,10 +718,10 @@ function Page3_02() {
                                     padding: "0 0 0 15px",
                                   }}
                                 >
-                                  場站總停車格：{marker.total}
+                                  場站總停車格：{marker.Quantity}
                                 </h6>
                               ) : (
-                                <p>場站總停車格：{marker.total}</p>
+                                <p>場站總停車格：{marker.Quantity}</p>
                               )}
                             </>
                           )}
